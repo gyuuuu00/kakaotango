@@ -1,0 +1,180 @@
+.container {
+  width: 100%;
+  position: relative;
+  margin: 16px 0;
+  padding: 0 12px;
+}
+
+/* 범례 - 테이블 바로 위 */
+.legend {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+  margin-bottom: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.legendItem img {
+  width: 12px;
+  height: 12px;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 테이블 스크롤 래퍼 */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #dbdbdb;
+  border-radius: 12px;
+  background: #f8f8f8;
+}
+
+.table {
+  width: 100%;
+  background-color: #f8f8f8;
+  border-collapse: separate;
+  border-spacing: 2px;
+  margin: 0;
+  color: #7e7e7e;
+}
+
+/* 헤더 */
+.headerCell {
+  font-weight: 500;
+  color: #7e7e7e;
+  background-color: #fff;
+  padding: 8px 12px;
+  border-top-left-radius: 12px;
+  min-width: 60px;
+  font-size: 13px;
+  text-align: left;
+  vertical-align: middle;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+/* 날짜 셀 - 세로 텍스트 */
+.dateCell {
+  font-weight: 400;
+  font-size: 8px;
+  min-width: 28px;
+  width: 28px;
+  height: auto;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 2px;
+  background-color: #fff;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
+
+/* 부위명 셀 */
+.labelCell {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 400;
+  border-right: 1px solid #e5e7eb;
+  min-width: 60px;
+  text-align: left;
+  vertical-align: middle;
+  background-color: #fff;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+/* 히트맵 셀 */
+.heatCell {
+  min-width: 28px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.cellContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.stageIcon {
+  width: 12px;
+  height: 12px;
+}
+
+/* 아주 작은 화면 대응 */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 8px;
+  }
+  
+  .legend {
+    font-size: 9px;
+    padding: 6px 8px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .legendItem img {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .legendColor {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .headerCell {
+    font-size: 12px;
+    padding: 6px 10px;
+    min-width: 50px;
+  }
+  
+  .labelCell {
+    font-size: 11px;
+    padding: 6px 10px;
+    min-width: 50px;
+  }
+  
+  .dateCell {
+    font-size: 7px;
+    min-width: 24px;
+    width: 24px;
+  }
+  
+  .heatCell {
+    min-width: 24px;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .stageIcon {
+    width: 10px;
+    height: 10px;
+  }
+}

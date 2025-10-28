@@ -1,0 +1,41 @@
+.header {
+  background-color: var(--header-color);
+  color: white;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column; /* 세로 배치로 변경 */
+  gap: 12px;
+  align-items: center;
+}
+
+.userName{
+  font-weight: 600;
+  font-size: 20px;
+  font-family: SUIT Variable;
+}
+
+.testDate{
+  font-weight: 400;
+  font-size: 16px;
+  color: #bbbbbb;
+}
+
+
+/* 아주 작은 화면 대응 */
+@media (max-width: 360px) {
+  .title {
+    font-size: 20px;
+  }
+  
+  .userInfo {
+    font-size: 12px;
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  
+  .logo {
+    width: 45px;
+    height: 45px;
+    font-size: 32px;
+  }
+}

@@ -1,0 +1,15 @@
+:root {
+  --header-color: #aeaeae;
+  --title-color: #7e7e7e;
+  --font-color: #454545;
+  --border-color: #dbdbdb;
+  --background-color: #ffffff;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: SUIT Variable;
+}

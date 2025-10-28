@@ -1,0 +1,81 @@
+.bodyAnalysis {
+  width: 100%;
+  margin: 16px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.analysisHeader {
+  width: 100%;
+  height: 40px;
+  background-color: #7e7e7e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.analysisHeader h2 {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.bodyTypeResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: #f5f5f5;
+  padding: 24px 16px;
+}
+
+.bodyTypeImage {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.bodyTypeImage img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.analysisDetails {
+  width: 100%;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #374151;
+  text-align: left;
+}
+
+/* 아주 작은 화면 대응 */
+@media (max-width: 360px) {
+  .analysisHeader {
+    height: 36px;
+  }
+  
+  .analysisHeader h2 {
+    font-size: 14px;
+  }
+  
+  .bodyTypeResult {
+    padding: 20px 12px;
+    gap: 12px;
+  }
+  
+  .bodyTypeImage img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .analysisDetails {
+    font-size: 12px;
+    padding: 14px;
+  }
+}

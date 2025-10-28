@@ -1,0 +1,315 @@
+.CautionArea {
+  --ok-color: #f8f8f8;
+  --warn-color: #f7e2c7;
+  --dang-color: #d69d9e;
+}
+
+/* 모바일용 스택 레이아웃 */
+.caGrid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+/* Grid 위치 제거 - 순서대로 쌓이도록 */
+.cell1,
+.cell2,
+.cell3,
+.cell4,
+.cell5 {
+  width: 100%;
+  height: auto;
+  min-height: auto;
+}
+
+/* 공통 카드 */
+.card {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card:last-child {
+  border-bottom: none;
+}
+
+/* 헤더 */
+.head {
+  background: var(--title-color);
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  border-radius: 0;
+}
+
+.head img {
+  width: 14px;
+  height: 14px;
+}
+
+/* 바디 */
+.body {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== 1. 주의 부위 (cell1) ===== */
+.sideLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 0 12px;
+}
+
+.sideLabel span {
+  width: 40px;
+  height: 22px;
+  border-radius: 4px;
+  padding: 2px 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  background: #f3f4f6;
+  line-height: 18px;
+}
+
+.human {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: 12px 0;
+}
+
+.human img {
+  max-width: 85%;
+  height: auto;
+  opacity: 0.95;
+}
+
+.dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.normal { background: var(--ok-color); }
+.warning { background: var(--warn-color); }
+.danger { background: var(--dang-color); }
+
+/* ===== 2. 측정 결과 요약 (cell2) ===== */
+.textBox1,
+.textBox2 {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.textBox2 {
+  margin-bottom: 0;
+}
+
+.sub {
+  width: auto;
+  font-size: 13px;
+  margin: 0 0 8px;
+  font-weight: 600;
+  padding: 4px 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.txt {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ===== 3. Tang Body Tip (cell3) ===== */
+.tipSmall {
+  font-size: 11px;
+  color: #7e7e7e;
+  margin-bottom: 12px;
+}
+
+.statusTable {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: #eeeeee 1px solid;
+  padding-bottom: 12px;
+}
+
+.status {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 4px;
+  border-radius: 6px;
+}
+
+.ok { background: #f8f8f8; color: #a4a4a4; }
+.warn { background: #f7e2c7; color: #cb7913; }
+.dang { background: #d69d9e; color: #70282a; }
+
+.stateful,
+.desc,
+.descStrong {
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.stateful { color: #7e7e7e; }
+.desc { color: #70282a; }
+.descStrong { color: #cb7913; }
+
+.note {
+  font-size: 11px;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.note strong {
+  font-weight: 700;
+  color: #111827;
+}
+
+.tipBox {
+  border-radius: 8px;
+  background: #f9fafb;
+  padding: 12px;
+}
+
+.tipTitle {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #111827;
+}
+
+.tipTitle img {
+  width: 16px;
+  height: 16px;
+}
+
+.tipText {
+  font-size: 11px;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===== 4. 족압/무릎/골반 이미지들 (cell4, cell5) ===== */
+.tabHeader {
+  background: #6b7280;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px 6px 0 0;
+  margin-bottom: 12px;
+  width: fit-content;
+  text-align: center;
+}
+
+/* 세로 스택으로 변경 */
+.rowLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.imageGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.imgBox {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1;
+  border: 1px solid var(--border-color);
+  background: #000;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.imgBox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.imageCaption {
+  font-size: 11px;
+  color: #616161;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 12px;
+}
+
+.ph {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* 아주 작은 화면 대응 */
+@media (max-width: 360px) {
+  .head {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  
+  .body {
+    padding: 12px 10px;
+  }
+  
+  .human {
+    min-height: 240px;
+  }
+  
+  .imgBox {
+    max-width: 100%;
+  }
+  
+  .statusTable {
+    gap: 6px;
+  }
+  
+  .status {
+    font-size: 11px;
+    padding: 6px 2px;
+  }
+}

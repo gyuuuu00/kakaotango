@@ -1,0 +1,33 @@
+:root {
+  --header-color: #aeaeae;
+  --title-color: #7e7e7e;
+  --font-color: #454545;
+  --border-color: #dbdbdb;
+  --background-color: #ffffff;
+}
+
+/* 모바일 화면 */
+.page {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: white;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* 태블릿 대응 (선택사항) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .page {
+    max-width: 600px;
+    padding: 20px;
+  }
+}
+
+/* 아주 작은 화면 */
+@media (max-width: 360px) {
+  .page {
+    padding: 12px;
+  }
+}
