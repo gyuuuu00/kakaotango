@@ -44,7 +44,7 @@ export default function CautionArea({
       riskLevel === 0 ? "정상" : riskLevel === 1 ? "주의" : "위험";
     return `${riskText} ${rangeLevel}단계`;
   };
-  
+
   // dotClass는 여전히 쓸 수 있음 (예: 크기, 애니메이션용)
   const dotClass = (s) =>
     s === "danger" ? styles.dang : s === "warning" ? styles.warn : styles.ok;
@@ -113,14 +113,16 @@ export default function CautionArea({
       {/* 1행-3열 : Tang Body Tip */}
       <div className={`${styles.card} ${styles.cell3}`}>
         <div className={styles.body}>
-          <div className={styles.tipSmall}>*측정 기준 설명</div>
-          <div className={styles.statusTable}>
-            <div className={`${styles.status} ${styles.ok}`}>정상</div>
-            <div className={`${styles.status} ${styles.warn}`}>주의</div>
-            <div className={`${styles.status} ${styles.dang}`}>위험</div>
-            <div className={styles.stateful}>상태 유지<br/>강화 권장</div>
-            <div className={styles.descStrong}>제공되는<br/>맞춤 운동 권장</div>
-            <div className={styles.desc}>전문가 상담<br/>권장</div>
+          <div className={styles.bodyTipHeader}>
+            <div className={styles.tipSmall}>*측정 기준 설명</div>
+            <div className={styles.statusTable}>
+              <div className={`${styles.status} ${styles.ok}`}>정상</div>
+              <div className={`${styles.status} ${styles.warn}`}>주의</div>
+              <div className={`${styles.status} ${styles.dang}`}>위험</div>
+              <div className={styles.stateful}>상태 유지<br/>강화 권장</div>
+              <div className={styles.descStrong}>제공되는<br/>맞춤 운동 권장</div>
+              <div className={styles.desc}>전문가 상담<br/>권장</div>
+            </div>
           </div>
         </div>
       </div>
