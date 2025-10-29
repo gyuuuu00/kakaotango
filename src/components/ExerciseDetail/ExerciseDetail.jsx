@@ -10,13 +10,26 @@ function ExerciseDetail({ exerciseId, onBack }) {
     const fetchExerciseDetail = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/exercises/${exerciseId}`);
+        console.log('🔍 Fetching exercise:', exerciseId);
+        
+        // 개발 환경에서는 proxy 사용, 프로덕션에서는 직접 호출
+        const apiUrl = import.meta.env.DEV 
+          ? `/api/exercises/${exerciseId}`
+          : `https://gym.tangoplus.co.kr/api/exercises/${exerciseId}`;
+        
+        const response = await fetch(apiUrl);
+        
+        console.log('📡 Response status:', response.status);
+        console.log('📡 Response ok:', response.ok);
         
         if (!response.ok) {
-          throw new Error('운동 정보를 불러올 수 없습니다.');
+          const errorText = await response.text();
+          console.error('❌ Error response:', errorText);
+          throw new Error(`운동 정보를 불러올 수 없습니다. (${response.status})`);
         }
         
         const data = await response.json();
+        console.log('✅ Exercise data:', data);
         setExerciseData(data);
       } catch (err) {
         console.error('운동 상세 데이터 로드 실패:', err);
@@ -42,14 +55,14 @@ function ExerciseDetail({ exerciseId, onBack }) {
     return <div className={styles.loading}>로딩 중...</div>;
   }
 
-//   if (error) {
-//     return (
-//       <div className={styles.error}>
-//         <p>{error}</p>
-//         <button onClick={onBack} className={styles.backButton}>돌아가기</button>
-//       </div>
-//     );
-//   }
+  if (error) {
+    return (
+      <div className={styles.error}>
+        <p>{error}</p>
+        <button onClick={onBack} className={styles.backButton}>돌아가기</button>
+      </div>
+    );
+  }
 
   if (!exerciseData) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
@@ -57,6 +70,13 @@ function ExerciseDetail({ exerciseId, onBack }) {
 
   return (
     <div className={styles.container}>
+      {/* 헤더 */}
+      <div className={styles.header}>
+        <button className={styles.backButton} onClick={onBack}>
+          ← 돌아가기
+        </button>
+      </div>
+
       {/* 영상 플레이어 */}
       <div className={styles.videoSection}>
         <video
@@ -76,24 +96,21 @@ function ExerciseDetail({ exerciseId, onBack }) {
         
         {/* 메타 정보 */}
         <div className={styles.metaInfo}>
-          <span className={styles.meta}> ⏱️ {formatDuration(exerciseData.duration)}</span>
-          <span className={styles.badge}>📶 {exerciseData.exercise_stage}</span>
-          <span className={styles.meta}>🗓️ {exerciseData.exercise_frequency} - {exerciseData.exercise_intensity}</span>
-          
+          <span className={styles.badge}>{exerciseData.exercise_stage}</span>
+          <span className={styles.meta}>{exerciseData.exercise_frequency} - {exerciseData.exercise_intensity}</span>
+          <span className={styles.meta}>⏱ {formatDuration(exerciseData.duration)}</span>
         </div>
 
         {/* 운동 소개 */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>운동 소개</h2>
-          <p className={styles.text}>
-            {exerciseData.related_symptom?.replace(/[\r\n]+/g, ' ')}
-          </p>
+          <p className={styles.text}>{exerciseData.related_symptom}</p>
         </section>
 
         {/* 운동 순서 */}
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle} >운동 순서</h2>
-          <p className={styles.text}>{exerciseData.exercise_method}</p>
+          <h2 className={styles.sectionTitle}>운동 순서</h2>
+          <p className={styles.preLineText}>{exerciseData.exercise_method}</p>
         </section>
 
         {/* 관련 근육 */}
