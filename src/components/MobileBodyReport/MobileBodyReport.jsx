@@ -138,7 +138,7 @@ function MobileBodyReport() {
             matStaticVerticalMent={staticMat?.mat_static_vertical_ment}
 
             /* ✅ 동적 족압 데이터 */
-            footPressureDynamicUrl={dynamicMat?.measure_server_mat_image_name}
+            footPressureDynamicUrl={dynamicMat?.mat_hip_down_image_name}
             matOhs={{
               top: summary?.mat_ohs_top_pressure,
               midL: summary?.mat_ohs_left_pressure,

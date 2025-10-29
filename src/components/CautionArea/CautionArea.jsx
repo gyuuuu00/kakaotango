@@ -288,38 +288,22 @@ export default function CautionArea({
           </div>
         </div>
       </div>
-
-
       {/* 족압 동적 측정 */}
       <div className={`${styles.card} ${styles.cell5}`}>
-        <div className={styles.head} style={{width:'127px', borderRadius:'0 0 12px 0'}}>족압 동적 측정</div>
+        <div className={styles.bodyHeader}>
+          <div className={styles.headRow}>
+            <h4 className={styles.subTitle}>동적 족압, 관절 이동</h4>
+            <span className={styles.levelTagNormal}>정상 1단계</span>
+          </div>
 
-        <div className={styles.body}>
-          <div className={styles.rowLayout}>
-            {/* 왼쪽: 동적 족압 이미지 + 골반 (pair) */}
-            <div className={styles.imageGroup}>
-              <div className={styles.pair}>
-                <div style={{ 
-                  position: 'relative', 
-                  width: 120, 
-                  height: 120,
-                  border: '2px solid #dcdcdc',
-                  borderRadius: 10
-                }}>
+          <div className={styles.body}>
+            <div className={styles.dynamicGrid}>
+              {/* 1행 왼쪽: 동적 족압 */}
+              <div className={styles.gridItem}>
+                <p className={styles.itemLabel}>동적 족압 분석</p>
+                <div className={styles.pressureBox}>
                   {processed.footDynamic ? (
-                    <img
-                      src={processed.footDynamic}
-                      alt="족압 동적"
-                      style={{ 
-                        width: '100%',
-                        height: '100%',
-                        transform: "rotate(180deg)",
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        borderRadius: 10
-                      }}
-                    />
+                    <img src={processed.footDynamic} alt="족압 동적" className={styles.pressureImg} />
                   ) : footPressureDynamicUrl ? (
                     <div className={styles.ph}>처리 중...</div>
                   ) : (
@@ -327,39 +311,20 @@ export default function CautionArea({
                   )}
 
                   {/* 퍼센트 겹치기 */}
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    pointerEvents: 'none'
-                  }}>
-                    <div style={{ position: 'absolute', fontSize: 22, color: '#bbb', fontWeight: 300 }}>＋</div>
-                    
-                    <div style={{ position: 'absolute', top: '8%', left: '50%', transform: 'translateX(-50%)', fontSize: 14, fontWeight: 600, color: '#666' }}>
-                      {pct(matOhs?.top)}
-                    </div>
-                    
-                    <div style={{ position: 'absolute', bottom: '8%', left: '50%', transform: 'translateX(-50%)', fontSize: 14, fontWeight: 600, color: '#666' }}>
-                      {pct(matOhs?.bot)}
-                    </div>
-                    
-                    <div style={{ position: 'absolute', left: '8%', top: '50%', transform: 'translateY(-50%)', fontSize: 14, fontWeight: 600, color: '#666' }}>
-                      {pct(matOhs?.midL)}
-                    </div>
-                    
-                    <div style={{ position: 'absolute', right: '8%', top: '50%', transform: 'translateY(-50%)', fontSize: 14, fontWeight: 600, color: '#666' }}>
-                      {pct(matOhs?.midR)}
-                    </div>
+                  <div className={styles.overlay}>
+                    <div className={styles.cross}>＋</div>
+                    <div className={`${styles.percent} ${styles.top}`}>{pct(matOhs?.top)}</div>
+                    <div className={`${styles.percent} ${styles.bottom}`}>{pct(matOhs?.bot)}</div>
+                    <div className={`${styles.percent} ${styles.left}`}>{pct(matOhs?.midL)}</div>
+                    <div className={`${styles.percent} ${styles.right}`}>{pct(matOhs?.midR)}</div>
                   </div>
                 </div>
+              </div>
 
-                {/* 골반 - 이미지만 */}
-                <div className={styles.frame} style={{ width: 120, height: 120 }}>
+              {/* 1행 오른쪽: 골반 이동 */}
+              <div className={styles.gridItem}>
+                <p className={styles.itemLabel}>골반 이동 분석</p>
+                <div className={styles.pressureBox}>
                   {processed.pelvis ? (
                     <img src={processed.pelvis} alt="골반 이동 궤적" />
                   ) : urls.pelvis ? (
@@ -369,19 +334,11 @@ export default function CautionArea({
                   )}
                 </div>
               </div>
-              
-              {/* 동적 족압 캡션 */}
-              <p className={styles.imageCaption}>
-                {matOhsHorizontalMent && <span>{matOhsHorizontalMent} </span>}
-                {matOhsVerticalMent && <span>{matOhsVerticalMent}</span>}
-              </p>
-            </div>
 
-            {/* 무릎 이동 분석 - 좌/우 2개 (기존 유지) */}
-            <div className={styles.imageGroup}>
-              <div className={styles.pair}>
-                {/* 왼쪽 무릎 */}
-                <div className={styles.frame} style={{ width: 120, height: 120 }}>
+              {/* 2행 왼쪽: 무릎 L */}
+              <div className={styles.gridItem}>
+                <p className={styles.itemLabel}>무릎 이동 궤적(L)</p>
+                <div className={styles.pressureBox}>
                   {processed.knee ? (
                     <img src={processed.knee} alt="왼쪽 무릎 이동 궤적" />
                   ) : urls.knee ? (
@@ -390,9 +347,12 @@ export default function CautionArea({
                     <div className={styles.ph}>무릎 이동</div>
                   )}
                 </div>
+              </div>
 
-                {/* 오른쪽 무릎 */}
-                <div className={styles.frame} style={{ width: 120, height: 120 }}>
+              {/* 2행 오른쪽: 무릎 R */}
+              <div className={styles.gridItem}>
+                <p className={styles.itemLabel}>무릎 이동 궤적(R)</p>
+                <div className={styles.pressureBox}>
                   {processed.kneeRight ? (
                     <img src={processed.kneeRight} alt="오른쪽 무릎 이동 궤적" />
                   ) : urls.kneeRight ? (
@@ -402,13 +362,20 @@ export default function CautionArea({
                   )}
                 </div>
               </div>
-              
-              {/* 무릎 캡션 */}
-              <p className={styles.imageCaption}>{matOhsKneeMent || kneeTrajectoryDesc}</p>
+            </div>
+
+            {/* 하단 설명 */}
+            <div className={styles.captionBox}>
+              <p className={styles.captionTitle}>좌우 무게 분석</p>
+              <p className={styles.captionText}>{matOhsHorizontalMent}</p>
+              <p className={styles.captionTitle}>상하 무게 분석</p>
+              <p className={styles.captionText}>{matOhsVerticalMent}</p>
+              <p className={styles.captionTitle}>무릎 이동 분석</p>
+              <p className={styles.captionText}>{matOhsKneeMent || kneeTrajectoryDesc}</p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+  </div>
+</div>
   );
 }
