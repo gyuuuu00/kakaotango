@@ -38,8 +38,8 @@ function DetailedAnalysis({ detailedAnalysis }) {
   // 배지 스타일
   const getBadgeStyle = (riskLevel) => {
     const risk = parseInt(riskLevel);
-    if (risk === 2) return { backgroundColor: '#fee2e2', color: '#dc2626' };
-    if (risk === 1) return { backgroundColor: '#fef3c7', color: '#d97706' };
+    if (risk === 2) return { color: '#dc2626' };
+    if (risk === 1) return {  color: '#d97706' };
     return { backgroundColor: '#f3f4f6', color: '#6b7280' };
   };
 
@@ -121,9 +121,12 @@ function DetailedAnalysis({ detailedAnalysis }) {
                     />
                   </div>
                   <div className={styles.stageLabels}>
-                    <span className={styles.stageLabel}>{item.range_level || 1}단계</span>
-                    <span className={styles.stageLabel}>{item.range_level || 1}단계</span>
-                    <span className={styles.stageLabel}>{item.range_level || 1}단계</span>
+                    <span className={styles.stageLabel} style={{ 
+                      position: 'absolute',
+                      left: `${position}%`,
+                      transform: 'translateX(-50%)',
+                      transition: 'left 0.3s ease'
+                    }}>{item.range_level || 1}단계</span>
                   </div>
                 </div>
               </div>
