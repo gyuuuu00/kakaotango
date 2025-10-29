@@ -20,11 +20,12 @@ import {
 function MobileBodyReport() {
   const [activeTab, setActiveTab] = useState("종합보기");
   const [data, setData] = useState(null);
+  const [headerData, setHeaderData] = useState(null); // ✅ 헤더용 별도 데이터
   const [loading, setLoading] = useState(false);
 
   const sp = new URLSearchParams(window.location.search);
   const t_r = decodeURIComponent(sp.get("t_r") || "").replace(/\s+/g, "");
-  const mobile = "01083700106"; // 추후 실제 사용자 입력으로 대체
+  const mobile = "01083700106"; // 임시
 
   useEffect(() => {
     const loadData = async () => {
@@ -36,6 +37,10 @@ function MobileBodyReport() {
         switch (activeTab) {
           case "종합보기":
             result = await fetchBodyReport(t_r, mobile);
+            // ✅ 헤더용 데이터 저장
+            if (result?.data?.result_summary_data) {
+              setHeaderData(result.data.result_summary_data);
+            }
             break;
           case "정면측정":
             result = await fetchFrontView(t_r);
@@ -57,7 +62,7 @@ function MobileBodyReport() {
         }
 
         console.log("📦 받은 데이터:", result);
-        setData(result.data || result); // 일부 API는 data 래핑 없음
+        setData(result?.data || result);
       } catch (err) {
         console.error(`${activeTab} 데이터 로드 실패:`, err);
       } finally {
@@ -69,14 +74,16 @@ function MobileBodyReport() {
   }, [activeTab, t_r]);
 
   if (loading) return <div className={styles.loading}>데이터 로딩 중...</div>;
-  if (!data) return <div className={styles.noData}>데이터가 없습니다.</div>;
 
   return (
     <div className={styles.page}>
-      <Header userData={data?.result_summary_data || { userName: "-", testDate: "-" }} />
+      {/* ✅ Header는 headerData 기반 */}
+      <Header userData={headerData || { user_name: "-", test_date: "-" }} />
+
       <TabMenu activeTab={activeTab} onTabChange={setActiveTab} />
 
-      {activeTab === "종합보기" && (
+      {/* 탭별 콘텐츠 표시 */}
+      {activeTab === "종합보기" && data && (
         <>
           <CautionArea
             cautionAreas={data.cautionAreas}
