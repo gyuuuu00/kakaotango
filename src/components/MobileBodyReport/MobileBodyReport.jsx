@@ -9,6 +9,7 @@ import FrontView from "../FrontView/FrontView";
 import SideView from "../SideView/SideView";
 import BackView from "../BackView/BackView";
 import SquatView from "../SquatView/SquatView";
+import ExerciseRecommendation from "../ExerciseRecommendation/ExerciseRecommendation";
 import styles from "./MobileBodyReport.module.css";
 
 import {
@@ -114,7 +115,7 @@ function MobileBodyReport() {
       {activeTab === "측면측정" && <SideView data={data} />}
       {activeTab === "후면측정" && <BackView data={data} />}
       {activeTab === "동적측정" && <SquatView data={data} />}
-      {activeTab === "추천운동" && <div>추천 운동 데이터: {JSON.stringify(data)}</div>}
+      {activeTab === "추천운동" && <ExerciseRecommendation data={data} />}
     </div>
   );
 }

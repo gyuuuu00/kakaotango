@@ -1,0 +1,131 @@
+.container {
+  min-height: 100vh;
+  background: white;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+
+/* 영상 섹션 */
+.videoSection {
+  width: 100%;
+  background: #000;
+}
+
+.video {
+  width: 100%;
+  max-height: 60vh;
+  display: block;
+}
+
+/* 컨텐츠 */
+.content {
+  padding: 20px 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+/* 메타 정보 */
+.metaInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+}
+
+.meta {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* 섹션 */
+.section {
+  margin-bottom: 28px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #dbdbdb;
+}
+
+.text {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.cautionText {
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-line;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* 로딩 & 에러 */
+.loading,
+.error,
+.noData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+
+
+.error .backButton {
+  background: #4A90E2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .video {
+    max-height: 50vh;
+  }
+  
+  .content {
+    padding: 16px 12px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+}

@@ -11,6 +11,11 @@ export default defineConfig({
         target: 'https://gym.tangoplus.co.kr',
         changeOrigin: true,
         secure: true,
+      },
+      '/api': {
+        target: 'https://gym.tangoplus.co.kr',
+        changeOrigin: true,
+        secure: false,
       }
     }
   }

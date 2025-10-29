@@ -136,10 +136,11 @@ function DetailItem({ data }) {
 
       {/* 하단 설명 영역 */}
       <div className={styles.bottomSection}>
-        <p className={styles.mentAll}>{data.ment_all}</p>
+        <p className={styles.ment}>
+          {data.ment || data.ment_all}
+        </p>
       </div>
     </div>
   );
 }
-
 export default FrontView;
