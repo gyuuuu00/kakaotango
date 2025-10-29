@@ -153,7 +153,7 @@ if (summary.risk_ankle_right !== "0" && summary.risk_ankle_right != null) {
             pelvisTrajectoryDesc={data.dynamic_mat_data?.mat_ohs_vertical_ment}
           />
           <DetailedAnalysis detailedAnalysis={data.detail_data} />
-          <Heatmap heatmapData={data.static_mat_data} />
+          <Heatmap heatmapData={data} />
           <Record recordData={data.result_history_data} />
         </>
       )}
