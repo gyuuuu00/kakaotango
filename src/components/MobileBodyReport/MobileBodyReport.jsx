@@ -93,10 +93,10 @@ function MobileBodyReport() {
             cautionAreas={data.cautionAreas}
             upperSummary={data.result_summary_data?.risk_upper_ment}
             lowerSummary={data.result_summary_data?.risk_lower_ment}
-            riskUpperRiskLevel={data.result_summary_data?.risk_upper_risk_level}
-            riskUpperRangeLevel={data.result_summary_data?.risk_upper_range_level}
-            riskLowerRiskLevel={data.result_summary_data?.risk_lower_risk_level}
-            riskLowerRangeLevel={data.result_summary_data?.risk_lower_range_level}
+            riskUpperRiskLevel={Number(data.result_summary_data?.risk_upper_risk_level)}
+            riskUpperRangeLevel={Number(data.result_summary_data?.risk_upper_range_level)}
+            riskLowerRiskLevel={Number(data.result_summary_data?.risk_lower_risk_level)}
+            riskLowerRangeLevel={Number(data.result_summary_data?.risk_lower_range_level)}
             footPressureImageUrl={data.static_mat_data?.measure_server_mat_image_name}
             kneeTrajectoryUrl={data.dynamic_mat_data?.mat_left_knee_trajectory_image_name}
             pelvisTrajectoryUrl={data.dynamic_mat_data?.mat_hip_trajectory_image_name}
