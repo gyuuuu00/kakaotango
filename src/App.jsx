@@ -1,3 +1,4 @@
+//App.jsx
 import { useEffect, useState } from 'react';
 import MobileBodyReport from './components/MobileBodyReport/MobileBodyReport.jsx';
 import { fetchBodyReport } from './api/mobileApi.js'; 

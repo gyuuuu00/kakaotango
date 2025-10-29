@@ -1,3 +1,4 @@
+// MobileBodyReport.jsx
 import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import TabMenu from "../TabMenu/TabMenu";
@@ -78,6 +79,52 @@ function MobileBodyReport() {
 
   if (loading) return <div className={styles.loading}>데이터 로딩 중...</div>;
 
+// === 위험도 변환 ===
+const getRiskStatus = (riskLevel) => {
+  const level = String(riskLevel);
+  if (level === "2") return "danger";
+  if (level === "1") return "warning";
+  return "normal";
+};
+
+// === cautionAreas 배열 생성 ===
+const summary = data?.result_summary_data || {};
+const cautionAreas = [];
+
+if (summary.risk_neck !== "0" && summary.risk_neck != null) {
+  cautionAreas.push({ name: "목", status: getRiskStatus(summary.risk_neck), y: 22, x: 47, side: "center" });
+}
+if (summary.risk_shoulder_left !== "0" && summary.risk_shoulder_left != null) {
+  cautionAreas.push({ name: "어깨(좌)", status: getRiskStatus(summary.risk_shoulder_left), y: 28, x: 40, side: "left" });
+}
+if (summary.risk_shoulder_right !== "0" && summary.risk_shoulder_right != null) {
+  cautionAreas.push({ name: "어깨(우)", status: getRiskStatus(summary.risk_shoulder_right), y: 28, x: 54, side: "right" });
+}
+if (summary.risk_elbow_left !== "0" && summary.risk_elbow_left != null) {
+  cautionAreas.push({ name: "팔꿈치(좌)", status: getRiskStatus(summary.risk_elbow_left), y: 37, x: 38, side: "left" });
+}
+if (summary.risk_elbow_right !== "0" && summary.risk_elbow_right != null) {
+  cautionAreas.push({ name: "팔꿈치(우)", status: getRiskStatus(summary.risk_elbow_right), y: 37, x: 55, side: "right" });
+}
+if (summary.risk_hip_left !== "0" && summary.risk_hip_left != null) {
+  cautionAreas.push({ name: "골반(좌)", status: getRiskStatus(summary.risk_hip_left), y: 48, x: 42, side: "left" });
+}
+if (summary.risk_hip_right !== "0" && summary.risk_hip_right != null) {
+  cautionAreas.push({ name: "골반(우)", status: getRiskStatus(summary.risk_hip_right), y: 48, x: 52, side: "right" });
+}
+if (summary.risk_knee_left !== "0" && summary.risk_knee_left != null) {
+  cautionAreas.push({ name: "무릎(좌)", status: getRiskStatus(summary.risk_knee_left), y: 64, x: 44, side: "left" });
+}
+if (summary.risk_knee_right !== "0" && summary.risk_knee_right != null) {
+  cautionAreas.push({ name: "무릎(우)", status: getRiskStatus(summary.risk_knee_right), y: 64, x: 50, side: "right" });
+}
+if (summary.risk_ankle_left !== "0" && summary.risk_ankle_left != null) {
+  cautionAreas.push({ name: "발목(좌)", status: getRiskStatus(summary.risk_ankle_left), y: 75, x: 43, side: "left" });
+}
+if (summary.risk_ankle_right !== "0" && summary.risk_ankle_right != null) {
+  cautionAreas.push({ name: "발목(우)", status: getRiskStatus(summary.risk_ankle_right), y: 75, x: 51, side: "right" });
+}
+
   return (
     <div className={styles.page}>
       {/* ✅ Header는 headerData 기반 */}
@@ -89,7 +136,7 @@ function MobileBodyReport() {
       {activeTab === "종합보기" && data && (
         <>
           <CautionArea
-            cautionAreas={data.cautionAreas}
+            cautionAreas={cautionAreas}
             upperSummary={data.result_summary_data?.risk_upper_ment}
             lowerSummary={data.result_summary_data?.risk_lower_ment}
             riskUpperRiskLevel={Number(data.result_summary_data?.risk_upper_risk_level)}

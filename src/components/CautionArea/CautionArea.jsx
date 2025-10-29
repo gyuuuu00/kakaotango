@@ -1,6 +1,8 @@
 //Caution.jsx
 import styles from "./CautionArea.module.css";
 import bodyImage from "../../assets/bodyImage.svg";
+import warningDot from "../../assets/warningdot.svg";
+import dangerDot from "../../assets/dangerdot.svg";
 import tip from "../../assets/tip.svg";
 import graph from "../../assets/graph.svg";
 
@@ -20,9 +22,6 @@ export default function CautionArea({
   riskLowerRiskLevel,
   riskLowerRangeLevel,
 }) {
-  const dotClass = (s) =>
-    s === "danger" ? styles.danger : s === "warning" ? styles.warning : styles.normal;
-
   // 배경 제거 프록시 URL 생성 함수
   const getProxyImageUrl = (originalUrl) => {
     if (!originalUrl) return null;
@@ -31,19 +30,30 @@ export default function CautionArea({
     return `/api/proxy/remove-bg?url=${encodeURIComponent(originalUrl)}`;
   };
 
+  // 위험도에 따른 CSS 클래스 반환 함수
+  const getLevelClass = (riskLevel) => {
+    if (riskLevel === 0) return styles.normal;
+    if (riskLevel === 1) return styles.warn;
+    if (riskLevel === 2) return styles.dang;
+    return styles.normal;
+  };
+
   // 위험도 레이블 반환 함수
   const getLevelText = (riskLevel, rangeLevel) => {
     const riskText =
       riskLevel === 0 ? "정상" : riskLevel === 1 ? "주의" : "위험";
     return `${riskText} ${rangeLevel}단계`;
   };
+  
+  // dotClass는 여전히 쓸 수 있음 (예: 크기, 애니메이션용)
+  const dotClass = (s) =>
+    s === "danger" ? styles.dang : s === "warning" ? styles.warn : styles.ok;
 
-  const getLevelClass = (riskLevel) => {
-    return riskLevel === 0
-      ? styles.normal
-      : riskLevel === 1
-      ? styles.warn
-      : styles.dang;
+  // 상태별 dot 이미지 반환
+  const getDotImage = (status) => {
+    if (status === "danger") return danger;
+    if (status === "warning") return warning;
+    return normal;
   };
 
   return (
@@ -56,7 +66,7 @@ export default function CautionArea({
             <span>우측</span>
           </div>
           <div className={styles.human}>
-            <img src={bodyImage} alt="신체" />
+            <img src={bodyImage} alt="신체" className={styles.bodyImg} />
             {cautionAreas.map((a, i) => (
               <div
                 key={i}
