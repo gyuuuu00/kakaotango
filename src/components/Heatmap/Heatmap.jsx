@@ -105,8 +105,6 @@ function Heatmap({ heatmapData }) {
           </tbody>
         </table>
       </div>
-
-      <p className={styles.count}>총 {heatmapData.result_history_data.count}회 측정</p>
     </div>
   );
 }
