@@ -3,8 +3,8 @@ import styles from './Header.module.css';
 
 function Header({ userData }) {
   // 데이터가 없을 경우 대비
-  const name = userData?.user_name || userData?.userName || '사용자';
-  const date = userData?.test_date || userData?.testDate || '-';
+  const name = userData?.user_name || '사용자';
+  const date = userData?.measure_date || '-';
 
   return (
     <div className={styles.header}>
