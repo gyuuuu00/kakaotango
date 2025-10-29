@@ -4,7 +4,8 @@ import CautionArea from '../CautionArea/CautionArea';
 import DetailedAnalysis from '../DetailedAnalysis/DetailedAnalysis';
 import Heatmap from '../Heatmap/Heatmap';
 import Record from '../Record/Record'
-import styles from './MobileBodyReport.module.css'; // 파일명 변경!
+import styles from './MobileBodyReport.module.css'; 
+import FrontView from '../FrontView/FrontView';
 import React, { useState } from 'react';
 
 function MobileBodyReport({ data }) {
@@ -36,6 +37,7 @@ function MobileBodyReport({ data }) {
 
       {activeTab === "정면측정" && (
         <>
+          <FrontView />
 
         </>
       )}

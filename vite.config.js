@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: 'localhost',
-    port: 5173,  // 또는 다른 포트 (3001 등)
+    port: 3001,
     proxy: {
       '/admin_api': {
         target: 'https://gym.tangoplus.co.kr',

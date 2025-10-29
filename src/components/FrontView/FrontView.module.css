@@ -1,0 +1,89 @@
+.container {
+  padding: 20px;
+}
+
+.imageSection {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.imageWrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.measureImage {
+  width: 100%;
+  height: 200px;
+}
+
+.imageLabel {
+  margin: 8px 0 0 60px;
+  font-size: 14px;
+  color: #454545;
+  width: 120px;
+  height: 24px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.detailList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailItem {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.measureUnit {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+.riskBadge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.dataValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.progressBar {
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.mentAll {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
