@@ -1,16 +1,16 @@
-import defaultBodyImage from '../../assets/bodyTypes/default.svg';
+import defaultImage from '../../assets/bodyTypes/default.svg';
 import styles from './Record.module.css';
 
 function Record() {  
   return (
     <div className={styles.bodyAnalysis}> 
       <div className={styles.analysisHeader}>  
-        <h2>기간별 유형 분석</h2>
+        <h2>체형 유형 분석</h2>
       </div>
       
       <div className={styles.bodyTypeResult}>  
         <div className={styles.bodyTypeImage}> 
-          <img src={defaultBodyImage} alt="기본 이미지" />
+          <img src={defaultImage} alt="기본 이미지" />
         </div>
         
         <div className={styles.analysisDetails}>  
