@@ -1,26 +1,28 @@
 .tabMenu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 8px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열 × 2행 */
+  gap: 6px; /* 버튼 간 간격 */
+  width: 100%;
   background: #fff;
+  padding: 6px;
+  box-sizing: border-box;
 }
 
 .tabButton {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: #d1d5db;
-  background: transparent;
+  background:#fff;
   border: none;
-  padding: 6px 10px;
   border-radius: 6px;
+  padding: 8px 0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .tabButton:hover {
-  color: #6b7280;
+  color: #9ca3af;
+  background: #f3f4f4;
 }
 
 .active {
