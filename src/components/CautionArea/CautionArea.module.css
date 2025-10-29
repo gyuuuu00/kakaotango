@@ -180,8 +180,9 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-bottom: 16px;
-  border-bottom: #eeeeee 1px solid;
-  padding-bottom: 12px;
+  border-radius: 20px;
+  border: 1px solid #D9D9D9;
+  padding: 20px 12px;
 }
 
 .status {

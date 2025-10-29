@@ -1,3 +1,4 @@
+//Caution.jsx
 import styles from "./CautionArea.module.css";
 import bodyImage from "../../assets/bodyImage.svg";
 import tip from "../../assets/tip.svg";
@@ -110,21 +111,6 @@ export default function CautionArea({
             <div className={styles.stateful}>상태 유지<br/>강화 권장</div>
             <div className={styles.descStrong}>제공되는<br/>맞춤 운동 권장</div>
             <div className={styles.desc}>전문가 상담<br/>권장</div>
-          </div>
-          <p className={styles.note}>
-            <strong>위험과 주의</strong> 신호는 골격의 변형으로만 판단되므로 통증의 유무와 <br />
-            상관없이 근골격계 질환으로 발전될 가능성이 높습니다.<br />
-            1단계는 약, 2단계는 중, 3단계는 강을 표현합니다.
-          </p>
-          <div className={styles.tipBox}>
-            <div className={styles.tipTitle}>
-              <img src={tip} alt="tip 아이콘" /> 내 통증 관련 TIP!
-            </div>
-            <p className={styles.tipText}>
-              통증부위 반대편 골격에 나타나는 위험이나 주의신호는 <br />
-              통증 회피를 위한 보상작용으로<br />
-              반대편 골격이 변형되었을 가능성이 높습니다.
-            </p>
           </div>
         </div>
       </div>
