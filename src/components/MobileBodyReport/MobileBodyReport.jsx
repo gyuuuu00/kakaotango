@@ -156,7 +156,7 @@ function MobileBodyReport() {
           />
 
           <DetailedAnalysis detailedAnalysis={data.detail_data} />
-          <Heatmap heatmapData={staticMat} />
+          <Heatmap heatmapData={data} />
           <Record recordData={data.result_history_data} />
         </>
       )}
