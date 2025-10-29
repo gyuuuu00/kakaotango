@@ -1,0 +1,29 @@
+.tabMenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 0;
+  background: #fff;
+}
+
+.tabButton {
+  font-size: 14px;
+  font-weight: 500;
+  color: #d1d5db;
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabButton:hover {
+  color: #6b7280;
+}
+
+.active {
+  background: #3f3f3f;
+  color: #fff;
+}
