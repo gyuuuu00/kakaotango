@@ -8,7 +8,7 @@ import Record from "../Record/Record";
 import FrontView from "../FrontView/FrontView";
 import SideView from "../SideView/SideView";
 import BackView from "../BackView/BackView";
-import SquatViewView from "../Squatview/Squatvie";
+import SquatView from "../SquatView/SquatView";
 import styles from "./MobileBodyReport.module.css";
 
 import {
@@ -19,7 +19,6 @@ import {
   fetchSquatView,
   fetchExerciseRecommendation,
 } from "../../api/mobileApi";
-import SquatView from "../Squatview/Squatvie";
 
 function MobileBodyReport() {
   const [activeTab, setActiveTab] = useState("종합보기");
@@ -114,7 +113,7 @@ function MobileBodyReport() {
       {activeTab === "정면측정" && <FrontView data={data} />}
       {activeTab === "측면측정" && <SideView data={data} />}
       {activeTab === "후면측정" && <BackView data={data} />}
-      {activeTab === "동적측정" && <SquatViewView data={data} />}
+      {activeTab === "동적측정" && <SquatView data={data} />}
       {activeTab === "추천운동" && <div>추천 운동 데이터: {JSON.stringify(data)}</div>}
     </div>
   );

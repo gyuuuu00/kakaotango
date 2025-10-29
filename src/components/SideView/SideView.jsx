@@ -3,14 +3,23 @@ import styles from './SideView.module.css';
 
 function SideView({ data }) {
   console.log('📊 SideView 받은 데이터:', data);
+  console.log('📊 data 타입:', typeof data);
+  console.log('📊 data.left_side:', data?.left_side);
+  console.log('📊 data.right_side:', data?.right_side);
+  console.log('📊 Object.keys(data):', data ? Object.keys(data) : 'data is null/undefined');
 
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
   }
 
   // data 구조 확인 및 안전하게 접근
-  if (!data.left_side || !data.right_side) {
+  const leftSide = data.left_side;
+  const rightSide = data.right_side;
+  
+  if (!leftSide || !rightSide) {
     console.error('❌ left_side 또는 right_side 데이터 없음:', data);
+    console.error('❌ leftSide:', leftSide);
+    console.error('❌ rightSide:', rightSide);
     return <div className={styles.noData}>측면 데이터가 없습니다.</div>;
   }
 
@@ -18,31 +27,35 @@ function SideView({ data }) {
     <div className={styles.container}>
       {/* 상단 이미지 영역 */}
       <div className={styles.imageSection}>
-        <div className={styles.imageWrapper}>
-          <img 
-            src={data.left_side.measure_server_file_name} 
-            alt="왼쪽측면" 
-            className={styles.measureImage}
-          />
-          <p className={styles.imageLabel}>왼쪽측면</p>
-        </div>
+        {leftSide.measure_server_file_name && (
+          <div className={styles.imageWrapper}>
+            <img 
+              src={leftSide.measure_server_file_name} 
+              alt="왼쪽측면" 
+              className={styles.measureImage}
+            />
+            <p className={styles.imageLabel}>왼쪽측면</p>
+          </div>
+        )}
         
-        <div className={styles.imageWrapper}>
-          <img 
-            src={data.right_side.measure_server_file_name} 
-            alt="오른쪽측면" 
-            className={styles.measureImage}
-          />
-          <p className={styles.imageLabel}>오른쪽측면</p>
-        </div>
+        {rightSide.measure_server_file_name && (
+          <div className={styles.imageWrapper}>
+            <img 
+              src={rightSide.measure_server_file_name} 
+              alt="오른쪽측면" 
+              className={styles.measureImage}
+            />
+            <p className={styles.imageLabel}>오른쪽측면</p>
+          </div>
+        )}
       </div>
 
       {/* 측정 데이터 리스트 */}
       <div className={styles.detailList}>
-        {data.left_side.detail_data?.map((item, index) => (
+        {Array.isArray(leftSide.detail_data) && leftSide.detail_data.map((item, index) => (
           <DetailItem key={`left-${index}`} data={item} side="왼쪽측면" />
         ))}
-        {data.right_side.detail_data?.map((item, index) => (
+        {Array.isArray(rightSide.detail_data) && rightSide.detail_data.map((item, index) => (
           <DetailItem key={`right-${index}`} data={item} side="오른쪽측면" />
         ))}
       </div>
