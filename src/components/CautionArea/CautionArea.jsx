@@ -1,6 +1,8 @@
 //Caution.jsx
 import styles from "./CautionArea.module.css";
 import bodyImage from "../../assets/bodyImage.svg";
+import warningDot from "../../assets/warningdot.svg";
+import dangerDot from "../../assets/dangerdot.svg";
 import tip from "../../assets/tip.svg";
 import graph from "../../assets/graph.svg";
 
@@ -20,15 +22,20 @@ export default function CautionArea({
   riskLowerRiskLevel,
   riskLowerRangeLevel,
 }) {
-  const dotClass = (s) =>
-    s === "danger" ? styles.danger : s === "warning" ? styles.warning : styles.normal;
-
   // 배경 제거 프록시 URL 생성 함수
   const getProxyImageUrl = (originalUrl) => {
     if (!originalUrl) return null;
     // API 이미지 URL을 프록시 경로로 변환
     // 예: https://api.example.com/image.jpg -> /api/proxy/remove-bg?url=https://api.example.com/image.jpg
     return `/api/proxy/remove-bg?url=${encodeURIComponent(originalUrl)}`;
+  };
+
+  // 위험도에 따른 CSS 클래스 반환 함수
+  const getLevelClass = (riskLevel) => {
+    if (riskLevel === 0) return styles.normal;
+    if (riskLevel === 1) return styles.warn;
+    if (riskLevel === 2) return styles.dang;
+    return styles.normal;
   };
 
   // 위험도 레이블 반환 함수
@@ -38,12 +45,15 @@ export default function CautionArea({
     return `${riskText} ${rangeLevel}단계`;
   };
 
-  const getLevelClass = (riskLevel) => {
-    return riskLevel === 0
-      ? styles.normal
-      : riskLevel === 1
-      ? styles.warn
-      : styles.dang;
+  // dotClass는 여전히 쓸 수 있음 (예: 크기, 애니메이션용)
+  const dotClass = (s) =>
+    s === "danger" ? styles.dang : s === "warning" ? styles.warn : styles.ok;
+
+  // 상태별 dot 이미지 반환
+  const getDotImage = (status) => {
+    if (status === "danger") return danger;
+    if (status === "warning") return warning;
+    return normal;
   };
 
   return (
@@ -56,7 +66,7 @@ export default function CautionArea({
             <span>우측</span>
           </div>
           <div className={styles.human}>
-            <img src={bodyImage} alt="신체" />
+            <img src={bodyImage} alt="신체" className={styles.bodyImg} />
             {cautionAreas.map((a, i) => (
               <div
                 key={i}
@@ -103,14 +113,16 @@ export default function CautionArea({
       {/* 1행-3열 : Tang Body Tip */}
       <div className={`${styles.card} ${styles.cell3}`}>
         <div className={styles.body}>
-          <div className={styles.tipSmall}>*측정 기준 설명</div>
-          <div className={styles.statusTable}>
-            <div className={`${styles.status} ${styles.ok}`}>정상</div>
-            <div className={`${styles.status} ${styles.warn}`}>주의</div>
-            <div className={`${styles.status} ${styles.dang}`}>위험</div>
-            <div className={styles.stateful}>상태 유지<br/>강화 권장</div>
-            <div className={styles.descStrong}>제공되는<br/>맞춤 운동 권장</div>
-            <div className={styles.desc}>전문가 상담<br/>권장</div>
+          <div className={styles.bodyTipHeader}>
+            <div className={styles.tipSmall}>*측정 기준 설명</div>
+            <div className={styles.statusTable}>
+              <div className={`${styles.status} ${styles.ok}`}>정상</div>
+              <div className={`${styles.status} ${styles.warn}`}>주의</div>
+              <div className={`${styles.status} ${styles.dang}`}>위험</div>
+              <div className={styles.stateful}>상태 유지<br/>강화 권장</div>
+              <div className={styles.descStrong}>제공되는<br/>맞춤 운동 권장</div>
+              <div className={styles.desc}>전문가 상담<br/>권장</div>
+            </div>
           </div>
         </div>
       </div>
