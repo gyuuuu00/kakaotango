@@ -14,6 +14,10 @@ export default function CautionArea({
   footPressureDynamicDesc,
   kneeTrajectoryDesc,
   pelvisTrajectoryDesc,
+  riskUpperRiskLevel,
+  riskUpperRangeLevel,
+  riskLowerRiskLevel,
+  riskLowerRangeLevel,
 }) {
   const dotClass = (s) =>
     s === "danger" ? styles.danger : s === "warning" ? styles.warning : styles.normal;
@@ -26,13 +30,25 @@ export default function CautionArea({
     return `/api/proxy/remove-bg?url=${encodeURIComponent(originalUrl)}`;
   };
 
+  // 위험도 레이블 반환 함수
+  const getLevelText = (riskLevel, rangeLevel) => {
+    const riskText =
+      riskLevel === 0 ? "정상" : riskLevel === 1 ? "주의" : "위험";
+    return `${riskText} ${rangeLevel}단계`;
+  };
+
+  const getLevelClass = (riskLevel) => {
+    return riskLevel === 0
+      ? styles.normal
+      : riskLevel === 1
+      ? styles.warn
+      : styles.dang;
+  };
+
   return (
     <div className={styles.caGrid}>
       {/* 1행-1열 : 주의 부위 */}
       <div className={`${styles.card} ${styles.cell1}`}>
-        <div className={styles.head}>
-          <img src={graph} alt="그래프 아이콘"/> 주의 부위
-        </div>
         <div className={styles.body}>
           <div className={styles.sideLabel}>
             <span>좌측</span>
@@ -57,14 +73,27 @@ export default function CautionArea({
 
       {/* 1행-2열 : 측정 결과 요약 */}
       <div className={`${styles.card} ${styles.cell2}`}>
-        <div className={styles.head}>측정 결과 요약</div>
         <div className={styles.body}>
           <div className={styles.textBox1}>
-            <h4 className={styles.sub}>상지 결과요약</h4>
+            <div className={styles.subHeader}>
+              <h4 className={styles.sub}>상지 결과요약</h4>
+              <span
+                className={`${styles.levelTag} ${getLevelClass(riskUpperRiskLevel)}`}
+              >
+                {getLevelText(riskUpperRiskLevel, riskUpperRangeLevel)}
+              </span>
+            </div>
             <p className={styles.txt}>{upperSummary}</p>
           </div>
           <div className={styles.textBox2}>
-            <h4 className={styles.sub}>하지 결과요약</h4>
+            <div className={styles.subHeader}>
+              <h4 className={styles.sub}>하지 결과요약</h4>
+              <span
+                className={`${styles.levelTag} ${getLevelClass(riskLowerRiskLevel)}`}
+              >
+                {getLevelText(riskLowerRiskLevel, riskLowerRangeLevel)}
+              </span>
+            </div>
             <p className={styles.txt}>{lowerSummary}</p>
           </div>
         </div>
@@ -72,7 +101,6 @@ export default function CautionArea({
 
       {/* 1행-3열 : Tang Body Tip */}
       <div className={`${styles.card} ${styles.cell3}`}>
-        <div className={styles.head}>Tang Body Tip</div>
         <div className={styles.body}>
           <div className={styles.tipSmall}>*측정 기준 설명</div>
           <div className={styles.statusTable}>

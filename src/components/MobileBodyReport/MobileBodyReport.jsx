@@ -28,6 +28,10 @@ function MobileBodyReport({ data }) {
             pelvisTrajectoryUrl={data.pelvisTrajectoryUrl}
             upperSummary={data.upperSummary}
             lowerSummary={data.lowerSummary}
+            riskUpperRiskLevel={data.risk_upper_risk_level}
+            riskUpperRangeLevel={data.risk_upper_range_level}
+            riskLowerRiskLevel={data.risk_lower_risk_level}
+            riskLowerRangeLevel={data.risk_lower_range_level}
           />
           <DetailedAnalysis detailedAnalysis={data.detailedAnalysis} />
           <Heatmap heatmapData={data.heatmapData} />

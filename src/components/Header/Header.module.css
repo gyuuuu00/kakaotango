@@ -1,11 +1,12 @@
 .header {
-  background-color: var(--header-color);
-  color: white;
+  background-color: #FFFFFF;
+  color:hwb(from color h w b)#444444;
   padding: 16px 12px;
   display: flex;
   flex-direction: column; /* 세로 배치로 변경 */
   gap: 12px;
-  align-items: center;
+  align-items: left;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .userName{
@@ -17,7 +18,7 @@
 .testDate{
   font-weight: 400;
   font-size: 16px;
-  color: #bbbbbb;
+  color: #BBBBBB;
 }
 
 
