@@ -13,9 +13,13 @@ function ExerciseDetail({ exerciseId, onBack }) {
         console.log('🔍 Fetching exercise:', exerciseId);
         
         // 개발 환경에서는 proxy 사용, 프로덕션에서는 직접 호출
-        const apiUrl = import.meta.env.DEV 
+        const isLocalhost = window.location.hostname === 'localhost';
+        const apiUrl = isLocalhost
           ? `/api/exercises/${exerciseId}`
           : `https://gym.tangoplus.co.kr/api/exercises/${exerciseId}`;
+
+        console.log('🌐 API URL:', apiUrl);
+        console.log('🏠 Is localhost:', isLocalhost);
         
         const response = await fetch(apiUrl);
         
@@ -55,14 +59,6 @@ function ExerciseDetail({ exerciseId, onBack }) {
     return <div className={styles.loading}>로딩 중...</div>;
   }
 
-  if (error) {
-    return (
-      <div className={styles.error}>
-        <p>{error}</p>
-        <button onClick={onBack} className={styles.backButton}>돌아가기</button>
-      </div>
-    );
-  }
 
   if (!exerciseData) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
@@ -70,13 +66,6 @@ function ExerciseDetail({ exerciseId, onBack }) {
 
   return (
     <div className={styles.container}>
-      {/* 헤더 */}
-      <div className={styles.header}>
-        <button className={styles.backButton} onClick={onBack}>
-          ← 돌아가기
-        </button>
-      </div>
-
       {/* 영상 플레이어 */}
       <div className={styles.videoSection}>
         <video

@@ -8,6 +8,8 @@ function ExerciseRecommendation({ data }) {
 
   console.log('📊 ExerciseRecommendation 받은 데이터:', data);
 
+  
+
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
   }
@@ -50,6 +52,7 @@ function ExerciseRecommendation({ data }) {
 
   // 운동 카드 클릭 핸들러
   const handleExerciseClick = (exerciseId) => {
+    console.log('🎯 Exercise clicked:', exerciseId);  
     setSelectedExerciseId(exerciseId);
   };
 
