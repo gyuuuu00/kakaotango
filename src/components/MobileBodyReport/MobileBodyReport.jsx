@@ -6,6 +6,7 @@ import DetailedAnalysis from "../DetailedAnalysis/DetailedAnalysis";
 import Heatmap from "../Heatmap/Heatmap";
 import Record from "../Record/Record";
 import FrontView from "../FrontView/FrontView";
+import SideView from "../SideView/SideView";
 import styles from "./MobileBodyReport.module.css";
 
 import {
@@ -57,7 +58,7 @@ function MobileBodyReport() {
         }
 
         console.log("📦 받은 데이터:", result);
-        setData(result.data || result); // 일부 API는 data 래핑 없음
+        setData(result.data || result); 
       } catch (err) {
         console.error(`${activeTab} 데이터 로드 실패:`, err);
       } finally {
@@ -101,7 +102,7 @@ function MobileBodyReport() {
       )}
 
       {activeTab === "정면측정" && <FrontView data={data} />}
-      {activeTab === "측면측정" && <div>측면 데이터: {JSON.stringify(data)}</div>}
+      {activeTab === "측면측정" && <SideView data={data} />}
       {activeTab === "후면측정" && <div>후면 데이터: {JSON.stringify(data)}</div>}
       {activeTab === "동적측정" && <div>동적 데이터: {JSON.stringify(data)}</div>}
       {activeTab === "추천운동" && <div>추천 운동 데이터: {JSON.stringify(data)}</div>}
