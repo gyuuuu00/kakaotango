@@ -78,42 +78,64 @@ function DetailItem({ data }) {
     switch(riskLevel) {
       case 1: return '#FFA73A';
       case 2: return '#FF4A4A';
-      default: return '#999';
+      default: return '#bbbbbb';
     }
   };
 
-  const getRiskLabel = (riskLevel) => {
+//   const getRiskLabel = (riskLevel) => {
+//     switch(riskLevel) {
+//       case 1: return '주의';
+//       case 2: return '위험';
+//       default: return '정상';
+//     }
+//   };
+
+  const getRiskWidth = (riskLevel) => {
     switch(riskLevel) {
-      case 1: return '주의';
-      case 2: return '위험';
-      default: return '정상';
+      case 0: return '30%';  // 정상
+      case 1: return '60%';  // 주의
+      default: return '95%'; //위험
     }
+  };
+
+    const getRangeText = (rangeLevel) => {
+    return `${rangeLevel}단계`;
   };
 
   return (
     <div className={styles.detailItem}>
-      <div className={styles.detailHeader}>
-        <span>정면측정</span>
-        <span className={styles.measureUnit}>{data.measure_unit}</span>
-        <span 
-          className={styles.riskBadge}
-          style={{ backgroundColor: getRiskColor(data.risk_level) }}
-        >
-          {getRiskLabel(data.risk_level)}
-        </span>
-      </div>
-      
-      <div className={styles.detailContent}>
-        <div className={styles.dataValue}>{Math.trunc(data.data)}</div>
-        <div className={styles.progressBar}>
-          <div 
-            className={styles.progressFill}
-            style={{ 
-              width: `${(data.range_level / 3) * 100}%`,
-              backgroundColor: getRiskColor(data.risk_level)
-            }}
-          />
+      {/* 상단 헤더 영역 */}
+      <div className={styles.topSection}>
+        <div className={styles.leftInfo}>
+          <span className={styles.headerLabel}>정면측정</span>
+          <span className={styles.measureUnit}>{data.measure_unit}</span>
         </div>
+        
+        <div className={styles.centerInfo}>
+          <div className={styles.dataValue}>{Math.trunc(data.data)}</div>         
+        </div>
+
+        {/* 프로그레스바 */}
+        <div className={styles.rightProgressSection}>
+          <div className={styles.levelLabels}>
+            <span>정상</span>
+            <span>주의</span>
+            <span>위험</span>
+          </div>
+          <div className={styles.progressBar}>
+            <div 
+              className={styles.progressFill}
+              style={{ 
+                width: getRiskWidth(data.risk_level),
+                backgroundColor: getRiskColor(data.risk_level)
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 하단 설명 영역 */}
+      <div className={styles.bottomSection}>
         <p className={styles.mentAll}>{data.ment_all}</p>
       </div>
     </div>
