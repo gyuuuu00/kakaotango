@@ -1,0 +1,156 @@
+.container {
+  padding: 16px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.imageSection {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.imageWrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.measureImage {
+  width: 100%;
+  height: 150px;
+  border-radius: 6px;
+}
+
+.imageLabel {
+  margin: 6px auto 0;
+  font-size: 11px;
+  color: #454545;
+  width: 100px;
+  height: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detailList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detailItem {
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* 상단 헤더 영역 */
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  height: 44px;
+}
+
+.leftInfo {
+  display: flex;
+  flex-direction: column;
+  width: 136px;
+  justify-content: center;
+  gap: 2px;
+  min-height: 44px;
+}
+
+.headerLabel {
+  padding-top: 2px;
+  font-size: 10px;
+  color: #d9d9d9;
+  font-weight: 400;
+}
+
+.measureUnit {
+  font-size: 12px;
+  font-weight: 500;
+  color: #7e7e7e;
+  white-space: pre-line;
+}
+
+.centerInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  border-left: 1px solid #eeee;
+  border-right: 1px solid #eeee;
+  padding: 8px 0;
+}
+
+.dataValue {
+  font-size: 10px;
+  font-weight: 700;
+  color: #333;
+}
+
+.rightProgressSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 8px;
+  max-width: 140px;
+}
+
+.levelLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #999;
+  margin-bottom: 2px;
+}
+
+.progressBar {
+  height: 10px;
+  border-radius: 2.5px;
+  overflow: visible;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 2.5px;
+  position: relative;
+}
+
+/* 하단 설명 영역 */
+.bottomSection {
+  padding: 8px 10px;
+  background: #f5f5f5;
+  max-height: 34px;
+  display: flex;
+  align-items: center;
+}
+
+.mentAll {
+  font-size: 10px;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* 로딩 및 에러 상태 */
+.loading,
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 14px;
+  color: #666;
+}

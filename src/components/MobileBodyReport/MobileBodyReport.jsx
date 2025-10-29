@@ -7,6 +7,8 @@ import Heatmap from "../Heatmap/Heatmap";
 import Record from "../Record/Record";
 import FrontView from "../FrontView/FrontView";
 import SideView from "../SideView/SideView";
+import BackView from "../BackView/BackView";
+import SquatViewView from "../Squatview/Squatvie";
 import styles from "./MobileBodyReport.module.css";
 
 import {
@@ -17,11 +19,12 @@ import {
   fetchSquatView,
   fetchExerciseRecommendation,
 } from "../../api/mobileApi";
+import SquatView from "../Squatview/Squatvie";
 
 function MobileBodyReport() {
   const [activeTab, setActiveTab] = useState("종합보기");
   const [data, setData] = useState(null);
-  const [headerData, setHeaderData] = useState(null); // ✅ 헤더용 별도 데이터
+  const [headerData, setHeaderData] = useState(null); 
   const [loading, setLoading] = useState(false);
 
   const sp = new URLSearchParams(window.location.search);
@@ -110,8 +113,8 @@ function MobileBodyReport() {
 
       {activeTab === "정면측정" && <FrontView data={data} />}
       {activeTab === "측면측정" && <SideView data={data} />}
-      {activeTab === "후면측정" && <div>후면 데이터: {JSON.stringify(data)}</div>}
-      {activeTab === "동적측정" && <div>동적 데이터: {JSON.stringify(data)}</div>}
+      {activeTab === "후면측정" && <BackView data={data} />}
+      {activeTab === "동적측정" && <SquatViewView data={data} />}
       {activeTab === "추천운동" && <div>추천 운동 데이터: {JSON.stringify(data)}</div>}
     </div>
   );
