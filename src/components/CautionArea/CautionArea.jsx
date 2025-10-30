@@ -100,6 +100,8 @@ export default function CautionArea({
   riskUpperRangeLevel,
   riskLowerRiskLevel,
   riskLowerRangeLevel,
+  matStaticRiskLevel,
+  matStaticRangeLevel,
 }) {
   /* ✅ dot 이미지 선택 */
   const getDotImage = (status) => {
@@ -250,7 +252,9 @@ export default function CautionArea({
         <div className={styles.bodyHeader}>
           <div className={styles.headRow}>
             <h4 className={styles.subTitle}>정적 족압</h4>
-            <span className={styles.levelTagNormal}>정상 1단계</span>
+            <span className={`${styles.levelTag} ${getLevelClass(matStaticRiskLevel)}`}>
+              {getLevelText(matStaticRiskLevel, matStaticRangeLevel)}
+            </span>
           </div>
 
           <div className={styles.body}>
