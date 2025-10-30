@@ -117,13 +117,15 @@ export const fetchExerciseDetail = async (t_r, exerciseId) => {
   if (!t_r) throw new Error("t_r 토큰이 없습니다.");
   if (!exerciseId) throw new Error("운동 ID가 필요합니다.");
 
-  const response = await fetch(
-    `${API_BASE}/exercise-recommendation/${exerciseId}?t_r=${encodeURIComponent(t_r)}`,
-    {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    }
-  );
+  // Use the public exercise API path. In dev this will hit the vite proxy (/api/exercises -> gym.tangoplus).
+  const exerciseUrl = import.meta.env.DEV
+    ? `/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`
+    : `https://gym.tangoplus.co.kr/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
+
+  const response = await fetch(exerciseUrl, {
+    method: "GET",
+    headers: { Accept: "application/json" },
+  });
 
   if (!response.ok) throw new Error("운동 상세 정보 로드 실패");
   return await response.json();

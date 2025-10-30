@@ -22,8 +22,8 @@ function ExerciseDetail({ exerciseId, t_r, onBack }) {
         console.log('🔍 Fetching exercise:', exerciseId);
         console.log('🔑 t_r:', t_r);
         
-        // t_r을 포함한 API 호출
-        const apiUrl = `${API_BASE}/exercise-recommendation/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
+  // t_r을 포함한 API 호출 (앱 상대 경로로 호출하여 dev/prod proxy 사용)
+  const apiUrl = `/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
 
         console.log('🌐 API URL:', apiUrl);
         
