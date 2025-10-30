@@ -299,7 +299,6 @@ export default function CautionArea({
         <div className={styles.bodyHeader}>
           <div className={styles.headRow}>
             <h4 className={styles.subTitle}>동적 족압, 관절 이동</h4>
-            <span className={styles.levelTagNormal}>정상 1단계</span>
           </div>
 
           <div className={styles.body}>
@@ -352,7 +351,7 @@ export default function CautionArea({
                   ) : (
                     <div className={styles.ph}>무릎 이동</div>
                   )}
-                </div>
+                </div>  
               </div>
 
               {/* 2행 오른쪽: 무릎 R */}
