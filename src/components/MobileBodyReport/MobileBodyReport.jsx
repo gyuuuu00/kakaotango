@@ -126,6 +126,8 @@ function MobileBodyReport() {
             riskUpperRangeLevel={Number(summary.risk_upper_range_level)}
             riskLowerRiskLevel={Number(summary.risk_lower_risk_level)}
             riskLowerRangeLevel={Number(summary.risk_lower_range_level)}
+            matStaticRiskLevel={Number(summary.mat_static_risk_level)}
+            matStaticRangeLevel={Number(summary.mat_static_range_level)}
 
             /* ✅ 정적 족압 데이터 */
             footPressureStaticUrl={staticMat?.measure_server_mat_image_name}
