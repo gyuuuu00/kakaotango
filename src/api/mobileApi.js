@@ -1,87 +1,102 @@
 // src/api/mobileApi.js
-import axios from "axios";
-
-const API_URL = "https://gym.tangoplus.co.kr/admin_api";
+const API_BASE = import.meta.env.DEV
+  ? '/admin_api'
+  : (import.meta.env.VITE_API_BASE_URL ?? 'https://gym.tangoplus.co.kr/admin_api');
 
 /** ✅ 종합보기 (Body Report) */
 export const fetchBodyReport = async (t_r, mobile) => {
-  try {
-    const payload = { t_r, mobile };
-    const response = await axios.post(`${API_URL}/kakao-results`, payload, {
-      headers: { "Content-Type": "application/json" },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError("fetchBodyReport", error);
+  if (!t_r) throw new Error("t_r 토큰이 없습니다.");
+  if (!mobile) throw new Error("전화번호가 필요합니다.");
+
+  console.log("📞 요청 t_r:", t_r);
+  console.log("📞 요청 mobile:", mobile);
+
+  const RESULTS_URL = `${API_BASE.replace(/\/$/, "")}/kakao-results`;
+
+  const response = await fetch(RESULTS_URL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ t_r, mobile }),
+  });
+
+  console.log("📡 응답 상태:", response.status);
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => "");
+    console.error("❌ 에러 내용:", errorText);
+    throw new Error("데이터를 불러올 수 없습니다.");
   }
+
+  const result = await response.json();
+  console.log("✅ 전체 API 응답:", result);
+
+  return result;
 };
 
 /** ✅ 정면측정 */
 export const fetchFrontView = async (t_r) => {
-  try {
-    const response = await axios.get(`${API_URL}/kakao-results/front`, {
-      params: { t_r },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError("fetchFrontView", error);
-  }
+  if (!t_r) throw new Error("t_r 토큰이 없습니다.");
+
+  const response = await fetch(`${API_BASE}/kakao-results/front?t_r=${encodeURIComponent(t_r)}`, {
+    method: "GET",
+    headers: { Accept: "application/json" },
+  });
+
+  if (!response.ok) throw new Error("정면측정 데이터 로드 실패");
+  return await response.json();
 };
 
 /** ✅ 측면측정 */
 export const fetchSideView = async (t_r) => {
-  try {
-    const response = await axios.get(`${API_URL}/kakao-results/side`, {
-      params: { t_r },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError("fetchSideView", error);
-  }
+  if (!t_r) throw new Error("t_r 토큰이 없습니다.");
+
+  const response = await fetch(`${API_BASE}/kakao-results/side?t_r=${encodeURIComponent(t_r)}`, {
+    method: "GET",
+    headers: { Accept: "application/json" },
+  });
+
+  if (!response.ok) throw new Error("측면측정 데이터 로드 실패");
+  return await response.json();
 };
 
 /** ✅ 후면측정 */
 export const fetchBackView = async (t_r) => {
-  try {
-    const response = await axios.get(`${API_URL}/kakao-results/back`, {
-      params: { t_r },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError("fetchBackView", error);
-  }
+  if (!t_r) throw new Error("t_r 토큰이 없습니다.");
+
+  const response = await fetch(`${API_BASE}/kakao-results/back?t_r=${encodeURIComponent(t_r)}`, {
+    method: "GET",
+    headers: { Accept: "application/json" },
+  });
+
+  if (!response.ok) throw new Error("후면측정 데이터 로드 실패");
+  return await response.json();
 };
 
 /** ✅ 동적측정 */
 export const fetchSquatView = async (t_r) => {
-  try {
-    const response = await axios.get(`${API_URL}/kakao-results/squat`, {
-      params: { t_r },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError("fetchSquatView", error);
-  }
+  if (!t_r) throw new Error("t_r 토큰이 없습니다.");
+
+  const response = await fetch(`${API_BASE}/kakao-results/squat?t_r=${encodeURIComponent(t_r)}`, {
+    method: "GET",
+    headers: { Accept: "application/json" },
+  });
+
+  if (!response.ok) throw new Error("동적측정 데이터 로드 실패");
+  return await response.json();
 };
 
 /** ✅ 추천운동 */
 export const fetchExerciseRecommendation = async (t_r) => {
-  try {
-    const response = await axios.get(`${API_URL}/exercise-recommendation`, {
-      params: { t_r },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError("fetchExerciseRecommendation", error);
-  }
-};
+  if (!t_r) throw new Error("t_r 토큰이 없습니다.");
 
-/** 🔧 공통 에러 핸들링 */
-function handleApiError(apiName, error) {
-  console.error(`❌ [${apiName}] API 호출 실패:`, error.message);
-  if (error.response) {
-    console.error("응답 코드:", error.response.status);
-    console.error("에러 내용:", error.response.data);
-  }
-  throw error;
-}
+  const response = await fetch(`${API_BASE}/exercise-recommendation?t_r=${encodeURIComponent(t_r)}`, {
+    method: "GET",
+    headers: { Accept: "application/json" },
+  });
+
+  if (!response.ok) throw new Error("추천운동 데이터 로드 실패");
+  return await response.json();
+};
