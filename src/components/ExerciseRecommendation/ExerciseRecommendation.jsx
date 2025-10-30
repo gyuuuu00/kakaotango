@@ -30,18 +30,20 @@ function ExerciseRecommendation({ data }) {
   
   // 첫 번째 신체 부위로 초기 설정
   useEffect(() => {
-    if (riskParts.length > 0 && selectedPart === '목') {
+  if (riskParts.length > 0 && selectedPart === '목') {
       setSelectedPart(riskParts[0]);
     }
   }, [riskParts]);
 
   // 필터링된 운동 프로그램
-  const filteredPrograms = data.exercise_program?.filter(program => 
-    program.exercise_program_title.includes(selectedPart)
-  );
+  const filteredPrograms = data.exercise_program?.filter(program => {
+  const title = program.exercise_program_title;
+  const regex = new RegExp(`(^|\\s)${selectedPart}($|\\s|[,\\.\\(\\)])`);
+  return regex.test(title);
+});
+    console.log('selectedPart:', selectedPart);
+    console.log('filteredPrograms:', filteredPrograms);
 
-  console.log('selectedPart:', selectedPart);
-  console.log('filteredPrograms:', filteredPrograms);
 
   // 초를 분:초 형식으로 변환
   const formatDuration = (seconds) => {
@@ -69,8 +71,8 @@ function ExerciseRecommendation({ data }) {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>추천 운동 프로그램</h2>
+      {/* 운동 프로그램 리스트 */}
 
-      {/* 필터 탭 */}
       <div className={styles.filterTabs}>
         {riskParts.map((part) => (
           <button
