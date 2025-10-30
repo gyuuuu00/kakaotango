@@ -9,6 +9,12 @@ export default defineConfig({
     host: "localhost",
     port: 5073,
     proxy: {
+      // 프록시: 개발 중 `/api/exercises/*` 요청을 실제 백엔드로 전달
+      "/api/exercises": {
+        target: "https://gym.tangoplus.co.kr",
+        changeOrigin: true,
+        secure: true,
+      },
       "/admin_api": {
         target: "https://gym.tangoplus.co.kr",
         changeOrigin: true,
