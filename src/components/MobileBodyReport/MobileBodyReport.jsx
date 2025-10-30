@@ -35,9 +35,10 @@ function MobileBodyReport({ data: initialData, t_r}) {
 
       // 종합보기는 App.jsx에서 이미 받은 데이터 사용
       if (activeTab === "종합보기") {
-        setData(initialData);
-        if (initialData?.result_summary_data) {
-          setHeaderData(initialData.result_summary_data);
+        const bodyReportData = initialData?.data ? initialData.data : initialData; // ✅ data.data 대응
+        setData(bodyReportData);
+        if (bodyReportData?.result_summary_data) {
+          setHeaderData(bodyReportData.result_summary_data);
         }
         return;
       }
