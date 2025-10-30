@@ -1,3 +1,4 @@
+//Record.jsx
 import defaultImage from '../../assets/bodyTypes/default.svg';
 import styles from './Record.module.css';
 
