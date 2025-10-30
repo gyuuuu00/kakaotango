@@ -6,25 +6,18 @@ import dangerDot from "../../assets/dangerdot.svg";
 import { useState, useEffect, useMemo } from "react";
 
 
+
 /* ✅ 프록시 URL 변환 함수 */
 const toProxied = (url, tag) => {
   if (!url) return null;
 
-  // 현재 실행 환경 확인 (vite는 import.meta.env.MODE 로 알려줌)
-  const isDev = import.meta.env.MODE === "development";
-
-  // 개발 환경에서는 프록시 경유
-  if (isDev) {
-    const addTag = tag ? `&tag=${encodeURIComponent(tag)}` : "";
-    try {
-      return `/api/img-proxy?url=${encodeURIComponent(decodeURIComponent(url))}${addTag}`;
-    } catch {
-      return `/api/img-proxy?url=${encodeURIComponent(url)}${addTag}`;
-    }
+  // 백엔드에 CORS가 없으므로 항상 프록시 사용
+  const addTag = tag ? `&tag=${encodeURIComponent(tag)}` : "";
+  try {
+    return `/api/img-proxy?url=${encodeURIComponent(decodeURIComponent(url))}${addTag}`;
+  } catch {
+    return `/api/img-proxy?url=${encodeURIComponent(url)}${addTag}`;
   }
-
-  // 배포(production) 환경에서는 원본 URL 직접 반환
-  return url;
 };
 
 /* ✅ 배경 투명처리 함수 */

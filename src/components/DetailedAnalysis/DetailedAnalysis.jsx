@@ -20,6 +20,39 @@ function DetailedAnalysis({ detailedAnalysis }) {
     ankle: '발목'
   };
 
+  // 측정 기준 이름 매핑
+  const measureNameMap = {
+    // 목
+    'turtle_neck': '거북목',
+    'scoliosis': '경추 측만',
+    'side_neck_balance': '측면 목 근육',
+    
+    // 어깨
+    'shoulder_tilit': '어깨 기울기',
+    'frozen_shoulder': '오십견',
+    'shoulder_impingement': '어깨 충돌 증후군',
+    
+    // 팔꿈치
+    'bicep_tension': '이두근 긴장',
+    'elbow_disorder': '팔꿈치 질환',
+    'elbow_muscle_tension': '팔꿈치 아래팔 \n 근육 긴장',
+    
+    // 골반
+    'hip_tilit': '골반 기울기',
+    'hip_disorder': '골반 질환',
+    'hip_knee_tilit': '골반과 무릎 기울기 \n(측면)',
+    
+    // 무릎
+    'knee_angle': '골반 무릎 각도 \n (정면)',
+    'knee_disorder': '무릎 질환\n(OHS)',
+    'hip_knee_ankle_tilit': '골반, 무릎, 발목 기울기(OHS)',
+    
+    // 발목
+    'ankle_angle': '발목 각도',
+    'ankle_disorder': '좌우 무게 균형',
+    'uppper_lower_balance': '상하 무게 균형',
+  };
+
   // 상체/하체 분류
   const upperParts = ['neck', 'shoulder', 'elbow'];
   const lowerParts = ['hip', 'knee', 'ankle'];
@@ -106,7 +139,7 @@ function DetailedAnalysis({ detailedAnalysis }) {
 
             return (
               <div key={itemKey} className={styles.measureRow}>
-                <div className={styles.measureText}>{item.measure_unit}</div>
+                <div className={styles.measureText}>{measureNameMap[itemKey] || item.measure_unit}</div>
                 <div className={styles.measureStatus}>
                   <div className={styles.statusBar}>
                     <div className={`${styles.barSegment} ${activeSegment === 'normal' ? styles.active : ''}`} data-status="normal"></div>
