@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/exercises/:path*",
+      "destination": "https://gym.tangoplus.co.kr/api/exercises/:path*"
+    },
+    {
+      "source": "/admin_api/:path*",
+      "destination": "https://gym.tangoplus.co.kr/admin_api/:path*"
+    }
+  ]
+}

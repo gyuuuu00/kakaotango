@@ -31,6 +31,7 @@ function MobileBodyReport() {
   const sp = new URLSearchParams(window.location.search);
   const t_r = decodeURIComponent(sp.get("t_r") || "").replace(/\s+/g, "");
   const mobile = "01083700106"; // 임시
+  // const mobile = decodeURIComponent(sp.get("mobile") || "").replace(/\s+/g, "");
 
   useEffect(() => {
     const loadData = async () => {

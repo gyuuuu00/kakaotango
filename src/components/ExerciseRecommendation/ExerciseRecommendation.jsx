@@ -118,7 +118,6 @@ function ExerciseRecommendation({ data }) {
                   <div className={styles.exerciseInfo}>
                     <h4 className={styles.exerciseName}>{exercise.exercise_name}</h4>
                     <p className={styles.symptom}>{exercise.related_symptom}</p>
-                    <span className={styles.stage}>{exercise.exercise_stage}</span>
                   </div>
                 </div>
               ))}

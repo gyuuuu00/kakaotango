@@ -12,14 +12,10 @@ function ExerciseDetail({ exerciseId, onBack }) {
         setLoading(true);
         console.log('🔍 Fetching exercise:', exerciseId);
         
-        // 개발 환경에서는 proxy 사용, 프로덕션에서는 직접 호출
-        const isLocalhost = window.location.hostname === 'localhost';
-        const apiUrl = isLocalhost
-          ? `/api/exercises/${exerciseId}`
-          : `https://gym.tangoplus.co.kr/api/exercises/${exerciseId}`;
+        // 개발/배포 환경 모두 프록시 사용
+        const apiUrl = `/api/exercises/${exerciseId}`;
 
         console.log('🌐 API URL:', apiUrl);
-        console.log('🏠 Is localhost:', isLocalhost);
         
         const response = await fetch(apiUrl);
         
