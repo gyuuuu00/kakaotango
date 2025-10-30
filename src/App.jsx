@@ -1,7 +1,8 @@
 //App.jsx
 import { useEffect, useState } from 'react';
 import MobileBodyReport from './components/MobileBodyReport/MobileBodyReport.jsx';
-import { fetchBodyReport } from './api/mobileApi.js'; 
+import { fetchBodyReport } from './api/mobileApi.js';
+import logo from './assets/logo.svg'; 
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -11,8 +12,7 @@ export default function App() {
   const [needPhone, setNeedPhone] = useState(true);
 
   const sp = new URLSearchParams(window.location.search);
-  // URL 디코딩 + 공백 제거
-  const t_r = decodeURIComponent(sp.get('t_r') || '').replace(/\s+/g, '');
+  const t_r = sp.get('t_r') || '';
 
   const handlePhoneChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
@@ -45,10 +45,18 @@ export default function App() {
     try {
       setErr('');
       setLoading(true);
+      
+      console.log('🔑 보내는 t_r:', t_r);
+      console.log('📞 보내는 전화번호:', cleanMobile);
+      
       const json = await fetchBodyReport(t_r, cleanMobile);
+      
+      console.log('✅ 받은 데이터:', json);
+      
       setData(json);
       setNeedPhone(false);
     } catch (e) {
+      console.error('❌ 에러:', e);
       const errorMessage = e.response?.data?.message?.[0] 
         || e.response?.data?.message 
         || e.message 
@@ -69,6 +77,7 @@ export default function App() {
     }
   }, [t_r]);
 
+  // 전화번호 입력 화면
   if (needPhone && !err && t_r) {
     return (
       <div style={{ 
@@ -81,32 +90,48 @@ export default function App() {
         backgroundColor: '#f9fafb'
       }}>
         <div style={{
+          border: '1px solid #e5e7eb',
           width: '100%',
           maxWidth: '400px',
           backgroundColor: 'white',
           padding: '32px',
-          borderRadius: '12px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+          borderRadius: '20px'
         }}>
-          <h2 style={{ 
-            textAlign: 'center', 
-            marginBottom: '24px',
+          <img
+            src={logo}
+            alt="Tango Life Design"
+            style={{
+              display: 'block',
+              margin: '0 auto 24px',
+              width: '200px',
+              height: 'auto'
+            }}
+          />
+          <h2 style={{
+            marginBottom: '10px',
             fontSize: '20px',
             color: '#374151'
-          }}>전화번호 입력</h2>
+          }}>탱고바디 사용자 조회</h2>
+
+          <h4 style={{ 
+            marginBottom: '24px',
+            fontSize: '16px',
+            color: '#444444'
+          }}>전화번호</h4>
+
           
           <form onSubmit={handleSubmit}>
             <input
               type="tel"
-              placeholder="010-0000-0000"
+              placeholder="- 를 제외하고 010부터 전화번호를 입력해 주세요"
               value={mobile}
               onChange={handlePhoneChange}
               maxLength="13"
               style={{
                 width: '100%',
                 padding: '14px',
-                fontSize: '16px',
-                border: '1px solid #ddd',
+                fontSize: '10px',
+                border: '1px solid #d9d9d9',
                 borderRadius: '8px',
                 marginBottom: '12px',
                 boxSizing: 'border-box'
@@ -126,7 +151,7 @@ export default function App() {
                 fontWeight: '500'
               }}
             >
-              조회하기
+            로그인
             </button>
           </form>
         </div>
@@ -138,5 +163,5 @@ export default function App() {
   if (err) return <div style={{color:'crimson', padding: '20px', textAlign: 'center'}}>에러: {err}</div>;
   if (!data) return <div style={{ textAlign: 'center', padding: '40px' }}>데이터가 없습니다.</div>;
 
-  return <MobileBodyReport data={data} />;
+  return <MobileBodyReport data={data} t_r={t_r} />;
 }

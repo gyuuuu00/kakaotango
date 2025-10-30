@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ExerciseDetail.module.css';
 
-function ExerciseDetail({ exerciseId, onBack }) {
+const API_BASE = import.meta.env.DEV
+  ? '/admin_api'
+  : (import.meta.env.VITE_API_BASE_URL ?? 'https://gym.tangoplus.co.kr/admin_api');
+
+function ExerciseDetail({ exerciseId, t_r, onBack }) { 
+  console.log('🔍 ExerciseDetail 받은 exerciseId:', exerciseId);
+  console.log('🔍 ExerciseDetail 받은 t_r:', t_r);
+  console.log('🔍 t_r 길이:', t_r?.length);
+  console.log('🔍 t_r 타입:', typeof t_r);
+   
   const [exerciseData, setExerciseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,13 +20,17 @@ function ExerciseDetail({ exerciseId, onBack }) {
       try {
         setLoading(true);
         console.log('🔍 Fetching exercise:', exerciseId);
+        console.log('🔑 t_r:', t_r);
         
-        // 개발/배포 환경 모두 프록시 사용
-        const apiUrl = `/api/exercises/${exerciseId}`;
+        // t_r을 포함한 API 호출
+        const apiUrl = `${API_BASE}/exercise-recommendation/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
 
         console.log('🌐 API URL:', apiUrl);
         
-        const response = await fetch(apiUrl);
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          headers: { Accept: "application/json" },
+        });
         
         console.log('📡 Response status:', response.status);
         console.log('📡 Response ok:', response.ok);
@@ -39,10 +52,10 @@ function ExerciseDetail({ exerciseId, onBack }) {
       }
     };
 
-    if (exerciseId) {
+    if (exerciseId && t_r) {  // ← t_r 체크 추가!
       fetchExerciseDetail();
     }
-  }, [exerciseId]);
+  }, [exerciseId, t_r]);
 
   // 초를 분:초 형식으로 변환
   const formatDuration = (seconds) => {
@@ -55,6 +68,14 @@ function ExerciseDetail({ exerciseId, onBack }) {
     return <div className={styles.loading}>로딩 중...</div>;
   }
 
+  if (error) {
+    return (
+      <div className={styles.error}>
+        <p>에러: {error}</p>
+        <button onClick={onBack} className={styles.backButton}>돌아가기</button>
+      </div>
+    );
+  }
 
   if (!exerciseData) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
@@ -62,6 +83,11 @@ function ExerciseDetail({ exerciseId, onBack }) {
 
   return (
     <div className={styles.container}>
+      {/* 뒤로가기 버튼 추가 */}
+      <button onClick={onBack} className={styles.backButton}>
+        ← 돌아가기
+      </button>
+
       {/* 영상 플레이어 */}
       <div className={styles.videoSection}>
         <video

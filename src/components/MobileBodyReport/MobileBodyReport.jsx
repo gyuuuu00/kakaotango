@@ -22,31 +22,31 @@ import {
   fetchExerciseRecommendation,
 } from "../../api/mobileApi";
 
-function MobileBodyReport() {
+function MobileBodyReport({ data: initialData, t_r}) {
   const [activeTab, setActiveTab] = useState("종합보기");
   const [data, setData] = useState(null);
   const [headerData, setHeaderData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const sp = new URLSearchParams(window.location.search);
-  const t_r = decodeURIComponent(sp.get("t_r") || "").replace(/\s+/g, "");
-  const mobile = "01083700106"; // 임시
-  // const mobile = decodeURIComponent(sp.get("mobile") || "").replace(/\s+/g, "");
 
   useEffect(() => {
     const loadData = async () => {
       if (!t_r) return;
+
+      // 종합보기는 App.jsx에서 이미 받은 데이터 사용
+      if (activeTab === "종합보기") {
+        setData(initialData);
+        if (initialData?.result_summary_data) {
+          setHeaderData(initialData.result_summary_data);
+        }
+        return;
+      }
+
       setLoading(true);
 
       try {
         let result;
         switch (activeTab) {
-          case "종합보기":
-            result = await fetchBodyReport(t_r, mobile);
-            if (result?.data?.result_summary_data) {
-              setHeaderData(result.data.result_summary_data);
-            }
-            break;
           case "정면측정":
             result = await fetchFrontView(t_r);
             break;
@@ -76,7 +76,7 @@ function MobileBodyReport() {
     };
 
     loadData();
-  }, [activeTab, t_r]);
+  }, [activeTab, t_r, initialData]);
 
   if (loading) return <div className={styles.loading}>데이터 로딩 중...</div>;
 
@@ -111,7 +111,6 @@ function MobileBodyReport() {
 
   return (
     <div className={styles.page}>
-      {/* ✅ Header는 headerData 기반 */}
       <Header userData={headerData || { user_name: "-", test_date: "-" }} />
       <TabMenu activeTab={activeTab} onTabChange={setActiveTab} />
       
@@ -166,7 +165,7 @@ function MobileBodyReport() {
       {activeTab === "측면측정" && <SideView data={data} />}
       {activeTab === "후면측정" && <BackView data={data} />}
       {activeTab === "동적측정" && <SquatView data={data} />}
-      {activeTab === "추천운동" && <ExerciseRecommendation data={data} />}
+      {activeTab === "추천운동" && <ExerciseRecommendation data={data} t_r={t_r} />}
     </div>
   );
 }

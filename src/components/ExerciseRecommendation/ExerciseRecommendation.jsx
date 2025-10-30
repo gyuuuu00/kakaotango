@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from './ExerciseRecommendation.module.css';
 import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
 
-function ExerciseRecommendation({ data }) {
+function ExerciseRecommendation({ data, t_r }) {
   const [selectedPart, setSelectedPart] = useState('목');
   const [selectedExerciseId, setSelectedExerciseId] = useState(null);
 
   console.log('📊 ExerciseRecommendation 받은 데이터:', data);
-
-  
 
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
@@ -30,20 +28,20 @@ function ExerciseRecommendation({ data }) {
   
   // 첫 번째 신체 부위로 초기 설정
   useEffect(() => {
-  if (riskParts.length > 0 && selectedPart === '목') {
+    if (riskParts.length > 0 && selectedPart === '목') {
       setSelectedPart(riskParts[0]);
     }
   }, [riskParts]);
 
   // 필터링된 운동 프로그램
   const filteredPrograms = data.exercise_program?.filter(program => {
-  const title = program.exercise_program_title;
-  const regex = new RegExp(`(^|\\s)${selectedPart}($|\\s|[,\\.\\(\\)])`);
-  return regex.test(title);
-});
-    console.log('selectedPart:', selectedPart);
-    console.log('filteredPrograms:', filteredPrograms);
+    const title = program.exercise_program_title;
+    const regex = new RegExp(`(^|\\s)${selectedPart}($|\\s|[,\\.\\(\\)])`);
+    return regex.test(title);
+  });
 
+  console.log('selectedPart:', selectedPart);
+  console.log('filteredPrograms:', filteredPrograms);
 
   // 초를 분:초 형식으로 변환
   const formatDuration = (seconds) => {
@@ -52,9 +50,8 @@ function ExerciseRecommendation({ data }) {
     return `${minutes}분 ${secs}초`;
   };
 
-  // 운동 카드 클릭 핸들러
+  // 운동 카드 클릭 핸들러 - 간단하게 수정!
   const handleExerciseClick = (exerciseId) => {
-    console.log('🎯 Exercise clicked:', exerciseId);  
     setSelectedExerciseId(exerciseId);
   };
 
@@ -65,13 +62,12 @@ function ExerciseRecommendation({ data }) {
 
   // 상세 페이지 표시
   if (selectedExerciseId) {
-    return <ExerciseDetail exerciseId={selectedExerciseId} onBack={handleBack} />;
+    return <ExerciseDetail exerciseId={selectedExerciseId} t_r={t_r} onBack={handleBack} />;
   }
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>추천 운동 프로그램</h2>
-      {/* 운동 프로그램 리스트 */}
 
       <div className={styles.filterTabs}>
         {riskParts.map((part) => (
