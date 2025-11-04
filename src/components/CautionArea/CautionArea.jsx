@@ -7,7 +7,7 @@ import { useState, useEffect, useMemo } from "react";
 
 
 
-/* ✅ 프록시 URL 변환 함수 */
+/*  프록시 URL 변환 함수 */
 const toProxied = (url, tag) => {
   if (!url) return null;
 
@@ -20,17 +20,16 @@ const toProxied = (url, tag) => {
   }
 };
 
-/* ✅ 배경 투명처리 함수 */
+/*  배경 투명처리 함수 */
 const processToTransparent = (src, threshold = 80) =>
   new Promise((resolve, reject) => {
     if (!src) return resolve(null);
     const img = new Image();
 
-    // ✅ 외부 리소스(CORS) 접근 허용
+    //  외부 리소스(CORS) 접근 허용
     img.crossOrigin = "anonymous";
 
     img.onload = () => {
-      console.log("🎨 이미지 로드 성공:", src);
       try {
         const c = document.createElement("canvas");
         const ctx = c.getContext("2d");

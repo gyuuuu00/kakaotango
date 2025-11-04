@@ -34,6 +34,12 @@
   justify-content: center;
 }
 
+/* 상위에서 데이터 받고 회전해야하는 이미지일경우 왼쪽으로 90도회전 */
+.rotated {
+  transform: rotate(-90deg);
+}
+
+
 .detailList {
   display: flex;
   flex-direction: column;

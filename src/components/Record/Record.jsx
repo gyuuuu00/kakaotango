@@ -17,7 +17,7 @@ function Record() {
         <div className={styles.analysisDetails}>  
           *측정 기록이 부족합니다.
           <br />
-          체형에 대한 결과는 최소 5회 이상이 필요합니다.
+          유형에 대한 결과는 최소 5회 이상이 필요합니다.
           <br />
           꾸준히 내 건강을 관리하여 나의 체형 유형을 파악해보세요.
         </div>

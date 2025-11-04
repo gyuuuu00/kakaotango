@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SquatView.module.css';
 
-function SquatView({ data }) {
+function SquatView({ data, shouldRotate }) {
   console.log('📊 SquatView 받은 데이터:', data);
 
   if (!data) {
@@ -10,8 +10,7 @@ function SquatView({ data }) {
 
   // data 구조 확인 및 안전하게 접근
   if (!data.squat) {
-    console.error('❌ squat 데이터 없음:', data);
-    return <div className={styles.noData}>동적측정 데이터가 없습니다.</div>;
+    return <div className={styles.noData}>동적측정 데이터 로딩 중...</div>;
   }
 
   return (
@@ -22,7 +21,8 @@ function SquatView({ data }) {
           <video 
             src={data.squat.measure_server_file_name}
             controls
-            className={styles.measureVideo}
+            // 화면 전환 안할땐 ShouldRotate false로 설정
+            className={`${styles.measureVideo} ${shouldRotate ? styles.rotated : ''}`}
             playsInline
           >
             동영상을 재생할 수 없습니다.

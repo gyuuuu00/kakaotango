@@ -26,24 +26,38 @@ function MobileBodyReport({ data: initialData, t_r}) {
   const [activeTab, setActiveTab] = useState("종합보기");
   const [data, setData] = useState(null);
   const [headerData, setHeaderData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
+  const [cameraOrientation, setCameraOrientation] = useState(0);
 
 
-  useEffect(() => {
-    const loadData = async () => {
-      if (!t_r) return;
+      useEffect(() => {
+      const loadData = async () => {
+        if (!t_r) return;
 
-      // 종합보기는 App.jsx에서 이미 받은 데이터 사용
-      if (activeTab === "종합보기") {
-        const bodyReportData = initialData?.data ? initialData.data : initialData; // ✅ data.data 대응
-        setData(bodyReportData);
-        if (bodyReportData?.result_summary_data) {
-          setHeaderData(bodyReportData.result_summary_data);
+        // 종합보기는 App.jsx에서 이미 받은 데이터 사용
+        if (activeTab === "종합보기") {
+          const bodyReportData = initialData?.data ? initialData.data : initialData;
+          setData(bodyReportData);          
+          
+          if (bodyReportData?.result_summary_data) {
+
+            // summary_data에서 카메라 방향 여부 확인 후 다른 컴포넌트들한테 전달
+            const orientation = bodyReportData.result_summary_data.camera_orientation || 0;
+            setCameraOrientation(orientation);
+
+
+            // 헤더 날짜 설정(시간 제거)
+            setHeaderData({
+              ...bodyReportData.result_summary_data,
+              measure_date: bodyReportData.result_summary_data.measure_date?.split(' ')[0]  
+            });
+          }
+
+          return;
         }
-        return;
-      }
 
-      setLoading(true);
+        setLoading(true);
+
 
       try {
         let result;
@@ -85,6 +99,8 @@ function MobileBodyReport({ data: initialData, t_r}) {
   const staticMat = data?.static_mat_data || {};
   const dynamicMat = data?.dynamic_mat_data || {};
 
+  const shouldRotate = cameraOrientation === 1 || cameraOrientation === "1";
+
   // === 위험도 변환 ===
   const getRiskStatus = (riskLevel) => {
     const level = String(riskLevel);
@@ -98,21 +114,21 @@ function MobileBodyReport({ data: initialData, t_r}) {
   const addIfRisk = (cond, name, status, y, x, side) => {
     if (cond) cautionAreas.push({ name, status, y, x, side });
   };
-  addIfRisk(summary.risk_neck !== "0" && summary.risk_neck != null, "목", getRiskStatus(summary.risk_neck), 22, 47, "center");
-  addIfRisk(summary.risk_shoulder_left !== "0" && summary.risk_shoulder_left != null, "어깨(좌)", getRiskStatus(summary.risk_shoulder_left), 28, 40, "left");
-  addIfRisk(summary.risk_shoulder_right !== "0" && summary.risk_shoulder_right != null, "어깨(우)", getRiskStatus(summary.risk_shoulder_right), 28, 54, "right");
+  addIfRisk(summary.risk_neck !== "0" && summary.risk_neck != null, "목", getRiskStatus(summary.risk_neck), 20, 46, "center");
+  addIfRisk(summary.risk_shoulder_left !== "0" && summary.risk_shoulder_left != null, "어깨(좌)", getRiskStatus(summary.risk_shoulder_left), 25, 40, "left");
+  addIfRisk(summary.risk_shoulder_right !== "0" && summary.risk_shoulder_right != null, "어깨(우)", getRiskStatus(summary.risk_shoulder_right), 25, 54, "right");
   addIfRisk(summary.risk_elbow_left !== "0" && summary.risk_elbow_left != null, "팔꿈치(좌)", getRiskStatus(summary.risk_elbow_left), 37, 38, "left");
-  addIfRisk(summary.risk_elbow_right !== "0" && summary.risk_elbow_right != null, "팔꿈치(우)", getRiskStatus(summary.risk_elbow_right), 37, 55, "right");
+  addIfRisk(summary.risk_elbow_right !== "0" && summary.risk_elbow_right != null, "팔꿈치(우)", getRiskStatus(summary.risk_elbow_right), 37, 58, "right");
   addIfRisk(summary.risk_hip_left !== "0" && summary.risk_hip_left != null, "골반(좌)", getRiskStatus(summary.risk_hip_left), 48, 42, "left");
   addIfRisk(summary.risk_hip_right !== "0" && summary.risk_hip_right != null, "골반(우)", getRiskStatus(summary.risk_hip_right), 48, 52, "right");
   addIfRisk(summary.risk_knee_left !== "0" && summary.risk_knee_left != null, "무릎(좌)", getRiskStatus(summary.risk_knee_left), 64, 44, "left");
   addIfRisk(summary.risk_knee_right !== "0" && summary.risk_knee_right != null, "무릎(우)", getRiskStatus(summary.risk_knee_right), 64, 50, "right");
-  addIfRisk(summary.risk_ankle_left !== "0" && summary.risk_ankle_left != null, "발목(좌)", getRiskStatus(summary.risk_ankle_left), 75, 43, "left");
+  addIfRisk(summary.risk_ankle_left !== "0" && summary.risk_ankle_left != null, "발목(좌)", getRiskStatus(summary.risk_ankle_left), 75, 41, "left");
   addIfRisk(summary.risk_ankle_right !== "0" && summary.risk_ankle_right != null, "발목(우)", getRiskStatus(summary.risk_ankle_right), 75, 51, "right");
 
   return (
     <div className={styles.page}>
-      <Header userData={headerData || { user_name: "-", test_date: "-" }} />
+      <Header userData={headerData || { user_name: "-", measure_date: "-" }} />
       <TabMenu activeTab={activeTab} onTabChange={setActiveTab} />
       
       {/* 탭별 콘텐츠 표시 */}
@@ -164,10 +180,10 @@ function MobileBodyReport({ data: initialData, t_r}) {
         </>
       )}
 
-      {activeTab === "정면측정" && <FrontView data={data} />}
-      {activeTab === "측면측정" && <SideView data={data} />}
-      {activeTab === "후면측정" && <BackView data={data} />}
-      {activeTab === "동적측정" && <SquatView data={data} />}
+      {activeTab === "정면측정" && <FrontView data={data} shouldRotate={shouldRotate} />}
+      {activeTab === "측면측정" && <SideView data={data} shouldRotate={shouldRotate}/>}
+      {activeTab === "후면측정" && <BackView data={data} shouldRotate={shouldRotate}/>}
+      {activeTab === "동적측정" && <SquatView data={data} shouldRotate={shouldRotate}/>}
       {activeTab === "추천운동" && <ExerciseRecommendation data={data} t_r={t_r} />}
     </div>
   );

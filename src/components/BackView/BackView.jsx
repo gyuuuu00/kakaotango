@@ -1,17 +1,16 @@
 import React from 'react';
 import styles from './BackView.module.css';
 
-function BackView({ data }) {
+function BackView({ data, shouldRotate }) {
   console.log('📊 BackView 받은 데이터:', data);
 
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
   }
 
-  // data 구조 확인 및 안전하게 접근
+  
   if (!data.back || !data.back_sit) {
-    console.error('❌ back 또는 back_sit 데이터 없음:', data);
-    return <div className={styles.noData}>후면 데이터가 없습니다.</div>;
+    return <div className={styles.noData}>후면 데이터 로딩 중...</div>;
   }
 
   return (
@@ -22,7 +21,7 @@ function BackView({ data }) {
           <img 
             src={data.back.measure_server_file_name} 
             alt="후면측정" 
-            className={styles.measureImage}
+            className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
           />
           <p className={styles.imageLabel}>후면측정</p>
         </div>
@@ -31,7 +30,7 @@ function BackView({ data }) {
           <img 
             src={data.back_sit.measure_server_file_name} 
             alt="후면_앉은측정" 
-            className={styles.measureImage}
+            className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
           />
           <p className={styles.imageLabel}>후면_앉은측정</p>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SideView.module.css';
 
-function SideView({ data }) {
+function SideView({ data, shouldRotate }) {
   console.log('📊 SideView 받은 데이터:', data);
   console.log('📊 data 타입:', typeof data);
   console.log('📊 data.left_side:', data?.left_side);
@@ -16,11 +16,9 @@ function SideView({ data }) {
   const leftSide = data.left_side;
   const rightSide = data.right_side;
   
+  
   if (!leftSide || !rightSide) {
-    console.error('❌ left_side 또는 right_side 데이터 없음:', data);
-    console.error('❌ leftSide:', leftSide);
-    console.error('❌ rightSide:', rightSide);
-    return <div className={styles.noData}>측면 데이터가 없습니다.</div>;
+    return <div className={styles.noData}>데이터 로딩 중...</div>;
   }
 
   return (
@@ -32,7 +30,7 @@ function SideView({ data }) {
             <img 
               src={leftSide.measure_server_file_name} 
               alt="왼쪽측면" 
-              className={styles.measureImage}
+              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
             />
             <p className={styles.imageLabel}>왼쪽측면</p>
           </div>
@@ -43,7 +41,7 @@ function SideView({ data }) {
             <img 
               src={rightSide.measure_server_file_name} 
               alt="오른쪽측면" 
-              className={styles.measureImage}
+              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
             />
             <p className={styles.imageLabel}>오른쪽측면</p>
           </div>

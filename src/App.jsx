@@ -94,7 +94,7 @@ export default function App() {
           width: '100%',
           maxWidth: '400px',
           backgroundColor: 'white',
-          padding: '32px',
+          padding: '12px',
           borderRadius: '20px'
         }}>
           <img
@@ -102,7 +102,7 @@ export default function App() {
             alt="Tango Life Design"
             style={{
               display: 'block',
-              margin: '0 auto 24px',
+              margin: '20px auto 24px',
               width: '200px',
               height: 'auto'
             }}
