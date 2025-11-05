@@ -32,8 +32,6 @@ function ExerciseDetail({ exerciseId, t_r, onBack }) {
           headers: { Accept: "application/json" },
         });
         
-        console.log('📡 Response status:', response.status);
-        console.log('📡 Response ok:', response.ok);
         
         if (!response.ok) {
           const errorText = await response.text();
@@ -83,10 +81,6 @@ function ExerciseDetail({ exerciseId, t_r, onBack }) {
 
   return (
     <div className={styles.container}>
-      {/* 뒤로가기 버튼 추가 */}
-      <button onClick={onBack} className={styles.backButton}>
-        ← 돌아가기
-      </button>
 
       {/* 영상 플레이어 */}
       <div className={styles.videoSection}>
@@ -107,9 +101,9 @@ function ExerciseDetail({ exerciseId, t_r, onBack }) {
         
         {/* 메타 정보 */}
         <div className={styles.metaInfo}>
-          <span className={styles.badge}>{exerciseData.exercise_stage}</span>
-          <span className={styles.meta}>{exerciseData.exercise_frequency} - {exerciseData.exercise_intensity}</span>
-          <span className={styles.meta}>⏱ {formatDuration(exerciseData.duration)}</span>
+          <span className={styles.meta}>⏱️ {formatDuration(exerciseData.duration)}</span>
+          <span className={styles.badge}>📶 {exerciseData.exercise_stage}</span>
+          <span className={styles.meta}>🗓️ {exerciseData.exercise_frequency} - {exerciseData.exercise_intensity}</span>
         </div>
 
         {/* 운동 소개 */}

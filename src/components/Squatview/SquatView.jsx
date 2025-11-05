@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './SquatView.module.css';
 
 function SquatView({ data, shouldRotate }) {
   console.log('📊 SquatView 받은 데이터:', data);
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
@@ -13,20 +15,38 @@ function SquatView({ data, shouldRotate }) {
     return <div className={styles.noData}>동적측정 데이터 로딩 중...</div>;
   }
 
+  const handlePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className={styles.container}>
       {/* 상단 영상 영역 */}
       <div className={styles.videoSection}>
         <div className={styles.videoWrapper}>
-          <video 
+          <video
+            ref={videoRef}
             src={data.squat.measure_server_file_name}
-            controls
-            // 화면 전환 안할땐 ShouldRotate false로 설정
-            className={`${styles.measureVideo} ${shouldRotate ? styles.rotated : ''}`}
+            // controls 제거
+            // shouldRotate가 false일 때 왼쪽으로 90도 회전
+            className={`${styles.measureVideo} ${!shouldRotate ? styles.rotated : ''}`}
             playsInline
+            onClick={handlePlayPause}
           >
             동영상을 재생할 수 없습니다.
           </video>
+        </div>
+        <div className={styles.videoControls}>
+          <button onClick={handlePlayPause} className={styles.playButton}>
+            {isPlaying ? '일시정지' : '재생'}
+          </button>
           <p className={styles.videoLabel}>스쿼트 측정</p>
         </div>
       </div>

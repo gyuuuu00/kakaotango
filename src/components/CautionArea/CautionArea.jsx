@@ -3,6 +3,7 @@ import styles from "./CautionArea.module.css";
 import bodyImage from "../../assets/bodyImage.svg";
 import warningDot from "../../assets/warningdot.svg";
 import dangerDot from "../../assets/dangerdot.svg";
+import linkIcon from "../../assets/link.svg";
 import { useState, useEffect, useMemo } from "react";
 
 
@@ -39,7 +40,6 @@ const processToTransparent = (src, threshold = 80) =>
 
         // ✅ 픽셀 접근 테스트
         const im = ctx.getImageData(0, 0, c.width, c.height);
-        console.log("🧩 픽셀 데이터 접근 성공:", im.data.length);
 
         const d = im.data;
         for (let i = 0; i < d.length; i += 4) {
@@ -146,11 +146,11 @@ export default function CautionArea({
     let cancelled = false;
     (async () => {
       const [ps, pd, pk, pkr, pp] = await Promise.allSettled([
-        processToTransparent(urls.footStatic),
-        processToTransparent(urls.footDynamic),
-        processToTransparent(urls.knee),
-        processToTransparent(urls.kneeRight),
-        processToTransparent(urls.pelvis),
+        processToTransparent(urls.footStatic, 200),
+        processToTransparent(urls.footDynamic, 200),
+        processToTransparent(urls.knee, 30),
+        processToTransparent(urls.kneeRight, 30),
+        processToTransparent(urls.pelvis, 30),         
       ]);
       if (cancelled) return;
       setProcessed({
@@ -305,8 +305,9 @@ export default function CautionArea({
           </div>
 
           <div className={styles.body}>
+            {/* 동적 족압 + 골반 */}
             <div className={styles.dynamicGrid}>
-              {/* 1행 왼쪽: 동적 족압 */}
+              {/* 동적 족압 분석 */}
               <div className={styles.gridItem}>
                 <p className={styles.itemLabel}>동적 족압 분석</p>
                 <div className={styles.pressureBox}>
@@ -317,8 +318,6 @@ export default function CautionArea({
                   ) : (
                     <div className={styles.ph}>족압 이미지</div>
                   )}
-
-                  {/* 퍼센트 겹치기 */}
                   <div className={styles.overlay}>
                     <div className={styles.cross}>＋</div>
                     <div className={`${styles.percent} ${styles.top}`}>{pct(matOhs?.top)}</div>
@@ -329,7 +328,7 @@ export default function CautionArea({
                 </div>
               </div>
 
-              {/* 1행 오른쪽: 골반 이동 */}
+              {/* 골반 이동 분석 */}
               <div className={styles.gridItem}>
                 <p className={styles.itemLabel}>골반 이동 분석</p>
                 <div className={styles.pressureBox}>
@@ -342,48 +341,62 @@ export default function CautionArea({
                   )}
                 </div>
               </div>
-
-              {/* 2행 왼쪽: 무릎 L */}
-              <div className={styles.gridItem}>
-                <p className={styles.itemLabel}>무릎 이동 궤적(L)</p>
-                <div className={styles.pressureBox}>
-                  {processed.knee ? (
-                    <img src={processed.knee} alt="왼쪽 무릎 이동 궤적" />
-                  ) : urls.knee ? (
-                    <div className={styles.ph}>처리 중...</div>
-                  ) : (
-                    <div className={styles.ph}>무릎 이동</div>
-                  )}
-                </div>  
-              </div>
-
-              {/* 2행 오른쪽: 무릎 R */}
-              <div className={styles.gridItem}>
-                <p className={styles.itemLabel}>무릎 이동 궤적(R)</p>
-                <div className={styles.pressureBox}>
-                  {processed.kneeRight ? (
-                    <img src={processed.kneeRight} alt="오른쪽 무릎 이동 궤적" />
-                  ) : urls.kneeRight ? (
-                    <div className={styles.ph}>처리 중...</div>
-                  ) : (
-                    <div className={styles.ph}>무릎 이동</div>
-                  )}
-                </div>
-              </div>
             </div>
 
-            {/* 하단 설명 */}
+            {/* 족압 설명 */}
             <div className={styles.captionBox}>
               <p className={styles.captionTitle}>좌우 무게 분석</p>
               <p className={styles.captionText}>{matOhsHorizontalMent}</p>
               <p className={styles.captionTitle}>상하 무게 분석</p>
               <p className={styles.captionText}>{matOhsVerticalMent}</p>
-              <p className={styles.captionTitle}>무릎 이동 분석</p>
-              <p className={styles.captionText}>{matOhsKneeMent || kneeTrajectoryDesc}</p>
+            </div>
+
+            {/* 무릎 섹션 */}
+            <div className={styles.kneeSection}>
+              
+              <div className={styles.kneeGrid}>
+                {/* 무릎 L */}
+                <div className={styles.kneeItem}>
+                  <p className={styles.kneeLabel}>무릎 이동 궤적(L)</p>
+                  <div className={styles.pressureBox}>
+                    {processed.knee ? (
+                      <img src={processed.knee} alt="왼쪽 무릎 이동 궤적" />
+                    ) : urls.knee ? (
+                      <div className={styles.ph}>처리 중...</div>
+                    ) : (
+                      <div className={styles.ph}>무릎 이동</div>
+                    )}
+                  </div>
+                </div>
+
+                 <div className={styles.linkIconWrapper}>
+                  <img src={linkIcon} alt="연결" className={styles.linkIcon} />
+                </div>
+
+                {/* 무릎 R */}
+                <div className={styles.kneeItem}>
+                  <p className={styles.kneeLabel}>무릎 이동 궤적(R)</p>
+                  <div className={styles.pressureBox}>
+                    {processed.kneeRight ? (
+                      <img src={processed.kneeRight} alt="오른쪽 무릎 이동 궤적" />
+                    ) : urls.kneeRight ? (
+                      <div className={styles.ph}>처리 중...</div>
+                    ) : (
+                      <div className={styles.ph}>무릎 이동</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* 무릎 설명 */}
+              <div className={styles.captionBox}>
+                <p className={styles.captionTitle}>무릎 이동 분석</p>
+                <p className={styles.captionText}>{matOhsKneeMent || kneeTrajectoryDesc}</p>
+              </div>
             </div>
           </div>
         </div>
-  </div>
-</div>
+      </div>
+    </div> 
   );
 }
