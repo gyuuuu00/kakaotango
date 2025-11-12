@@ -68,46 +68,59 @@ function DetailedAnalysis({ detailedAnalysis }) {
     return '정상';
   };
 
-  // 배지 스타일
-  const getBadgeStyle = (riskLevel) => {
-    const risk = parseInt(riskLevel);
-    if (risk === 2) return { color: '#dc2626' };
-    if (risk === 1) return {  color: '#d97706' };
-    return { backgroundColor: '#f3f4f6', color: '#6b7280' };
+  // 레벨/상태에 따른 배지 스타일 결정
+  const getBadgeStyle = (level) => {
+    if (!level) return {};
+
+    if (level.includes('위험')) {
+      return { color: '#ff0000' };
+    } else if (level.includes('주의')) {
+      return { color: '#FF8C00' };
+    } else {
+      return { color: '#7e7e7e' };
+    }
   };
 
-  // 화살표 위치 계산 (risk_level 기반)
+  // 레벨에 따른 스타일 (border + 색상)
+  const getLevelStyle = (level) => {
+    if (!level) return {
+      backgroundColor: '#7E7E7E',
+      color: '#ffffff',
+      border: '1px solid #7E7E7E',
+      borderRadius: '8px',
+      padding: '2px 8px'
+    };
+
+    if (level.includes('위험')) return {
+      backgroundColor: '#ff5252',
+      color: '#ffffff',
+      border: '1px solid #ff5252',
+      borderRadius: '8px',
+      padding: '2px 8px'
+    };
+
+    if (level.includes('주의')) return {
+      backgroundColor: '#fff',
+      color: '#FFA73A',
+      border: '1px solid #FFA73A',
+      borderRadius: '8px',
+      padding: '2px 8px'
+    };
+
+    return {
+      backgroundColor: '#ffff',
+      color: '#7E7E7E',
+      border: '1px solid #7E7E7E',
+      borderRadius: '8px',
+      padding: '2px 8px'
+    };
+  };
+
+  // 값에 따라 화살표 위치 계산
   const calculatePosition = (riskLevel) => {
-    const risk = parseInt(riskLevel);
-    if (risk === 0) return 16.5;  // 정상 - 왼쪽
-    if (risk === 1) return 50;    // 주의 - 중앙
-    if (risk === 2) return 83.5;  // 위험 - 오른쪽
-    return 16.5;
-  };
-
-  // 화살표 이미지 선택 (risk_level 기반)
-  const getArrowImage = (riskLevel) => {
-    const risk = parseInt(riskLevel);
-    if (risk === 2) return DangerArrow;
-    if (risk === 1) return WarningArrow;
-    return NormalArrow;
-  };
-
-  // 활성 세그먼트 (risk_level 기반)
-  const getActiveSegment = (riskLevel) => {
-    const risk = parseInt(riskLevel);
-    if (risk === 0) return 'normal';
-    if (risk === 1) return 'warning';
-    if (risk === 2) return 'danger';
-    return 'normal';
-  };
-
-  // 텍스트 색상
-  const getTextColor = (rangeLevel) => {
-    const level = parseInt(rangeLevel);
-    if (level === 3) return '#dc2626';
-    if (level === 2) return '#d97706';
-    return '#9ca3af';
+    if (riskLevel === 0) return 16.5;  // 정상
+    if (riskLevel === 1) return 50;    // 주의
+    return 83.5;                        // 위험
   };
 
   // 부위별 렌더링
@@ -119,48 +132,53 @@ function DetailedAnalysis({ detailedAnalysis }) {
 
     // 가장 높은 위험도 찾기
     const maxRiskLevel = Math.max(...items.map(([_, item]) => parseInt(item.risk_level || 0)));
+    const maxRangeLevel = Math.max(...items.map(([_, item]) => parseInt(item.range_level || 1)));
+    const levelText = `${getRiskText(maxRiskLevel)} ${maxRangeLevel}단계`;
 
     return (
       <div key={partKey} className={styles.categoryGroup}>
         <div className={styles.categoryCell}>
-          <div className={styles.categoryBadge} style={getBadgeStyle(maxRiskLevel)}>
+          <div className={styles.categoryBadge} style={getBadgeStyle(levelText)}>
             {partNames[partKey]}
           </div>
-          <div className={styles.categoryLevel} style={{ color: getTextColor(maxRiskLevel) }}>
-            {getRiskText(maxRiskLevel)} {Math.max(...items.map(([_, item]) => parseInt(item.range_level || 1)))}단계
-          </div>
+          {levelText && (
+            <div className={styles.categoryLevel} style={getLevelStyle(levelText)}>
+              {levelText}
+            </div>
+          )}
         </div>
 
         <div className={styles.measureRows}>
           {items.map(([itemKey, item]) => {
-            const activeSegment = getActiveSegment(item.risk_level);
-            const arrowImage = getArrowImage(item.risk_level);
-            const position = calculatePosition(item.risk_level);
+            const riskLevel = parseInt(item.risk_level || 0);
+            const rangeLevel = parseInt(item.range_level || 1);
+            const arrowImage = riskLevel === 2 ? DangerArrow :
+                              riskLevel === 1 ? WarningArrow :
+                              NormalArrow;
+            const position = calculatePosition(riskLevel);
+            const textColor = riskLevel === 0 ? '#CDCDCD' :
+                             riskLevel === 1 ? '#FF8C00' :
+                             '#FF0000';
 
             return (
               <div key={itemKey} className={styles.measureRow}>
                 <div className={styles.measureText}>{measureNameMap[itemKey] || item.measure_unit}</div>
                 <div className={styles.measureStatus}>
                   <div className={styles.statusBar}>
-                    <div className={`${styles.barSegment} ${activeSegment === 'normal' ? styles.active : ''}`} data-status="normal"></div>
-                    <div className={`${styles.barSegment} ${activeSegment === 'warning' ? styles.active : ''}`} data-status="warning"></div>
-                    <div className={`${styles.barSegment} ${activeSegment === 'danger' ? styles.active : ''}`} data-status="danger"></div>
+                    <div className={`${styles.barSegment} ${riskLevel === 0 ? styles.active : ''}`} data-status="normal"></div>
+                    <div className={`${styles.barSegment} ${riskLevel === 1 ? styles.active : ''}`} data-status="warning"></div>
+                    <div className={`${styles.barSegment} ${riskLevel === 2 ? styles.active : ''}`} data-status="danger"></div>
 
-                    <img 
+                    <img
                       src={arrowImage}
                       alt="status arrow"
                       className={styles.statusIndicator}
                       style={{ left: `${position}%` }}
                     />
                   </div>
-                  <div className={styles.stageLabels}>
-                    <span className={styles.stageLabel} style={{ 
-                      position: 'absolute',
-                      left: `${position}%`,
-                      transform: 'translateX(-50%)',
-                      transition: 'left 0.3s ease'
-                    }}>{item.range_level || 1}단계</span>
-                  </div>
+                  <span className={styles.statusValue} style={{left: `${position}%`, color: textColor}}>
+                    {rangeLevel}단계
+                  </span>
                 </div>
               </div>
             );
