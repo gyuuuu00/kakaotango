@@ -1,4 +1,3 @@
-// CautionArea.jsx
 import styles from "./CautionArea.module.css";
 import bodyImage from "../../assets/bodyImage.svg";
 import warningDot from "../../assets/warningdot.svg";
@@ -148,9 +147,9 @@ export default function CautionArea({
       const [ps, pd, pk, pkr, pp] = await Promise.allSettled([
         processToTransparent(urls.footStatic, 200),
         processToTransparent(urls.footDynamic, 200),
-        processToTransparent(urls.knee, 30),
-        processToTransparent(urls.kneeRight, 30),
-        processToTransparent(urls.pelvis, 30),         
+        processToTransparent(urls.knee, 85),
+        processToTransparent(urls.kneeRight, 85),
+        processToTransparent(urls.pelvis, 80),         
       ]);
       if (cancelled) return;
       setProcessed({

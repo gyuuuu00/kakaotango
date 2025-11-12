@@ -16,21 +16,25 @@ function FrontView({ data, shouldRotate }) {
     <div className={styles.container}>
       {/* 상단 이미지 영역 */}
       <div className={styles.imageSection}>
-        <div className={styles.imageWrapper}>
-          <img 
-            src={frontData.static_front.measure_server_file_name} 
-            alt="정면측정" 
-            className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
-          />
+        <div className={styles.imageItem}>
+          <div className={styles.imageWrapper}>
+            <img
+              src={frontData.static_front.measure_server_file_name}
+              alt="정면측정"
+              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
+            />
+          </div>
           <p className={styles.imageLabel}>정면측정</p>
         </div>
-        
-        <div className={styles.imageWrapper}>
-          <img 
-            src={frontData.static_elbow.measure_server_file_name} 
-            alt="정면_발끝측정" 
-            className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
-          />
+
+        <div className={styles.imageItem}>
+          <div className={styles.imageWrapper}>
+            <img
+              src={frontData.static_elbow.measure_server_file_name}
+              alt="정면_발끝측정"
+              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
+            />
+          </div>
           <p className={styles.imageLabel}>정면_발끝측정</p>
         </div>
       </div>

@@ -20,6 +20,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
       },
+      "/data": {
+        target: "https://gym.tangoplus.co.kr",
+        changeOrigin: true,
+        secure: true,
+      },
       "/api/img-proxy": {
         target: "https://gym.tangoplus.co.kr",
         changeOrigin: true,

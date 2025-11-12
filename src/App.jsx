@@ -110,14 +110,14 @@ export default function App() {
           <h2 style={{
             marginBottom: '10px',
             fontSize: '20px',
-            color: '#374151'
-          }}>탱고바디 사용자 조회</h2>
+            color: '#444444',
+          }}>탱고바디 결과 조회 </h2>
 
-          <h4 style={{ 
+          <p style={{ 
             marginBottom: '24px',
             fontSize: '16px',
             color: '#444444'
-          }}>전화번호</h4>
+          }}>탱고바디 측정 후 등록하셨던 전화번호를 입력하세요.</p>
 
           
           <form onSubmit={handleSubmit}>
@@ -141,9 +141,9 @@ export default function App() {
               type="submit"
               style={{
                 width: '100%',
-                padding: '14px',
-                fontSize: '16px',
-                backgroundColor: '#7e7e7e',
+                padding: '12px',
+                fontSize: '12px',
+                backgroundColor: '#5E5E5E',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',

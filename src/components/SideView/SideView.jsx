@@ -26,23 +26,27 @@ function SideView({ data, shouldRotate }) {
       {/* 상단 이미지 영역 */}
       <div className={styles.imageSection}>
         {leftSide.measure_server_file_name && (
-          <div className={styles.imageWrapper}>
-            <img 
-              src={leftSide.measure_server_file_name} 
-              alt="왼쪽측면" 
-              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
-            />
+          <div className={styles.imageItem}>
+            <div className={styles.imageWrapper}>
+              <img
+                src={leftSide.measure_server_file_name}
+                alt="왼쪽측면"
+                className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
+              />
+            </div>
             <p className={styles.imageLabel}>왼쪽측면</p>
           </div>
         )}
-        
+
         {rightSide.measure_server_file_name && (
-          <div className={styles.imageWrapper}>
-            <img 
-              src={rightSide.measure_server_file_name} 
-              alt="오른쪽측면" 
-              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
-            />
+          <div className={styles.imageItem}>
+            <div className={styles.imageWrapper}>
+              <img
+                src={rightSide.measure_server_file_name}
+                alt="오른쪽측면"
+                className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
+              />
+            </div>
             <p className={styles.imageLabel}>오른쪽측면</p>
           </div>
         )}

@@ -199,9 +199,9 @@
   border-radius: 6px;
 }
 
-.ok { background: #f8f8f8; color: #a4a4a4; }
-.warn { background: #f7e2c7; color: #cb7913; }
-.dang { background: #d69d9e; color: #70282a; }
+.ok {border: 1px solid #D9D9D9; background: #ffff; color: #7E7E7E; }
+.warn {border:1px solid #FFA73A; background: #FFFFFF; color: #FFA73A; }
+.dang { background: #FF5252; color: #FFFFFF; }
 
 .stateful,
 .desc,
@@ -351,7 +351,7 @@
 
 /* 캡션 박스 */
 .captionBox {
-  margin: 20px;
+  margin: 15px;
   font-size: 12px;
   color: #444;
 }
@@ -489,6 +489,7 @@
 }
 
 .linkIcon {
+  margin-top: 30px;
   width: 24px;
   height: 24px;
   opacity: 0.6;

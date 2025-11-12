@@ -17,21 +17,25 @@ function BackView({ data, shouldRotate }) {
     <div className={styles.container}>
       {/* 상단 이미지 영역 */}
       <div className={styles.imageSection}>
-        <div className={styles.imageWrapper}>
-          <img 
-            src={data.back.measure_server_file_name} 
-            alt="후면측정" 
-            className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
-          />
+        <div className={styles.imageItem}>
+          <div className={styles.imageWrapper}>
+            <img
+              src={data.back.measure_server_file_name}
+              alt="후면측정"
+              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
+            />
+          </div>
           <p className={styles.imageLabel}>후면측정</p>
         </div>
-        
-        <div className={styles.imageWrapper}>
-          <img 
-            src={data.back_sit.measure_server_file_name} 
-            alt="후면_앉은측정" 
-            className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
-          />
+
+        <div className={styles.imageItem}>
+          <div className={styles.imageWrapper}>
+            <img
+              src={data.back_sit.measure_server_file_name}
+              alt="후면_앉은측정"
+              className={`${styles.measureImage} ${shouldRotate ? styles.rotated : ''}`}
+            />
+          </div>
           <p className={styles.imageLabel}>후면_앉은측정</p>
         </div>
       </div>
