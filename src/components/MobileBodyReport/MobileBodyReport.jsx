@@ -156,7 +156,6 @@ function MobileBodyReport({ data: initialData, t_r}) {
             matStaticHorizontalMent={staticMat?.mat_static_horizontal_ment}
             matStaticVerticalMent={staticMat?.mat_static_vertical_ment}
 
-            /* ✅ 동적 족압 데이터 */
             footPressureDynamicUrl={dynamicMat?.mat_hip_down_image_name}
             matOhs={{
               top: summary?.mat_ohs_top_pressure,
@@ -168,7 +167,6 @@ function MobileBodyReport({ data: initialData, t_r}) {
             matOhsVerticalMent={dynamicMat?.mat_ohs_vertical_ment}
             matOhsKneeMent={dynamicMat?.mat_ohs_knee_ment}
 
-            /* ✅ 궤적 이미지 */
             kneeTrajectoryUrl={dynamicMat?.mat_left_knee_trajectory_image_name}
             kneeRightTrajectoryUrl={dynamicMat?.mat_right_knee_trajectory_image_name}
             pelvisTrajectoryUrl={dynamicMat?.mat_hip_trajectory_image_name}
@@ -184,7 +182,7 @@ function MobileBodyReport({ data: initialData, t_r}) {
       {activeTab === "측면측정" && <SideView data={data} shouldRotate={shouldRotate}/>}
       {activeTab === "후면측정" && <BackView data={data} shouldRotate={shouldRotate}/>}
       {activeTab === "동적측정" && <SquatView data={data} 
-      // shouldRotate={shouldRotate}
+
       />}
       {activeTab === "추천운동" && <ExerciseRecommendation data={data} t_r={t_r} />}
     </div>

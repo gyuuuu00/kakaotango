@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ExerciseDetail.module.css';
+import exitIcon from '../../assets/exit.svg';
 
 const API_BASE = import.meta.env.DEV
   ? '/admin_api'
@@ -81,6 +82,13 @@ function ExerciseDetail({ exerciseId, t_r, onBack }) {
 
   return (
     <div className={styles.container}>
+      {/* 헤더 with 뒤로가기 */}
+      <div className={styles.header}>
+        <button onClick={onBack} className={styles.backButton}>
+          <img src={exitIcon} alt="exit" className={styles.exitIcon} />
+          돌아가기
+        </button>
+      </div>
 
       {/* 영상 플레이어 */}
       <div className={styles.videoSection}>

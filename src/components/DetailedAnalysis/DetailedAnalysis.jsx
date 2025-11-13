@@ -197,11 +197,11 @@ function DetailedAnalysis({ detailedAnalysis }) {
             <div className={styles.colCategory}>상체분석</div>
             <div className={styles.colMeasure}>측정 기준</div>
             <div className={styles.colStatus}>
-              <span className={styles.statusLabel} style={{color:'#9ca3af'}}>정상</span>
-              <span className={styles.arrowIcon}>▶</span>
-              <span className={styles.statusLabel} style={{color:'#d97706'}}>주의</span>
-              <span className={styles.arrowIcon}>▶</span>
-              <span className={styles.statusLabel} style={{color:'#dc2626'}}>위험</span>
+              <span className={styles.statusLabel} style={{left: '16.5%', color:'#d9d9d9'}}>정상</span>
+              <span className={styles.arrowIcon} style={{left: '33.25%'}}>▶</span>
+              <span className={styles.statusLabel} style={{left: '50%', color:'#ff8c00'}}>주의</span>
+              <span className={styles.arrowIcon} style={{left: '65.75%'}}>▶</span>
+              <span className={styles.statusLabel} style={{left: '83.5%', color:'#F11212'}}>위험</span>
             </div>
           </div>
 
@@ -216,11 +216,11 @@ function DetailedAnalysis({ detailedAnalysis }) {
             <div className={styles.colCategory}>하체분석</div>
             <div className={styles.colMeasure}>측정 기준</div>
             <div className={styles.colStatus}>
-              <span className={styles.statusLabel} style={{color:'#9ca3af'}}>정상</span>
-              <span className={styles.arrowIcon}>▶</span>
-              <span className={styles.statusLabel} style={{color:'#d97706'}}>주의</span>
-              <span className={styles.arrowIcon}>▶</span>
-              <span className={styles.statusLabel} style={{color:'#dc2626'}}>위험</span>
+              <span className={styles.statusLabel} style={{left: '16.5%', color:'#d9d9d9'}}>정상</span>
+              <span className={styles.arrowIcon} style={{left: '33.25%'}}>▶</span>
+              <span className={styles.statusLabel} style={{left: '50%', color:'#ff8c00'}}>주의</span>
+              <span className={styles.arrowIcon} style={{left: '65.75%'}}>▶</span>
+              <span className={styles.statusLabel} style={{left: '83.5%', color:'#F11212'}}>위험</span>
             </div>
           </div>
 

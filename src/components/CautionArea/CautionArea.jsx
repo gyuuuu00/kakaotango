@@ -212,17 +212,21 @@ export default function CautionArea({
       <div className={`${styles.card} ${styles.cell2}`}>
         <div className={styles.body}>
           <div className={styles.textBox1}>
-            <h4 className={styles.sub}>상지 결과요약</h4>
-            <span className={`${styles.levelTag} ${getLevelClass(riskUpperRiskLevel)}`}>
-              {getLevelText(riskUpperRiskLevel, riskUpperRangeLevel)}
-            </span>
+            <div className={styles.headRow}>
+              <h4 className={styles.sub}>상지 결과요약</h4>
+              <span className={`${styles.levelTag} ${getLevelClass(riskUpperRiskLevel)}`}>
+                {getLevelText(riskUpperRiskLevel, riskUpperRangeLevel)}
+              </span>
+            </div>
             <p className={styles.txt}>{upperSummary}</p>
           </div>
           <div className={styles.textBox2}>
-            <h4 className={styles.sub}>하지 결과요약</h4>
-            <span className={`${styles.levelTag} ${getLevelClass(riskLowerRiskLevel)}`}>
-              {getLevelText(riskLowerRiskLevel, riskLowerRangeLevel)}
-            </span>
+            <div className={styles.headRow}>
+              <h4 className={styles.sub}>하지 결과요약</h4>
+              <span className={`${styles.levelTag} ${getLevelClass(riskLowerRiskLevel)}`}>
+                {getLevelText(riskLowerRiskLevel, riskLowerRangeLevel)}
+              </span>
+            </div>
             <p className={styles.txt}>{lowerSummary}</p>
           </div>
         </div>

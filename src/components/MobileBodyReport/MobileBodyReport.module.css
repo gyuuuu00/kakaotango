@@ -31,3 +31,9 @@
     padding: 12px;
   }
 }
+
+/* 측정 뷰 공통 wrapper */
+.viewWrapper {
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
