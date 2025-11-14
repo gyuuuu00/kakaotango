@@ -31,6 +31,21 @@
   justify-content: center;
 }
 
+.landmarkOverlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 마우스 이벤트 막기 */
+}
+
+/* 랜드마크 점 스타일 */
+.landmarkDot {
+  fill: #ff4a4a;
+  stroke: #ffffff;
+  stroke-width: 1;
+}
+
 .measureImage {
   /* width: 100%; */
   height: 60%;

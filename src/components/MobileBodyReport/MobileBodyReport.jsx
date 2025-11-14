@@ -178,7 +178,7 @@ function MobileBodyReport({ data: initialData, t_r}) {
         </>
       )}
 
-      {activeTab === "정면측정" && <FrontView data={data} shouldRotate={shouldRotate} />}
+      {activeTab === "정면측정" && <FrontView data={data} cameraOrientation={cameraOrientation} />}
       {activeTab === "측면측정" && <SideView data={data} shouldRotate={shouldRotate}/>}
       {activeTab === "후면측정" && <BackView data={data} shouldRotate={shouldRotate}/>}
       {activeTab === "동적측정" && <SquatView data={data} 

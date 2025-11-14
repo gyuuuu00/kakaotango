@@ -65,7 +65,12 @@ const processToTransparent = (src, threshold = 80) =>
   });
 
 /* ✅ 퍼센트 표기 함수 */
-const pct = (v) => (Number.isFinite(+v) ? Math.round(+v) + "%" : "-");
+const pct = (v) => {
+  const num = +v;
+  if (!Number.isFinite(num)) return "-";
+  const floored = Math.floor(num);
+  return floored + "%";
+};
 
 export default function CautionArea({
   // --- 공통 데이터 ---

@@ -11,33 +11,55 @@
 }
 
 .imageItem {
-  flex: 1;
+  width: 180px;
+  height: 356px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  max-width: 180px;
 }
 
 .imageWrapper {
   width: 100%;
-  aspect-ratio: 9 / 16;
+  height: 100%;
   background-color: #000;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+.poseSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.measureImage {
-  /* width: 100%; */
-  height: 60%;
-  border-radius: 6px;
+.fallbackImage {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  flex-shrink: 0;
+  display: block;
 }
+
+/* 랜드마크 줄 */
+.centerLine {
+  stroke: #ff0000;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+
+.horizontalLine {
+  stroke: #01d5e5;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.verticalLine {
+  stroke: #24ad6e;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
 
 .imageLabel {
   margin: 6px auto 0;
@@ -52,10 +74,6 @@
   justify-content: center;
 }
 
-/* 상위에서 데이터 받고 회전해야하는 이미지일경우 왼쪽으로 90도회전 */
-.rotated {
-  transform: rotate(-90deg);
-}
 
 
 .detailList {

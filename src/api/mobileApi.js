@@ -53,7 +53,48 @@ export const fetchFrontView = async (t_r) => {
   });
 
   if (!response.ok) throw new Error("정면측정 데이터 로드 실패");
-  return await response.json();
+
+  const result = await response.json();
+  console.log("✅ 정면측정 API 응답:", result);
+
+  // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
+  const data = result.data || result;
+
+  // 개발 환경에서는 프록시를 통해 fetch하도록 URL 변환
+  const getProxiedUrl = (url) => {
+    if (import.meta.env.DEV && url) {
+      return url.replace('https://gym.tangoplus.co.kr', '');
+    }
+    return url;
+  };
+
+  if (data.static_front && !data.static_front.pose_landmark && data.static_front.measure_server_json_name) {
+    try {
+      const jsonUrl = getProxiedUrl(data.static_front.measure_server_json_name);
+      const jsonResponse = await fetch(jsonUrl);
+      const jsonData = await jsonResponse.json();
+      data.static_front.pose_landmark = jsonData.pose_landmark || [];
+      console.log("✅ static_front pose_landmark 추가:", data.static_front.pose_landmark.length);
+    } catch (err) {
+      console.error("❌ static_front JSON 로드 실패:", err);
+      data.static_front.pose_landmark = [];
+    }
+  }
+
+  if (data.static_elbow && !data.static_elbow.pose_landmark && data.static_elbow.measure_server_json_name) {
+    try {
+      const jsonUrl = getProxiedUrl(data.static_elbow.measure_server_json_name);
+      const jsonResponse = await fetch(jsonUrl);
+      const jsonData = await jsonResponse.json();
+      data.static_elbow.pose_landmark = jsonData.pose_landmark || [];
+      console.log("✅ static_elbow pose_landmark 추가:", data.static_elbow.pose_landmark.length);
+    } catch (err) {
+      console.error("❌ static_elbow JSON 로드 실패:", err);
+      data.static_elbow.pose_landmark = [];
+    }
+  }
+
+  return result;
 };
 
 /** ✅ 측면측정 */
@@ -70,6 +111,43 @@ export const fetchSideView = async (t_r) => {
   const result = await response.json();
   console.log("✅ 측면측정 API 응답:", result);
 
+  // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
+  const data = result.data || result;
+
+  // 개발 환경에서는 프록시를 통해 fetch하도록 URL 변환
+  const getProxiedUrl = (url) => {
+    if (import.meta.env.DEV && url) {
+      return url.replace('https://gym.tangoplus.co.kr', '');
+    }
+    return url;
+  };
+
+  if (data.left_side && !data.left_side.pose_landmark && data.left_side.measure_server_json_name) {
+    try {
+      const jsonUrl = getProxiedUrl(data.left_side.measure_server_json_name);
+      const jsonResponse = await fetch(jsonUrl);
+      const jsonData = await jsonResponse.json();
+      data.left_side.pose_landmark = jsonData.pose_landmark || [];
+      console.log("✅ left_side pose_landmark 추가:", data.left_side.pose_landmark.length);
+    } catch (err) {
+      console.error("❌ left_side JSON 로드 실패:", err);
+      data.left_side.pose_landmark = [];
+    }
+  }
+
+  if (data.right_side && !data.right_side.pose_landmark && data.right_side.measure_server_json_name) {
+    try {
+      const jsonUrl = getProxiedUrl(data.right_side.measure_server_json_name);
+      const jsonResponse = await fetch(jsonUrl);
+      const jsonData = await jsonResponse.json();
+      data.right_side.pose_landmark = jsonData.pose_landmark || [];
+      console.log("✅ right_side pose_landmark 추가:", data.right_side.pose_landmark.length);
+    } catch (err) {
+      console.error("❌ right_side JSON 로드 실패:", err);
+      data.right_side.pose_landmark = [];
+    }
+  }
+
   return result;
 };
 
@@ -83,7 +161,48 @@ export const fetchBackView = async (t_r) => {
   });
 
   if (!response.ok) throw new Error("후면측정 데이터 로드 실패");
-  return await response.json();
+
+  const result = await response.json();
+  console.log("✅ 후면측정 API 응답:", result);
+
+  // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
+  const data = result.data || result;
+
+  // 개발 환경에서는 프록시를 통해 fetch하도록 URL 변환
+  const getProxiedUrl = (url) => {
+    if (import.meta.env.DEV && url) {
+      return url.replace('https://gym.tangoplus.co.kr', '');
+    }
+    return url;
+  };
+
+  if (data.back && !data.back.pose_landmark && data.back.measure_server_json_name) {
+    try {
+      const jsonUrl = getProxiedUrl(data.back.measure_server_json_name);
+      const jsonResponse = await fetch(jsonUrl);
+      const jsonData = await jsonResponse.json();
+      data.back.pose_landmark = jsonData.pose_landmark || [];
+      console.log("✅ back pose_landmark 추가:", data.back.pose_landmark.length);
+    } catch (err) {
+      console.error("❌ back JSON 로드 실패:", err);
+      data.back.pose_landmark = [];
+    }
+  }
+
+  if (data.back_sit && !data.back_sit.pose_landmark && data.back_sit.measure_server_json_name) {
+    try {
+      const jsonUrl = getProxiedUrl(data.back_sit.measure_server_json_name);
+      const jsonResponse = await fetch(jsonUrl);
+      const jsonData = await jsonResponse.json();
+      data.back_sit.pose_landmark = jsonData.pose_landmark || [];
+      console.log("✅ back_sit pose_landmark 추가:", data.back_sit.pose_landmark.length);
+    } catch (err) {
+      console.error("❌ back_sit JSON 로드 실패:", err);
+      data.back_sit.pose_landmark = [];
+    }
+  }
+
+  return result;
 };
 
 /** ✅ 동적측정 */
