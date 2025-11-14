@@ -1,12 +1,11 @@
 .container {
   padding: 16px;
-  max-width: 320px;
+  max-width: 360px;
   margin: 0 auto;
 }
 
 .imageSection {
   display: flex;
-  gap: 8px;
   margin-bottom: 20px;
 }
 
@@ -27,6 +26,7 @@
   overflow: hidden;
   position: relative;
 }
+
 .poseSvg {
   width: 100%;
   height: 100%;
@@ -40,14 +40,14 @@
   display: block;
 }
 
-/* 랜드마크 줄 */
+/* 가운데 세로 라인 */
 .centerLine {
   stroke: #ff0000;
   stroke-width: 2;
   stroke-linecap: round;
 }
 
-
+/* 가로 / 세로 라인 */
 .horizontalLine {
   stroke: #01d5e5;
   stroke-width: 2;
@@ -60,22 +60,7 @@
   stroke-linecap: round;
 }
 
-
-.imageLabel {
-  margin: 6px auto 0;
-  font-size: 11px;
-  color: #454545;
-  width: 100px;
-  height: 20px;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
+/* 아래 디테일 카드 쪽 */
 .detailList {
   display: flex;
   flex-direction: column;
@@ -89,7 +74,6 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
-/* 상단 헤더 영역 */
 .topSection {
   display: flex;
   justify-content: space-between;
@@ -167,7 +151,6 @@
   position: relative;
 }
 
-/* 하단 설명 영역 */
 .bottomSection {
   padding: 8px 10px;
   background: #f5f5f5;
@@ -176,11 +159,22 @@
   align-items: center;
 }
 
-
-
 .ment {
   font-size: 10px;
   color: #666;
   line-height: 1.4;
   margin: 0;
+}
+
+.imageLabel {
+  margin: 6px auto 0;
+  font-size: 11px;
+  color: #454545;
+  width: 100px;
+  height: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

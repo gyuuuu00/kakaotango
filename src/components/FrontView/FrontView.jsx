@@ -20,7 +20,7 @@ function FrontView({ data, shouldRotate }) {
           <PoseImageOverlay
             src={frontData.static_front.measure_server_file_name}
             alt="정면측정"
-            shouldRotate={shouldRotate} 
+            shouldRotate={true} 
             poseLandmarks={frontData.static_front.pose_landmark}
           />
           <p className={styles.imageLabel}>정면측정</p>
@@ -50,21 +50,8 @@ function FrontView({ data, shouldRotate }) {
   );
 }
 function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
-  const [imgSize, setImgSize] = useState(null);
-
-  // 1) 이미지 원본 크기 가져오기 (1194 x 671 이런 값)
-  useEffect(() => {
-    if (!src) return;
-    const img = new Image();
-    img.onload = () => {
-      setImgSize({ width: img.naturalWidth, height: img.naturalHeight });
-      console.log('🖼 원본 크기:', img.naturalWidth, img.naturalHeight);
-    };
-    img.src = src;
-  }, [src]);
-
-  // 랜드마크 없거나, 아직 이미지 크기 못 읽었으면 그냥 이미지만
-  if (!Array.isArray(poseLandmarks) || poseLandmarks.length === 0 || !imgSize) {
+  // 랜드마크 없으면 그냥 이미지
+  if (!Array.isArray(poseLandmarks) || poseLandmarks.length === 0) {
     return (
       <div className={styles.imageWrapper}>
         <img src={src} alt={alt} className={styles.fallbackImage} />
@@ -72,7 +59,12 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
     );
   }
 
-  const { width: imgW, height: imgH } = imgSize;
+  // 🔹 좌표계 크기 (세로 기준)
+  const maxX = Math.max(...poseLandmarks.map((p) => p.sx));
+  const maxY = Math.max(...poseLandmarks.map((p) => p.sy));
+
+  const viewW = maxX;
+  const viewH = maxY;
 
   // index → point 맵
   const pointMap = new Map();
@@ -85,26 +77,25 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
     return p && p.isActive ? p : null;
   };
 
+  // 1) index 0 기준 전신 세로 라인 (#FF0000)
   const activePoints = poseLandmarks.filter((p) => p.isActive);
-
-  // 1) 가운데 전신 라인 (index 0 기준)
   const centerPoint = getPoint(0);
   let centerLine = null;
   if (centerPoint && activePoints.length > 0) {
     const minY = Math.min(...activePoints.map((p) => p.sy));
-    const maxY = Math.max(...activePoints.map((p) => p.sy));
+    const maxY2 = Math.max(...activePoints.map((p) => p.sy));
     centerLine = (
       <line
         x1={centerPoint.sx}
         y1={minY}
         x2={centerPoint.sx}
-        y2={maxY}
+        y2={maxY2}
         className={styles.centerLine}
       />
     );
   }
 
-  // 2) 가로 라인들
+  // 2) 가로 라인 (#01D5E5)
   const horizontalPairs = [
     [7, 8],
     [11, 12],
@@ -132,7 +123,7 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
     );
   });
 
-  // 3) 세로 라인들
+  // 3) 세로 라인 (#24AD6E) – 3개씩 연결
   const verticalTriples = [
     [12, 14, 16],
     [11, 13, 15],
@@ -174,38 +165,44 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
     return segs;
   });
 
-  // 이미지+선 전체 회전 (필요할 때만)
-  const cx = imgW / 2;
-  const cy = imgH / 2;
-  const groupTransform = shouldRotate ? `rotate(-90 ${cx} ${cy})` : undefined;
+  // 🔹 이미지만 세로 좌표계에 맞게 -90도 회전
+  // viewBox는 세로 기준 (viewW x viewH)
+  // 가로로 누워 있는 비트맵을 세로 좌표계에 맞춰서 돌리려면
+  // width/height를 바꾸고, (0, viewH) 기준으로 -90도 회전
+  const imageWidth = shouldRotate ? viewH : viewW;
+  const imageHeight = shouldRotate ? viewW : viewH;
+  const imageTransform = shouldRotate
+    ? `translate(0 ${viewH}) rotate(-90)` // 왼쪽으로 90도
+    : undefined;
 
   return (
     <div className={styles.imageWrapper}>
       <svg
         className={styles.poseSvg}
-        viewBox={`0 0 ${imgW} ${imgH}`}   // 🔥 원본 크기 기준 좌표계
+        viewBox={`0 0 ${viewW} ${viewH}`}
         preserveAspectRatio="xMidYMid meet"
       >
-        <g transform={groupTransform}>
-          {/* 원본 이미지 */}
-          <image
-            href={src}
-            x="0"
-            y="0"
-            width={imgW}
-            height={imgH}
-            preserveAspectRatio="none"   // 좌표와 1:1로 맞추기
-          />
+        {/* 🖼 비트맵만 회전 */}
+        <image
+          href={src}
+          x="0"
+          y="0"
+          width={imageWidth}
+          height={imageHeight}
+          transform={imageTransform}
+          preserveAspectRatio="xMidYMid meet"
+        />
 
-          {/* 그 위에 선 */}
-          {centerLine}
-          {horizontalLines}
-          {verticalLines}
-        </g>
+        {/* 🎯 좌표는 세로 기준 그대로 */}
+        {centerLine}
+        {horizontalLines}
+        {verticalLines}
       </svg>
     </div>
   );
 }
+
+
 
 
 function DetailItem({ data }) {
