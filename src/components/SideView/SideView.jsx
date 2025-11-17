@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './SideView.module.css';
 
-function SideView({ data, shouldRotate }) {
+function SideView({ data, cameraOrientation }) {
 
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
@@ -15,6 +15,8 @@ function SideView({ data, shouldRotate }) {
   if (!leftSide || !rightSide) {
     return <div className={styles.noData}>데이터 로딩 중...</div>;
   }
+
+  const shouldRotate = cameraOrientation === 1;
 
   return (
     <div className={styles.container}>
@@ -59,6 +61,30 @@ function SideView({ data, shouldRotate }) {
 }
 
 function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
+  // 🔹 랜드마크 작업 모두 주석처리 - 이미지만 표시
+  // camera_orientation: 0이면 그대로, 1이면 왼쪽으로 90도 회전 (9:16)
+
+  const wrapperStyle = shouldRotate
+    ? { aspectRatio: '16 / 9' }
+    : {};
+
+  const imageStyle = shouldRotate
+    ? { transform: 'rotate(-90deg)', maxHeight: '100%' }  // 왼쪽으로 90도
+    : {};
+
+  return (
+    <div className={styles.imageWrapper} style={wrapperStyle}>
+      <img
+        src={src}
+        alt={alt}
+        className={styles.measureImage}
+        style={imageStyle}
+      />
+    </div>
+  );
+
+  /* ===== 포즈 랜드마크 작업 주석처리 =====
+
   const wrapperRef = useRef(null);
   const imgRef = useRef(null);
   const [layout, setLayout] = useState(null);
@@ -126,13 +152,11 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
       offsetY,
     } = layout;
 
-    // 좌표는 회전 안 함 (원본 그대로)
     const transformedSx = p.sx;
     const transformedSy = p.sy;
     const currentMaxSx = maxSx;
     const currentMaxSy = maxSy;
 
-    // object-fit: cover 와 동일한 스케일 계산 (이미지 영역 기준)
     const scale = Math.max(
       imageWidth / currentMaxSx,
       imageHeight / currentMaxSy
@@ -141,59 +165,34 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
     const displayW = currentMaxSx * scale;
     const displayH = currentMaxSy * scale;
 
-    // cover 때문에 잘려나간 부분 (양쪽 / 위아래)
     const croppedOffsetX = (displayW - imageWidth) / 2;
     const croppedOffsetY = (displayH - imageHeight) / 2;
 
-    // 원본(sx, sy) → 스케일 → 잘린 만큼 보정 → wrapper 좌표로 이동
     const x = offsetX + transformedSx * scale - croppedOffsetX;
     const y = offsetY + transformedSy * scale - croppedOffsetY;
 
     return { x, y };
   };
 
-  // MediaPipe Pose 랜드마크 가져오기
   const getLandmark = (index) => poseLandmarks.find(p => p.index === index);
 
-  // 랜드마크 포인트들
   const landmarks = {
-    0: getLandmark(0),   // 코
-    7: getLandmark(7),   // 왼쪽 귀
-    8: getLandmark(8),   // 오른쪽 귀
-    11: getLandmark(11), // 왼쪽 어깨
-    12: getLandmark(12), // 오른쪽 어깨
-    13: getLandmark(13), // 왼쪽 팔꿈치
-    14: getLandmark(14), // 오른쪽 팔꿈치
-    15: getLandmark(15), // 왼쪽 손목
-    16: getLandmark(16), // 오른쪽 손목
-    23: getLandmark(23), // 왼쪽 골반
-    24: getLandmark(24), // 오른쪽 골반
-    25: getLandmark(25), // 왼쪽 무릎
-    26: getLandmark(26), // 오른쪽 무릎
-    27: getLandmark(27), // 왼쪽 발목
-    28: getLandmark(28), // 오른쪽 발목
-    31: getLandmark(31), // 왼쪽 발끝
-    32: getLandmark(32), // 오른쪽 발끝
+    0: getLandmark(0), 7: getLandmark(7), 8: getLandmark(8),
+    11: getLandmark(11), 12: getLandmark(12), 13: getLandmark(13),
+    14: getLandmark(14), 15: getLandmark(15), 16: getLandmark(16),
+    23: getLandmark(23), 24: getLandmark(24), 25: getLandmark(25),
+    26: getLandmark(26), 27: getLandmark(27), 28: getLandmark(28),
+    31: getLandmark(31), 32: getLandmark(32),
   };
 
-  // #01D5E5 가로선들 (청록색)
   const horizontalLines = [
-    [7, 8],   // 귀
-    [11, 12], // 어깨
-    [13, 14], // 팔꿈치
-    [15, 16], // 손목
-    [23, 24], // 골반
-    [25, 26], // 무릎
-    [27, 28], // 발목
-    [31, 32], // 발끝
+    [7, 8], [11, 12], [13, 14], [15, 16],
+    [23, 24], [25, 26], [27, 28], [31, 32],
   ];
 
-  // #24AD6E 세로선들 (녹색)
   const verticalLines = [
-    [11, 13, 15], // 왼쪽 팔 (어깨-팔꿈치-손목)
-    [12, 14, 16], // 오른쪽 팔 (어깨-팔꿈치-손목)
-    [23, 25, 27], // 왼쪽 다리 (골반-무릎-발목)
-    [24, 26, 28], // 오른쪽 다리 (골반-무릎-발목)
+    [11, 13, 15], [12, 14, 16],
+    [23, 25, 27], [24, 26, 28],
   ];
 
   return (
@@ -206,10 +205,7 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
       />
 
       {layout && (
-        <svg
-          className={styles.landmarkOverlay}
-        >
-          {/* 빨간 중앙 세로선 (코 중심, index 0) */}
+        <svg className={styles.landmarkOverlay}>
           {landmarks[0] && (
             <line
               x1={getPos(landmarks[0]).x}
@@ -221,7 +217,6 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
             />
           )}
 
-          {/* 청록색 가로선들 (landmark 쌍 연결) */}
           {horizontalLines.map(([idx1, idx2], i) => {
             const p1 = landmarks[idx1];
             const p2 = landmarks[idx2];
@@ -243,7 +238,6 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
             );
           })}
 
-          {/* 녹색 세로선들 (landmark 시퀀스 연결) */}
           {verticalLines.map((indices, i) => {
             const points = indices.map(idx => landmarks[idx]).filter(Boolean);
             if (points.length < 2) return null;
@@ -273,6 +267,8 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
       )}
     </div>
   );
+
+  ===== 포즈 랜드마크 작업 주석처리 끝 ===== */
 }
 
 function DetailItem({ data, side }) {

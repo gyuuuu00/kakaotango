@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './FrontView.module.css';
 
-function FrontView({ data, shouldRotate }) {
+function FrontView({ data, cameraOrientation }) {
   if (!data) {
     return <div className={styles.loading}>로딩 중...</div>;
   }
@@ -12,6 +12,8 @@ function FrontView({ data, shouldRotate }) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
   }
 
+  const shouldRotate = cameraOrientation === 1;
+
   return (
     <div className={styles.container}>
       {/* 상단 이미지 영역 */}
@@ -20,7 +22,7 @@ function FrontView({ data, shouldRotate }) {
           <PoseImageOverlay
             src={frontData.static_front.measure_server_file_name}
             alt="정면측정"
-            shouldRotate={true} 
+            shouldRotate={shouldRotate}
             poseLandmarks={frontData.static_front.pose_landmark}
           />
           <p className={styles.imageLabel}>정면측정</p>
@@ -33,7 +35,7 @@ function FrontView({ data, shouldRotate }) {
             shouldRotate={shouldRotate}
             poseLandmarks={frontData.static_elbow.pose_landmark}
           />
-          <p className={styles.imageLabel}>정면_발끝측정</p>
+          <p className={styles.imageLabel}>정면_팔꿉측정</p>
         </div>
       </div>
 
@@ -50,6 +52,32 @@ function FrontView({ data, shouldRotate }) {
   );
 }
 function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
+  // 🔹 랜드마크 작업 모두 주석처리 - 이미지만 표시
+  // camera_orientation: 0이면 그대로, 1이면 왼쪽으로 90도 회전 (9:16)
+
+  console.log('🔍 PoseImageOverlay:', { alt, shouldRotate });
+
+  const wrapperStyle = shouldRotate
+    ? { aspectRatio: '16 / 9' }
+    : {};
+
+  const imageStyle = shouldRotate
+    ? { transform: 'rotate(-90deg)', maxHeight: '100%' }  // 왼쪽으로 90도
+    : {};
+
+  return (
+    <div className={styles.imageWrapper} style={wrapperStyle}>
+      <img
+        src={src}
+        alt={alt}
+        className={styles.fallbackImage}
+        style={imageStyle}
+      />
+    </div>
+  );
+
+  /* ===== 포즈 랜드마크 작업 주석처리 =====
+
   // 랜드마크 없으면 그냥 이미지
   if (!Array.isArray(poseLandmarks) || poseLandmarks.length === 0) {
     return (
@@ -182,7 +210,6 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
         viewBox={`0 0 ${viewW} ${viewH}`}
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* 🖼 비트맵만 회전 */}
         <image
           href={src}
           x="0"
@@ -193,13 +220,14 @@ function PoseImageOverlay({ src, alt, shouldRotate, poseLandmarks = [] }) {
           preserveAspectRatio="xMidYMid meet"
         />
 
-        {/* 🎯 좌표는 세로 기준 그대로 */}
         {centerLine}
         {horizontalLines}
         {verticalLines}
       </svg>
     </div>
   );
+
+  ===== 포즈 랜드마크 작업 주석처리 끝 ===== */
 }
 
 

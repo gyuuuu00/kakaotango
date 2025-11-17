@@ -1,10 +1,12 @@
+// src/components/DetailedAnalysis/DetailedAnalysis.jsx
 import styles from './DetailedAnalysis.module.css';
 import NormalArrow from '../../assets/state_arrow.svg';
 import WarningArrow from '../../assets/state_arrow2.svg';
 import DangerArrow from '../../assets/state_arrow3.svg';
 
-function DetailedAnalysis({ detailedAnalysis }) {
-  console.log('📊 DetailedAnalysis 받은 데이터:', detailedAnalysis);
+function DetailedAnalysis({ detailedAnalysis, summaryData }) {
+  console.log('📊 전체 detailedAnalysis 키:', Object.keys(detailedAnalysis || {}));
+  console.log('📊 summaryData:', summaryData);
 
   if (!detailedAnalysis) {
     return <div className={styles.noData}>상세 분석 데이터가 없습니다.</div>;
@@ -50,14 +52,15 @@ function DetailedAnalysis({ detailedAnalysis }) {
     // 발목
     ankle_angle: '발목 각도',
     ankle_disorder: '좌우 무게 균형',
+    left_right_balance: '좌우 무게 균형',
     uppper_lower_balance: '상하 무게 균형',
   };
 
-  // 상체/하체 분류 (기존 구조 그대로 사용)
+  // 상체/하체 분류
   const upperParts = ['neck', 'shoulder', 'elbow'];
   const lowerParts = ['hip', 'knee', 'ankle'];
 
-  // 값에 따라 화살표 위치 계산 (두 번째 코드와 동일 로직)
+  // 값에 따라 화살표 위치 계산
   const calculatePosition = (riskLevel) => {
     if (riskLevel === 0) return 16.5; // 정상
     if (riskLevel === 1) return 50; // 주의
@@ -72,7 +75,7 @@ function DetailedAnalysis({ detailedAnalysis }) {
     return { color: '#7e7e7e' };
   };
 
-  // 레벨에 따른 스타일 (border + 색상) – 두 번째 코드와 동일
+  // 레벨에 따른 스타일 (border + 색상)
   const getLevelStyle = (level) => {
     if (!level) {
       return {
@@ -122,35 +125,21 @@ function DetailedAnalysis({ detailedAnalysis }) {
     return '정상';
   };
 
-
-  const getCategoryLevelText = (partKey) => {
-    const riskKey = `risk_level_${partKey}`;
-    const rangeKey = `range_level_${partKey}`;
-
-    const rawRisk = detailedAnalysis[riskKey];
-    const rawRange = detailedAnalysis[rangeKey];
-
-    const risk = rawRisk != null ? Number(rawRisk) : 0;
-    const range = rawRange != null ? Number(rawRange) : 1;
-
-    return `${riskLabel(risk)} ${range}단계`;
-  };
-  
-  // 부위별 렌더링 (원래 코드 구조 + 두 번째 코드의 스타일 로직)
+  // 부위별 렌더링
   const renderPart = (partKey, partData) => {
     if (!partData) return null;
 
     const items = Object.entries(partData);
     if (items.length === 0) return null;
 
-    // 이 부위에서 가장 높은 위험도 / 단계
-    const maxRiskLevel = Math.max(
-      ...items.map(([_, item]) => parseInt(item.risk_level || 0, 10)),
-    );
-    const maxRangeLevel = Math.max(
-      ...items.map(([_, item]) => parseInt(item.range_level || 1, 10)),
-    );
-    const levelText = `${getRiskText(maxRiskLevel)} ${maxRangeLevel}단계`;
+    // ✅ summaryData에서 부위별 risk_level, range_level 가져오기
+    const riskKey = `risk_level_${partKey}`;
+    const rangeKey = `range_level_${partKey}`;
+
+    const categoryRiskLevel = parseInt(summaryData?.[riskKey] || 0, 10);
+    const categoryRangeLevel = parseInt(summaryData?.[rangeKey] || 1, 10);
+
+    const levelText = `${getRiskText(categoryRiskLevel)} ${categoryRangeLevel}단계`;
 
     return (
       <div key={partKey} className={styles.categoryGroup}>
@@ -302,7 +291,7 @@ function DetailedAnalysis({ detailedAnalysis }) {
                 className={styles.statusLabel}
                 style={{ left: '83.5%', color: '#F11212' }}
               >
-                위험
+              위험
               </span>
             </div>
           </div>

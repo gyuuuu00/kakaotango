@@ -1,29 +1,30 @@
 .container {
   padding: 16px;
-  max-width: 320px;
+  max-width: 360px;
   margin: 0 auto;
 }
 
 .imageSection {
   display: flex;
-  gap: 8px;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .imageItem {
   flex: 1;
+  max-width: 180px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  max-width: 180px;
 }
 
 .imageWrapper {
   width: 100%;
-  aspect-ratio: 9 / 16;
+  height: 100%;
   background-color: #000;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -47,10 +48,11 @@
 }
 
 .measureImage {
-  /* width: 100%; */
-  height: 60%;
+  width: 100%;
+  height: 100%;
   border-radius: 6px;
   object-fit: cover;
+  object-position: center;
   flex-shrink: 0;
 }
 

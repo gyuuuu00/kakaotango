@@ -99,8 +99,6 @@ function MobileBodyReport({ data: initialData, t_r}) {
   const staticMat = data?.static_mat_data || {};
   const dynamicMat = data?.dynamic_mat_data || {};
 
-  const shouldRotate = cameraOrientation === 1 || cameraOrientation === "1";
-
   // === 위험도 변환 ===
   const getRiskStatus = (riskLevel) => {
     const level = String(riskLevel);
@@ -172,15 +170,18 @@ function MobileBodyReport({ data: initialData, t_r}) {
             pelvisTrajectoryUrl={dynamicMat?.mat_hip_trajectory_image_name}
           />
 
-          <DetailedAnalysis detailedAnalysis={data.detail_data} />
+          <DetailedAnalysis
+            detailedAnalysis={data.detail_data}
+            summaryData={data.result_summary_data}
+          />
           <Heatmap heatmapData={data} />
           <Record recordData={data.result_history_data} />
         </>
       )}
 
       {activeTab === "정면측정" && <FrontView data={data} cameraOrientation={cameraOrientation} />}
-      {activeTab === "측면측정" && <SideView data={data} shouldRotate={shouldRotate}/>}
-      {activeTab === "후면측정" && <BackView data={data} shouldRotate={shouldRotate}/>}
+      {activeTab === "측면측정" && <SideView data={data} cameraOrientation={cameraOrientation} />}
+      {activeTab === "후면측정" && <BackView data={data} cameraOrientation={cameraOrientation} />}
       {activeTab === "동적측정" && <SquatView data={data} 
 
       />}
