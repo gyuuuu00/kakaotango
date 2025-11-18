@@ -42,12 +42,12 @@ function DetailedAnalysis({ detailedAnalysis, summaryData }) {
     // 골반
     hip_tilit: '골반 기울기',
     hip_disorder: '골반 질환',
-    hip_knee_tilit: '골반과 무릎 기울기 \n(측면)',
+    hip_knee_tilit: '골반과 무릎 \n기울기(측면)',
 
     // 무릎
     knee_angle: '골반 무릎 각도 \n (정면)',
     knee_disorder: '무릎 질환\n(OHS)',
-    hip_knee_ankle_tilit: '골반, 무릎, 발목 기울기(OHS)',
+    hip_knee_ankle_tilit: '골반, 무릎, 발목 \n기울기(OHS)',
 
     // 발목
     ankle_angle: '발목 각도',
@@ -239,7 +239,7 @@ function DetailedAnalysis({ detailedAnalysis, summaryData }) {
             <div className={styles.colStatus}>
               <span
                 className={styles.statusLabel}
-                style={{ left: '16.5%', color: '#d9d9d9' }}
+                style={{ left: '14%', color: '#d9d9d9' }}
               >
                 정상
               </span>
