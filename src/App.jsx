@@ -87,14 +87,13 @@ export default function App() {
         justifyContent: 'center',
         minHeight: '100vh',
         padding: '20px',
-        backgroundColor: '#f9fafb'
       }}>
         <div style={{
           border: '1px solid #e5e7eb',
           width: '100%',
-          maxWidth: '400px',
+          maxWidth: '320px',
           backgroundColor: 'white',
-          padding: '12px',
+          padding: '16px',
           borderRadius: '20px'
         }}>
           <img
@@ -130,8 +129,8 @@ export default function App() {
               style={{
                 width: '100%',
                 padding: '14px',
-                fontSize: '10px',
-                border: '1px solid #d9d9d9',
+                fontSize: '14px',
+                border: '1px solid #eeeeee',
                 borderRadius: '8px',
                 marginBottom: '12px',
                 boxSizing: 'border-box'
@@ -143,12 +142,13 @@ export default function App() {
                 width: '100%',
                 padding: '12px',
                 fontSize: '12px',
-                backgroundColor: '#5E5E5E',
+                background: 'linear-gradient(169.16deg, #A6A6A6 7.2%, #747474 49.16%, #5E5E5E 91.13%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
                 cursor: 'pointer',
-                fontWeight: '500'
+                fontWeight: '500',
+                boxShadow: '-1px -1px 2px 0px #2D2D2D73 inset, 1px 1px 2px 0px #FFFFFF40 inset'
               }}
             >
             로그인

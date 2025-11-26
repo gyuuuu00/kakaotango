@@ -10,7 +10,6 @@
   border-radius: 12px;
   overflow: hidden;
   width: 100%;
-  max-width: 100%;
 }
 
 .grid {
@@ -38,14 +37,14 @@
   align-items: center;
   padding: 0;
   background-color: #ffffff;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .colCategory {
-  width: 100px;
+  width: 72px;
   height: 100%;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: #454545;
   display: flex;
   align-items: center;
@@ -54,19 +53,19 @@
 }
 
 .colMeasure {
-  flex: 0 0 100px;
+  flex: 0 0 108px;
   text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+  color: #7E7E7E;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .colStatus {
-  position: relative; 
-  width: 100%;
+  position: relative;
+  flex: 1;
   height: 20px;
 }
 
@@ -74,7 +73,7 @@
   position: absolute;
   top: 0;
   transform: translateX(-50%);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -100,7 +99,8 @@
 
 /* 카테고리 셀 - 세로로 병합되는 부위명 */
 .categoryCell {
-  width: 90px;
+  box-sizing: border-box;
+  width: 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,6 +112,10 @@
   border-bottom: 1px solid #eeeeee;
 }
 
+.categoryCell.noBorderBottom {
+  border-bottom: none;
+}
+
 .categoryBadge {
   padding: 5px 12px;
   border-radius: 6px;
@@ -121,7 +125,7 @@
 }
 
 .categoryLevel {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   text-align: center;
   white-space: nowrap;
@@ -132,7 +136,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #eeeeee;
+
 }
 
 .measureRow {
@@ -140,19 +144,17 @@
   flex-direction: row;
   border-bottom: 1px solid #f3f4f6;
   overflow: visible;
-  min-height: 44px;
+  min-height: 32px;
 }
 
-.measureRow:last-child {
-  border-bottom: none;
-}
 
 .measureText {
+  box-sizing: border-box;
   background-color: #ffffff;
-  width: 88px;
-  min-width: 88px;
+  width: 108px;
+  min-width: 108px;
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: 12px;
   color: #AEAEAE;
   display: flex;
   align-items: center;
@@ -170,11 +172,29 @@
   gap: 4px;
   position: relative;
   overflow: visible;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      #eeeeee 0px,
+      #eeeeee 3px,
+      transparent 3px,
+      transparent 6px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #eeeeee 0px,
+      #eeeeee 3px,
+      transparent 3px,
+      transparent 6px
+    );
+  background-size: 1px 100%, 1px 100%;
+  background-position: 33.5% 0, 67% 0;
+  background-repeat: no-repeat;
 }
 
 .statusBar {
   width: 100%;
-  height: 22px;
+  height: 12px;
   position: relative;
   display: flex;
   border-radius: 3px;
@@ -233,17 +253,17 @@
   transform: translateX(-50%);
   z-index: 10;
   transition: left 0.3s ease;
-  height: 22px;
+  height: 12px;
   width: auto;
 }
 
 /* 단계 텍스트 */
 .statusValue {
   position: absolute;
-  bottom: 5px;
+  bottom: 2px;
   transform: translateX(-50%);
-  font-size: 9px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
   white-space: nowrap;
   transition: left 0.3s ease;
 }
@@ -256,153 +276,3 @@
   color: #999;
 }
 
-/* 작은 화면 대응 */
-@media (max-width: 400px) {
-  .colCategory {
-    width: 75px;
-    font-size: 16px;
-  }
-  
-  .colMeasure {
-    flex: 0 0 110px;
-    font-size: 10px;
-    padding: 0 6px;
-  }
-  
-  .colStatus {
-    font-size: 9px;
-    padding: 0 12px;
-    gap: 2px;
-  }
-
-  .statusLabel {
-    font-size: 8px;
-  }
-
-  .arrowIcon {
-    font-size: 7px;
-  }
-
-  .categoryCell {
-    width: 75px;
-    padding: 12px 6px;
-    gap: 6px;
-  }
-  
-  .categoryBadge {
-    font-size: 11px;
-    padding: 4px 10px;
-  }
-
-  .categoryLevel {
-    font-size: 10px;
-  }
-  
-  .measureText {
-    font-size: 10px;
-    flex: 0 0 100px;
-    padding: 0 6px;
-    white-space: pre-line;
-    text-align: center;
-  }
-
-  .measureRow {
-    padding: 10px;
-    gap: 10px;
-    min-height: 55px;
-  }
-
-  .measureStatus {
-    padding: 0 6px;
-  }
-
-  .stageLabels {
-    font-size: 8px;
-  }
-  
-  .statusBar {
-    height: 20px;
-  }
-  
-  .statusIndicator {
-    height: 20px;
-  }
-}
-
-/* 아주 작은 화면 대응 */
-@media (max-width: 360px) {
-  .container {
-    margin: 12px 8px;
-    width: calc(100% - 16px);
-  }
-
-  .colCategory {
-    width: 65px;
-    font-size: 11px;
-  }
-  
-  .colMeasure {
-    flex: 0 0 95px;
-    font-size: 9px;
-    padding: 0 4px;
-  }
-  
-  .colStatus {
-    font-size: 8px;
-    padding: 0 10px;
-    gap: 2px;
-  }
-
-  .statusLabel {
-    font-size: 7px;
-  }
-
-  .arrowIcon {
-    font-size: 6px;
-  }
-
-  .categoryCell {
-    width: 65px;
-    padding: 10px 4px;
-    gap: 5px;
-  }
-  
-  .categoryBadge {
-    font-size: 10px;
-    padding: 3px 8px;
-  }
-
-  .categoryLevel {
-    font-size: 9px;
-  }
-  
-  .measureText {
-    font-size: 9px;
-    flex: 0 0 85px;
-    padding: 0 4px;
-    white-space: pre-line;
-    text-align: center;
-  }
-
-  .measureRow {
-    padding: 8px;
-    gap: 8px;
-    min-height: 50px;
-  }
-
-  .measureStatus {
-    padding: 0 4px;
-  }
-
-  .stageLabels {
-    font-size: 7px;
-  }
-  
-  .statusBar {
-    height: 18px;
-  }
-  
-  .statusIndicator {
-    height: 18px;
-  }
-}

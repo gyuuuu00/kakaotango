@@ -1,12 +1,14 @@
 .container {
-  padding: 20px 16px;
+  padding: 20px 0;
   background: white;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .title {
   font-size: 16px;
   font-weight: 700;
-  color: #333;
+  color: #454545; 
   margin-bottom: 12px;
 }
 
@@ -14,83 +16,61 @@
 .legend {
   display: block;
   width: 100%;
-  max-width: 300px;
   height: auto;
   margin-left: auto;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
-
-/* 테이블 래퍼 */
-.tableWrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #fff;
-}
-
 .table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  background: #f8f8f8;
 }
 
 /* 헤더 */
 .headerCell {
   background: white;
-  padding: 10px 12px;
+  /* padding: 10px 12px; */
   font-size: 13px;
   font-weight: 600;
   color: #333;
   text-align: left;
-  border-bottom: 2px solid #e5e7eb;
   position: sticky;
   left: 0;
   z-index: 10;
-  min-width: 60px;
 }
 
 .dateCell {
   background: white;
-  padding: 10px 8px;
-  font-size: 10px;
+  font-size: 6px;
   font-weight: 400;
-  color: #666;
+  color: #7E7E7E;
   text-align: center;
-  border-bottom: 2px solid #e5e7eb;
-  min-width: 42px;
   white-space: nowrap;
 }
 
 /* 바디 */
 .labelCell {
   background: white;
-  padding: 10px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: #333;
-  text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  color: #7E7E7E;
+  text-align: center;
   position: sticky;
   left: 0;
   z-index: 5;
-  min-width: 60px;
+  min-width: 36px;
 }
 
 .heatCell {
   padding: 2px;
   text-align: center;
-  border-bottom: 1px solid #e5e7eb;
-  background: #f8f8f8;
-  min-width: 42px;
+  /* border-bottom: 1px solid #e5e7eb; */
 }
 
 .cellImage {
-  width: 38px;
-  height: 38px;
+  width: 20px;
+  height: 20px;
   display: block;
-  margin: 0 auto;
 }
 
 /* 위험도 색상 - 제거됨, SVG 사용 */
@@ -121,27 +101,18 @@
     font-size: 15px;
   }
 
-
-
   .headerCell,
   .labelCell {
     font-size: 11px;
-    padding: 8px 10px;
-    min-width: 50px;
+    min-width: 36px;
   }
 
   .dateCell {
-    font-size: 9px;
-    padding: 8px 6px;
-    min-width: 38px;
-  }
-
-  .heatCell {
-    min-width: 38px;
+    font-size: 6px;
   }
 
   .cellImage {
-    width: 34px;
-    height: 34px;
+    width: 20px;
+    height: 20px;
   }
 }

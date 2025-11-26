@@ -76,7 +76,7 @@ function Heatmap({ heatmapData }) {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th className={styles.headerCell}>부위</th>
+              <th className={styles.headerCell}></th>
               {historyData.map((record, index) => (
                 <th key={index} className={styles.dateCell}>
                   {formatDate(record.measure_date)}

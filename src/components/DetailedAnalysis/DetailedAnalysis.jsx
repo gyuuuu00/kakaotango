@@ -143,7 +143,11 @@ function DetailedAnalysis({ detailedAnalysis, summaryData }) {
 
     return (
       <div key={partKey} className={styles.categoryGroup}>
-        <div className={styles.categoryCell}>
+        <div
+          className={`${styles.categoryCell} ${
+            partKey === 'elbow' || partKey === 'ankle' ? styles.noBorderBottom : ''
+          }`}
+        >
           <div
             className={styles.categoryBadge}
             style={getBadgeStyle(levelText)}

@@ -282,9 +282,9 @@ function DetailItem({ data, side }) {
 
   const getRiskWidth = (riskLevel) => {
     switch(riskLevel) {
-      case 0: return '30%';  // 정상
-      case 1: return '60%';  // 주의
-      default: return '95%'; // 위험
+      case 0: return '30.33%';
+      case 1: return '60.66%';
+      default: return '98%';
     }
   };
 
@@ -296,9 +296,9 @@ function DetailItem({ data, side }) {
           <span className={styles.headerLabel}>{side}</span>
           <span className={styles.measureUnit}>{data.measure_unit}</span>
         </div>
-        
+
         <div className={styles.centerInfo}>
-          <div className={styles.dataValue}>{Math.trunc(data.data)}</div>         
+          <div className={styles.dataValue}>{Math.trunc(data.data)}</div>
         </div>
 
         {/* 프로그레스바 */}
@@ -309,13 +309,15 @@ function DetailItem({ data, side }) {
             <span>위험</span>
           </div>
           <div className={styles.progressBar}>
-            <div 
+            <div
               className={styles.progressFill}
-              style={{ 
+              style={{
                 width: getRiskWidth(data.risk_level),
                 backgroundColor: getRiskColor(data.risk_level)
               }}
-            />
+            >
+              <span className={styles.rangeLevel}>{data.range_level}단계</span>
+            </div>
           </div>
         </div>
       </div>

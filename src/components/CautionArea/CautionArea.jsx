@@ -243,12 +243,12 @@ export default function CautionArea({
           <div className={styles.bodyHeader}>
             <div className={styles.tipSmall}>*측정 기준 설명</div>
             <div className={styles.statusTable}>
-              <div className={`${styles.status} ${styles.ok}`}>정상</div>
-              <div className={`${styles.status} ${styles.warn}`}>주의</div>
-              <div className={`${styles.status} ${styles.dang}`}>위험</div>
-              <div className={styles.stateful}>상태 유지<br />강화 권장</div>
-              <div className={styles.descStrong}>제공되는<br />맞춤 운동 권장</div>
-              <div className={styles.desc}>전문가 상담<br />권장</div>
+              <div className={`${styles.status} ${styles.ok}`} style={{borderRadius:'10px 0 0 10px '}}>정상</div>
+              <div className={`${styles.status} ${styles.warn}`} style={{borderRadius:'0'}}>주의</div>
+              <div className={`${styles.status} ${styles.dang}`} style={{borderRadius:'0 10px 10px 0'}}>위험</div>
+              <div className={styles.stateful}>상태 유지 강화 권장</div>
+              <div className={styles.descStrong}>제공되는 맞춤 운동 권장</div>
+              <div className={styles.desc}>전문가 상담 권장</div>
             </div>
           </div>
         </div>

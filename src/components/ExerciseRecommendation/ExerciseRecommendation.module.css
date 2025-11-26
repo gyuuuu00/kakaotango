@@ -1,6 +1,7 @@
 .container {
-  padding: 16px;
-  max-width: 100%;
+  padding: 16px 20px;
+  max-width: 360px;
+  margin: 0 auto;
   min-height: 100vh;
 }
 
@@ -194,8 +195,9 @@
 
 /* 상세 페이지 */
 .detailContainer {
-  padding: 16px;
-  max-width: 100%;
+  padding: 16px 20px;
+  max-width: 360px;
+  margin: 0 auto;
   background: white;
   min-height: 100vh;
 }

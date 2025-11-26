@@ -248,11 +248,11 @@ function DetailItem({ data }) {
   const getRiskWidth = (riskLevel) => {
     switch (riskLevel) {
       case 0:
-        return '30%';
+        return '30.33%';
       case 1:
-        return '60%';
+        return '60.66%';
       default:
-        return '95%';
+        return '98%';
     }
   };
 
@@ -281,7 +281,9 @@ function DetailItem({ data }) {
                 width: getRiskWidth(data.risk_level),
                 backgroundColor: getRiskColor(data.risk_level),
               }}
-            />
+            >
+              <span className={styles.rangeLevel}>{data.range_level}단계</span>
+            </div>
           </div>
         </div>
       </div>

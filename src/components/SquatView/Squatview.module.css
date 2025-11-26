@@ -1,6 +1,6 @@
 .container {
   padding: 16px;
-  max-width: 320px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -11,7 +11,6 @@
 .videoWrapper {
   text-align: center;
   width: 100%;
-  max-width: 320px;
   margin: 0 auto;
   position: relative;
   /* background-color: #000; */
@@ -192,7 +191,7 @@
   background: white;
   border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #eeeeee;
 }
 
 /* 상단 헤더 영역 */
@@ -200,17 +199,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 8px;
-  min-height: 44px;
+  height: 44px;
 }
 
 .leftInfo {
   display: flex;
   flex-direction: column;
-  width: 136px;
+  width: 154px;
+  flex-shrink: 0;
   justify-content: center;
   gap: 2px;
-  min-height: 44px;
+  padding-left: 8px;
 }
 
 .headerLabel {
@@ -221,10 +220,9 @@
 }
 
 .measureUnit {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: #7e7e7e;
-  white-space: pre-line;
 }
 
 .centerInfo {
@@ -232,7 +230,7 @@
   flex-direction: column;
   align-items: center;
   width: 44px;
-  min-height: 44px;
+  height: 44px;
   justify-content: center;
   border-left: 1px solid #eeee;
   border-right: 1px solid #eeee;
@@ -240,8 +238,8 @@
 
 .dataValue {
   font-size: 10px;
-  font-weight: 700;
-  color: #333;
+  font-weight: 500;
+  color: #7E7E7E;
 }
 
 .rightProgressSection {
@@ -249,20 +247,38 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding-left: 8px;
-  max-width: 140px;
+  position: relative;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      #eeeeee 0px,
+      #eeeeee 3px,
+      transparent 3px,
+      transparent 6px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #eeeeee 0px,
+      #eeeeee 3px,
+      transparent 3px,
+      transparent 6px
+    );
+  background-size: 1px 100%, 1px 100%;
+  background-position: 32% 0, 66.66% 0;
+  background-repeat: no-repeat;
 }
 
 .levelLabels {
   display: flex;
   justify-content: space-between;
-  font-size: 9px;
-  color: #999;
+  font-size: 10px;
+  color: #AEAEAE ;
   margin-bottom: 2px;
+  padding:0 15px;
 }
 
 .progressBar {
-  height: 10px;
+  height: 16px;
   border-radius: 2.5px;
   overflow: visible;
   position: relative;
@@ -271,8 +287,18 @@
 .progressFill {
   height: 100%;
   transition: width 0.3s ease;
-  border-radius: 2.5px;
+  border-radius: 0 4px 4px 0;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rangeLevel {
+  font-size: 10px;
+  font-weight: 400;
+  color: #ffffff;
+  white-space: nowrap;
 }
 
 /* 하단 설명 영역 */
