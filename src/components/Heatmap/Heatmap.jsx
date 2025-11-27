@@ -11,8 +11,6 @@ import danger3 from '../../assets/heatmap/danger3.svg';
 import legendImage from '../../assets/heatmap/legend.svg';
 
 function Heatmap({ heatmapData }) {
-  console.log('📊 Heatmap 받은 데이터:', heatmapData);
-
   if (!heatmapData?.result_history_data?.history_data) {
     return <div className={styles.noData}>측정 이력이 없습니다.</div>;
   }

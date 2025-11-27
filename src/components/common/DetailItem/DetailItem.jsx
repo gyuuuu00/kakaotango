@@ -27,12 +27,21 @@ function DetailItem({ data, label }) {
     <div className={styles.detailItem}>
       <div className={styles.topSection}>
         <div className={styles.leftInfo}>
-          <span className={styles.headerLabel}>{label}</span>
+          <div className={styles.headerRow}>
+            <span className={styles.headerLabel}>{label}</span>
+            {data.left_right !== undefined && (
+              <span className={styles.sideBadge}>
+                {data.left_right === 0 ? '좌측' : '우측'}
+              </span>
+            )}
+          </div>
           <span className={styles.measureUnit}>{data.measure_unit}</span>
         </div>
 
         <div className={styles.centerInfo}>
-          <div className={styles.dataValue}>{Math.trunc(data.data)}</div>
+          <div className={styles.dataValue}>
+            {(Math.trunc(data.data * 10) / 10).toFixed(1)}
+          </div>
         </div>
 
         <div className={styles.rightProgressSection}>

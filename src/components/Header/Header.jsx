@@ -2,8 +2,6 @@
 import styles from './Header.module.css';
 
 function Header({ userData }) {
-  console.log("🔍 Header에 들어온 userData:", userData);
-  
   const name = userData?.user_name || '사용자';
   const date = userData?.measure_date || '-';
   return (

@@ -81,10 +81,8 @@ function MobileBodyReport({ data: initialData, t_r}) {
             return;
         }
 
-        console.log("📦 받은 데이터:", result);
         setData(result.data || result);
       } catch (err) {
-        console.error(`${activeTab} 데이터 로드 실패:`, err);
       } finally {
         setLoading(false);
       }
@@ -182,9 +180,7 @@ function MobileBodyReport({ data: initialData, t_r}) {
       {activeTab === "정면측정" && <FrontView data={data} cameraOrientation={cameraOrientation} />}
       {activeTab === "측면측정" && <SideView data={data} cameraOrientation={cameraOrientation} />}
       {activeTab === "후면측정" && <BackView data={data} cameraOrientation={cameraOrientation} />}
-      {activeTab === "동적측정" && <SquatView data={data} 
-
-      />}
+      {activeTab === "동적측정" && <SquatView data={data} cameraOrientation={cameraOrientation} />}
       {activeTab === "추천운동" && <ExerciseRecommendation data={data} t_r={t_r} />}
     </div>
   );

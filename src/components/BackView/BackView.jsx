@@ -3,8 +3,6 @@ import DetailItem from '../common/DetailItem/DetailItem';
 import PoseImage from '../common/PoseImage/PoseImage';
 
 function BackView({ data, cameraOrientation }) {
-  console.log('📊 BackView 받은 데이터:', data);
-
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
   }

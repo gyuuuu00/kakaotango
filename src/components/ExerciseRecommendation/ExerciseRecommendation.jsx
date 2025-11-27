@@ -6,8 +6,6 @@ function ExerciseRecommendation({ data, t_r }) {
   const [selectedPart, setSelectedPart] = useState('목');
   const [selectedExerciseId, setSelectedExerciseId] = useState(null);
 
-  console.log('📊 ExerciseRecommendation 받은 데이터:', data);
-
   if (!data) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
   }
@@ -39,9 +37,6 @@ function ExerciseRecommendation({ data, t_r }) {
     const regex = new RegExp(`(^|\\s)${selectedPart}($|\\s|[,\\.\\(\\)])`);
     return regex.test(title);
   });
-
-  console.log('selectedPart:', selectedPart);
-  console.log('filteredPrograms:', filteredPrograms);
 
   // 초를 분:초 형식으로 변환
   const formatDuration = (seconds) => {

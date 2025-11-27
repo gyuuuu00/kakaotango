@@ -8,12 +8,8 @@ const API_BASE = import.meta.env.DEV
     if (!t_r) throw new Error("t_r 토큰이 없습니다.");
     if (!mobile) throw new Error("전화번호가 필요합니다.");
 
-    console.log("📞 요청 t_r (원본):", t_r);
-    console.log("📞 요청 mobile:", mobile);
-    
     // t_r을 다시 디코딩 (혹시 이중 인코딩 방지)
     const decodedTr = decodeURIComponent(t_r);
-    console.log("📞 디코딩된 t_r:", decodedTr);
 
     const RESULTS_URL = `${API_BASE.replace(/\/$/, "")}/kakao-results`;
 
@@ -29,16 +25,12 @@ const API_BASE = import.meta.env.DEV
       }),
     });
 
-  console.log("📡 응답 상태:", response.status);
-
   if (!response.ok) {
     const errorText = await response.text().catch(() => "");
-    console.error("❌ 에러 내용:", errorText);
     throw new Error("데이터를 불러올 수 없습니다.");
   }
 
   const result = await response.json();
-  console.log("✅ 전체 API 응답:", result);
 
   return result;
 };
@@ -55,7 +47,6 @@ export const fetchFrontView = async (t_r) => {
   if (!response.ok) throw new Error("정면측정 데이터 로드 실패");
 
   const result = await response.json();
-  console.log("✅ 정면측정 API 응답:", result);
 
   // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
   const data = result.data || result;
@@ -74,9 +65,7 @@ export const fetchFrontView = async (t_r) => {
       const jsonResponse = await fetch(jsonUrl);
       const jsonData = await jsonResponse.json();
       data.static_front.pose_landmark = jsonData.pose_landmark || [];
-      console.log("✅ static_front pose_landmark 추가:", data.static_front.pose_landmark.length);
     } catch (err) {
-      console.error("❌ static_front JSON 로드 실패:", err);
       data.static_front.pose_landmark = [];
     }
   }
@@ -87,9 +76,7 @@ export const fetchFrontView = async (t_r) => {
       const jsonResponse = await fetch(jsonUrl);
       const jsonData = await jsonResponse.json();
       data.static_elbow.pose_landmark = jsonData.pose_landmark || [];
-      console.log("✅ static_elbow pose_landmark 추가:", data.static_elbow.pose_landmark.length);
     } catch (err) {
-      console.error("❌ static_elbow JSON 로드 실패:", err);
       data.static_elbow.pose_landmark = [];
     }
   }
@@ -109,7 +96,6 @@ export const fetchSideView = async (t_r) => {
   if (!response.ok) throw new Error("측면측정 데이터 로드 실패");
 
   const result = await response.json();
-  console.log("✅ 측면측정 API 응답:", result);
 
   // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
   const data = result.data || result;
@@ -128,9 +114,7 @@ export const fetchSideView = async (t_r) => {
       const jsonResponse = await fetch(jsonUrl);
       const jsonData = await jsonResponse.json();
       data.left_side.pose_landmark = jsonData.pose_landmark || [];
-      console.log("✅ left_side pose_landmark 추가:", data.left_side.pose_landmark.length);
     } catch (err) {
-      console.error("❌ left_side JSON 로드 실패:", err);
       data.left_side.pose_landmark = [];
     }
   }
@@ -141,9 +125,7 @@ export const fetchSideView = async (t_r) => {
       const jsonResponse = await fetch(jsonUrl);
       const jsonData = await jsonResponse.json();
       data.right_side.pose_landmark = jsonData.pose_landmark || [];
-      console.log("✅ right_side pose_landmark 추가:", data.right_side.pose_landmark.length);
     } catch (err) {
-      console.error("❌ right_side JSON 로드 실패:", err);
       data.right_side.pose_landmark = [];
     }
   }
@@ -163,7 +145,6 @@ export const fetchBackView = async (t_r) => {
   if (!response.ok) throw new Error("후면측정 데이터 로드 실패");
 
   const result = await response.json();
-  console.log("✅ 후면측정 API 응답:", result);
 
   // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
   const data = result.data || result;
@@ -182,9 +163,7 @@ export const fetchBackView = async (t_r) => {
       const jsonResponse = await fetch(jsonUrl);
       const jsonData = await jsonResponse.json();
       data.back.pose_landmark = jsonData.pose_landmark || [];
-      console.log("✅ back pose_landmark 추가:", data.back.pose_landmark.length);
     } catch (err) {
-      console.error("❌ back JSON 로드 실패:", err);
       data.back.pose_landmark = [];
     }
   }
@@ -195,9 +174,7 @@ export const fetchBackView = async (t_r) => {
       const jsonResponse = await fetch(jsonUrl);
       const jsonData = await jsonResponse.json();
       data.back_sit.pose_landmark = jsonData.pose_landmark || [];
-      console.log("✅ back_sit pose_landmark 추가:", data.back_sit.pose_landmark.length);
     } catch (err) {
-      console.error("❌ back_sit JSON 로드 실패:", err);
       data.back_sit.pose_landmark = [];
     }
   }

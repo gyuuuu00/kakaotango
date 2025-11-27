@@ -50,14 +50,11 @@ const processToTransparent = (src, threshold = 80) =>
         ctx.putImageData(im, 0, 0);
         resolve(c.toDataURL());
       } catch (e) {
-        console.error("⚠️ 투명 처리 중 에러:", e);
         reject(e);
       }
     };
 
-    // ✅ 이미지 로드 실패 로그
     img.onerror = (err) => {
-      console.error("❌ 이미지 로드 실패:", src, err);
       reject(err);
     };
 
@@ -144,9 +141,6 @@ export default function CautionArea({
   });
 
   useEffect(() => {
-    console.log("✅ footPressureStaticUrl:", footPressureStaticUrl);
-    console.log("✅ 변환된 프록시 URL:", urls.footStatic);
-
     let cancelled = false;
     (async () => {
       const [ps, pd, pk, pkr, pp] = await Promise.allSettled([

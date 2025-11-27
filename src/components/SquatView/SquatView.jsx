@@ -2,8 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import styles from './SquatView.module.css';
 import DetailItem from '../common/DetailItem/DetailItem';
 
-function SquatView({ data, shouldRotate }) {
-  console.log('📊 SquatView 받은 데이터:', data);
+function SquatView({ data, cameraOrientation }) {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -17,6 +16,9 @@ function SquatView({ data, shouldRotate }) {
   if (!data.squat) {
     return <div className={styles.noData}>동적측정 데이터 로딩 중...</div>;
   }
+
+  // 동영상은 1일 때 회전
+  const shouldRotateVideo = cameraOrientation === 1;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -72,8 +74,9 @@ function SquatView({ data, shouldRotate }) {
           <video
             ref={videoRef}
             src={data.squat.measure_server_file_name}
-            className={`${styles.measureVideo} ${!shouldRotate ? styles.rotated : ''}`}
+            className={`${styles.measureVideo} ${shouldRotateVideo ? styles.rotated : ''}`}
             playsInline
+            preload="auto"
             onClick={handlePlayPause}
           >
             동영상을 재생할 수 없습니다.
@@ -92,7 +95,7 @@ function SquatView({ data, shouldRotate }) {
         {/* 비디오 컨트롤 */}
         <div className={styles.videoControls}>
           <button onClick={handlePlayPause} className={styles.playButton}>
-            {isPlaying ? '⏸' : '▶'}
+            {isPlaying ? '▶' : '▶'}
           </button>
 
           {/* 재생바 */}

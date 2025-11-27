@@ -5,9 +5,6 @@ import WarningArrow from '../../assets/state_arrow2.svg';
 import DangerArrow from '../../assets/state_arrow3.svg';
 
 function DetailedAnalysis({ detailedAnalysis, summaryData }) {
-  console.log('📊 전체 detailedAnalysis 키:', Object.keys(detailedAnalysis || {}));
-  console.log('📊 summaryData:', summaryData);
-
   if (!detailedAnalysis) {
     return <div className={styles.noData}>상세 분석 데이터가 없습니다.</div>;
   }

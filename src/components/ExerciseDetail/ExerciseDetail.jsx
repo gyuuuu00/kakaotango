@@ -6,12 +6,7 @@ const API_BASE = import.meta.env.DEV
   ? '/admin_api'
   : (import.meta.env.VITE_API_BASE_URL ?? 'https://gym.tangoplus.co.kr/admin_api');
 
-function ExerciseDetail({ exerciseId, t_r, onBack }) { 
-  console.log('🔍 ExerciseDetail 받은 exerciseId:', exerciseId);
-  console.log('🔍 ExerciseDetail 받은 t_r:', t_r);
-  console.log('🔍 t_r 길이:', t_r?.length);
-  console.log('🔍 t_r 타입:', typeof t_r);
-   
+function ExerciseDetail({ exerciseId, t_r, onBack }) {
   const [exerciseData, setExerciseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,31 +15,24 @@ function ExerciseDetail({ exerciseId, t_r, onBack }) {
     const fetchExerciseDetail = async () => {
       try {
         setLoading(true);
-        console.log('🔍 Fetching exercise:', exerciseId);
-        console.log('🔑 t_r:', t_r);
-        
-  // t_r을 포함한 API 호출 (앱 상대 경로로 호출하여 dev/prod proxy 사용)
-  const apiUrl = `/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
 
-        console.log('🌐 API URL:', apiUrl);
-        
+        // t_r을 포함한 API 호출 (앱 상대 경로로 호출하여 dev/prod proxy 사용)
+        const apiUrl = `/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
+
         const response = await fetch(apiUrl, {
           method: "GET",
           headers: { Accept: "application/json" },
         });
         
-        
+
         if (!response.ok) {
           const errorText = await response.text();
-          console.error('❌ Error response:', errorText);
           throw new Error(`운동 정보를 불러올 수 없습니다. (${response.status})`);
         }
-        
+
         const data = await response.json();
-        console.log('✅ Exercise data:', data);
         setExerciseData(data);
       } catch (err) {
-        console.error('운동 상세 데이터 로드 실패:', err);
         setError(err.message);
       } finally {
         setLoading(false);

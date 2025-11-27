@@ -45,18 +45,12 @@ export default function App() {
     try {
       setErr('');
       setLoading(true);
-      
-      console.log('🔑 보내는 t_r:', t_r);
-      console.log('📞 보내는 전화번호:', cleanMobile);
-      
+
       const json = await fetchBodyReport(t_r, cleanMobile);
-      
-      console.log('✅ 받은 데이터:', json);
-      
+
       setData(json);
       setNeedPhone(false);
     } catch (e) {
-      console.error('❌ 에러:', e);
       const errorMessage = e.response?.data?.message?.[0] 
         || e.response?.data?.message 
         || e.message 
