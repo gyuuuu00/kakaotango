@@ -25,7 +25,11 @@ function SquatView({ data, cameraOrientation }) {
     if (!video) return;
 
     const handleTimeUpdate = () => setCurrentTime(video.currentTime);
-    const handleLoadedMetadata = () => setDuration(video.duration);
+    const handleLoadedMetadata = () => {
+      setDuration(video.duration);
+      // 첫 프레임 로드를 위해 영상을 0.01초까지 재생 후 멈춤
+      video.currentTime = 0.01;
+    };
     const handleEnded = () => setIsPlaying(false);
 
     video.addEventListener('timeupdate', handleTimeUpdate);
@@ -76,7 +80,7 @@ function SquatView({ data, cameraOrientation }) {
             src={data.squat.measure_server_file_name}
             className={`${styles.measureVideo} ${shouldRotateVideo ? styles.rotated : ''}`}
             playsInline
-            preload="auto"
+            preload="metadata"
             onClick={handlePlayPause}
           >
             동영상을 재생할 수 없습니다.

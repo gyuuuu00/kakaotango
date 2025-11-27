@@ -17,7 +17,7 @@ function DetailItem({ data, label }) {
       case 0:
         return '30.33%';
       case 1:
-        return '60.66%';
+        return '66%';
       default:
         return '98%';
     }
