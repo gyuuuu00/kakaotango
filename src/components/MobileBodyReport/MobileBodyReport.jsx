@@ -168,12 +168,16 @@ function MobileBodyReport({ data: initialData, t_r}) {
             pelvisTrajectoryUrl={dynamicMat?.mat_hip_trajectory_image_name}
           />
 
-          <DetailedAnalysis
-            detailedAnalysis={data.detail_data}
-            summaryData={data.result_summary_data}
-          />
-          <Heatmap heatmapData={data} />
-          <Record recordData={data.result_history_data} />
+          <div
+          //  style={{ borderTop: '1px solid #D9D9D9', borderRadius: '32px'}} 
+           >
+            <DetailedAnalysis
+              detailedAnalysis={data.detail_data}
+              summaryData={data.result_summary_data}
+            />
+            <Heatmap heatmapData={data} />
+            <Record recordData={data.result_history_data} />
+          </div>
         </>
       )}
 

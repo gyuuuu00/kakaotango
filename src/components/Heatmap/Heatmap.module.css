@@ -93,10 +93,6 @@
 
 /* 모바일 최적화 */
 @media (max-width: 480px) {
-  .container {
-    padding: 16px 12px;
-  }
-
   .title {
     font-size: 15px;
   }
@@ -114,5 +110,13 @@
   .cellImage {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* 데스크톱 반응형 (1024px 이상) */
+@media (min-width: 1024px) {
+  .container {
+    width: 480px;
+    flex-shrink: 0;
   }
 }

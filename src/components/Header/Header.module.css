@@ -22,21 +22,15 @@
 }
 
 
-/* 아주 작은 화면 대응 */
-@media (max-width: 360px) {
-  .title {
-    font-size: 20px;
+/* 데스크톱 대응 (1024px 이상) */
+@media (min-width: 1024px) {
+  .header {
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    padding:22px 0 22px 63px;
   }
-  
-  .userInfo {
-    font-size: 12px;
-    padding: 8px 10px;
-    gap: 6px;
-  }
-  
-  .logo {
-    width: 45px;
-    height: 45px;
-    font-size: 32px;
+  .testDate {
+    margin-bottom: 0;
   }
 }

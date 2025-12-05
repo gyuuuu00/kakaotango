@@ -231,25 +231,27 @@ export default function CautionArea({
         </div>
       </div>
 
-      {/* Tang Body Tip */}
-      <div className={`${styles.card} ${styles.cell3}`}>
-        <div className={styles.body}>
-          <div className={styles.bodyHeader}>
-            <div className={styles.tipSmall}>*측정 기준 설명</div>
-            <div className={styles.statusTable}>
-              <div className={`${styles.status} ${styles.ok}`} style={{borderRadius:'10px 0 0 10px '}}>정상</div>
-              <div className={`${styles.status} ${styles.warn}`} style={{borderRadius:'0'}}>주의</div>
-              <div className={`${styles.status} ${styles.dang}`} style={{borderRadius:'0 10px 10px 0'}}>위험</div>
-              <div className={styles.stateful}>상태 유지 강화 권장</div>
-              <div className={styles.descStrong}>제공되는 맞춤 운동 권장</div>
-              <div className={styles.desc}>전문가 상담 권장</div>
+      {/* 왼쪽 컬럼 wrapper */}
+      <div className={styles.leftColumn}>
+        {/* Tang Body Tip */}
+        <div className={`${styles.card} ${styles.cell3}`}>
+          <div className={styles.body}>
+            <div className={styles.bodyHeader}>
+              <div className={styles.tipSmall}>*측정 기준 설명</div>
+              <div className={styles.statusTable}>
+                <div className={`${styles.status} ${styles.ok}`} style={{borderRadius:'10px 0 0 10px '}}>정상</div>
+                <div className={`${styles.status} ${styles.warn}`} style={{borderRadius:'0'}}>주의</div>
+                <div className={`${styles.status} ${styles.dang}`} style={{borderRadius:'0 10px 10px 0'}}>위험</div>
+                <div className={styles.stateful}>상태 유지 강화 권장</div>
+                <div className={styles.descStrong}>제공되는 맞춤 운동 권장</div>
+                <div className={styles.desc}>전문가 상담 권장</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* 족압 정적 측정 */}
-      <div className={`${styles.card} ${styles.cell4}`}>
+        {/* 족압 정적 측정 */}
+        <div className={`${styles.card} ${styles.cell4}`}>
         <div className={styles.bodyHeader}>
           <div className={styles.headRow}>
             <h4 className={styles.subTitle}>정적 족압</h4>
@@ -299,6 +301,8 @@ export default function CautionArea({
           </div>
         </div>
       </div>
+      </div>
+
       {/* 족압 동적 측정 */}
       <div className={`${styles.card} ${styles.cell5}`}>
         <div className={styles.bodyHeader}>

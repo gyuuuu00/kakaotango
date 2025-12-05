@@ -11,11 +11,11 @@
 .tabButton {
   font-size: 13px;
   font-weight: 500;
-  color: #d1d5db;
+  color: #D9D9D9;
   background:#fff;
   border: none;
-  border-radius: 6px;
-  padding: 8px 0;
+  border-radius: 4px;
+  padding: 4px 0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -28,4 +28,22 @@
 .active {
   background: #3f3f3f;
   color: #fff;
+}
+
+
+/* 태블릿/데스크톱 대응 */
+@media (min-width: 720px) {
+ .tabMenu {
+  display: flex;
+  gap: 36px; /* 버튼 간 간격 */
+  width: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  margin:0 62px;
+  }
+
+  .tabButton{
+    width: 118px;
+    height: 40px;
+  }
 }

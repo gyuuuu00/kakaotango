@@ -61,23 +61,36 @@
   .analysisHeader {
     height: 36px;
   }
-  
+
   .analysisHeader h2 {
     font-size: 14px;
   }
-  
+
   .bodyTypeResult {
     padding: 20px 12px;
     gap: 12px;
   }
-  
+
   .bodyTypeImage img {
     width: 100px;
     height: 100px;
   }
-  
+
   .analysisDetails {
     font-size: 12px;
     padding: 14px;
+  }
+}
+
+/* 데스크톱 반응형 (1024px 이상) */
+@media (min-width: 1024px) {
+  .bodyTypeResult {
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .analysisDetails {
+    flex: 1;
   }
 }
