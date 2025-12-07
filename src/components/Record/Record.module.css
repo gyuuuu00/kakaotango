@@ -85,9 +85,12 @@
 /* 데스크톱 반응형 (1024px 이상) */
 @media (min-width: 1024px) {
   .bodyTypeResult {
-    flex-direction: row;
     gap: 24px;
     align-items: center;
+  }
+
+  .bodyAnalysis {
+    margin: auto;
   }
 
   .analysisDetails {

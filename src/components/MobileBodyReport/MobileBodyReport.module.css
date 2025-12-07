@@ -25,19 +25,28 @@
   }
 }
 
-/* 데스크톱 반응형 (1024px 이상) */
-@media (min-width: 1024px) {
+/* bottomRow는 기본적으로 세로 배치 (모바일) */
+.bottomRow {
+  /* 모바일에서는 추가 스타일 불필요 */
+}
+
+/* 데스크톱 반응형 (720px 이상) */
+@media (min-width: 720px) {
   .page {
     max-width: 1024px;
     padding:0;
   }
 
-  /* Heatmap과 Record를 감싸는 컨테이너 */
-  .page > div:first-child > div:nth-child(2) {
+  /* Heatmap과 Record를 가로로 배치 */
+  .bottomRow {
     display: flex;
     flex-direction: row;
     gap: 16px;
     justify-content: center;
+  }
+
+  .heatmap, .record {
+    width: 480px;
   }
 }
 
