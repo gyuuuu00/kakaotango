@@ -41,12 +41,30 @@ function BackView({ data, cameraOrientation }) {
 
       {/* 측정 데이터 리스트 */}
       <div className={styles.detailList}>
-        {data.back.detail_data?.map((item, index) => (
-          <DetailItem key={`back-${index}`} data={item} label="후면측정" />
-        ))}
-        {data.back_sit.detail_data?.map((item, index) => (
-          <DetailItem key={`sit-${index}`} data={item} label="후면측정" />
-        ))}
+        <div className={styles.leftColumn}>
+          {data.back.detail_data
+            ?.filter(item => item.left_right === 0)
+            .map((item, index) => (
+              <DetailItem key={`back-left-${index}`} data={item} label="후면측정" />
+            ))}
+          {data.back_sit.detail_data
+            ?.filter(item => item.left_right === 0)
+            .map((item, index) => (
+              <DetailItem key={`sit-left-${index}`} data={item} label="후면측정" />
+            ))}
+        </div>
+        <div className={styles.rightColumn}>
+          {data.back.detail_data
+            ?.filter(item => item.left_right === 1)
+            .map((item, index) => (
+              <DetailItem key={`back-right-${index}`} data={item} label="후면측정" />
+            ))}
+          {data.back_sit.detail_data
+            ?.filter(item => item.left_right === 1)
+            .map((item, index) => (
+              <DetailItem key={`sit-right-${index}`} data={item} label="후면측정" />
+            ))}
+        </div>
       </div>
     </div>
   );

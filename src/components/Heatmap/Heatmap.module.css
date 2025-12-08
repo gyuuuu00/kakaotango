@@ -1,8 +1,8 @@
 .container {
-  padding: 20px 0;
   background: white;
-  width: 100%;
+  width: 320px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .title {
@@ -23,20 +23,16 @@
 .table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0;
+  border-spacing: 0; 
 }
 
 /* 헤더 */
 .headerCell {
   background: white;
-  /* padding: 10px 12px; */
   font-size: 13px;
   font-weight: 600;
   color: #333;
   text-align: left;
-  position: sticky;
-  left: 0;
-  z-index: 10;
 }
 
 .dateCell {
@@ -55,16 +51,11 @@
   font-weight: 500;
   color: #7E7E7E;
   text-align: center;
-  position: sticky;
-  left: 0;
-  z-index: 5;
-  min-width: 36px;
+  max-width: 36px;
 }
 
 .heatCell {
-  padding: 2px;
   text-align: center;
-  /* border-bottom: 1px solid #e5e7eb; */
 }
 
 .cellImage {
@@ -73,7 +64,6 @@
   display: block;
 }
 
-/* 위험도 색상 - 제거됨, SVG 사용 */
 
 /* 카운트 */
 .count {
@@ -91,32 +81,36 @@
   color: #999;
 }
 
-/* 모바일 최적화 */
-@media (max-width: 480px) {
-  .title {
-    font-size: 15px;
-  }
 
-  .headerCell,
-  .labelCell {
-    font-size: 11px;
-    min-width: 36px;
-  }
-
-  .dateCell {
-    font-size: 6px;
-  }
-
-  .cellImage {
-    width: 20px;
-    height: 20px;
-  }
-}
 
 /* 데스크톱 반응형 (1024px 이상) */
 @media (min-width: 1024px) {
   .container {
     width: 480px;
     flex-shrink: 0;
+    padding: 0;
+    margin: 0;
   }
+  .legend {
+    margin-bottom: 12px;
+  }
+  .table {
+    border-spacing: 4px;
+  }
+  .dateCell {
+    width: 33.33px;
+    height: 12px;
+  }
+  .labelCell {
+    width: 36px;
+  }
+  .heatCell {
+    width: 33.33px;
+    padding: 0;
+  }
+  .cellImage{
+    width: 33.33px;
+    height: 20px;
+  }
+
 }

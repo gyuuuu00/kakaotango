@@ -32,7 +32,7 @@
 
 .tableHeader {
   width: 100%;
-  height: 36px;
+  height: 32px;
   display: flex;
   align-items: center;
   padding: 0;
@@ -73,7 +73,7 @@
   position: absolute;
   top: 0;
   transform: translateX(-50%);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -105,8 +105,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 16px 8px;
+  gap: 4px;
+  padding: 4px;
   flex-shrink: 0;
   border-right: 1px solid #eeeeee;
   border-bottom: 1px solid #eeeeee;
@@ -280,10 +280,30 @@
 @media (min-width: 1024px) {
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 488px 488px;
+    width: 976px;
+    margin: 0 auto;
   }
 
   .section {
-    width: 100%;
+    width: 488px;
+  }
+
+  .container{
+    margin:24px 0 16px 0;
+  }
+
+  .measureText {
+    white-space: revert;
+    width: 164px;
+  }
+  .colCategory {
+    width: 110px;
+  }
+  .colMeasure{
+    flex: 0 0 164px;
+  }
+  .categoryCell {
+    width: 108px;
   }
 }

@@ -51,12 +51,30 @@ function SideView({ data, cameraOrientation }) {
 
       {/* 측정 데이터 리스트 */}
       <div className={styles.detailList}>
-        {Array.isArray(leftSide.detail_data) && leftSide.detail_data.map((item, index) => (
-          <DetailItem key={`left-${index}`} data={item} label="왼쪽측면" />
-        ))}
-        {Array.isArray(rightSide.detail_data) && rightSide.detail_data.map((item, index) => (
-          <DetailItem key={`right-${index}`} data={item} label="오른쪽측면" />
-        ))}
+        <div className={styles.leftColumn}>
+          {Array.isArray(leftSide.detail_data) && leftSide.detail_data
+            .filter(item => item.left_right === 0)
+            .map((item, index) => (
+              <DetailItem key={`left-left-${index}`} data={item} label="왼쪽측면" />
+            ))}
+          {Array.isArray(rightSide.detail_data) && rightSide.detail_data
+            .filter(item => item.left_right === 0)
+            .map((item, index) => (
+              <DetailItem key={`right-left-${index}`} data={item} label="오른쪽측면" />
+            ))}
+        </div>
+        <div className={styles.rightColumn}>
+          {Array.isArray(leftSide.detail_data) && leftSide.detail_data
+            .filter(item => item.left_right === 1)
+            .map((item, index) => (
+              <DetailItem key={`left-right-${index}`} data={item} label="왼쪽측면" />
+            ))}
+          {Array.isArray(rightSide.detail_data) && rightSide.detail_data
+            .filter(item => item.left_right === 1)
+            .map((item, index) => (
+              <DetailItem key={`right-right-${index}`} data={item} label="오른쪽측면" />
+            ))}
+        </div>
       </div>
     </div>
   );

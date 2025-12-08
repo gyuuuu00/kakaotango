@@ -43,12 +43,30 @@ function FrontView({ data, cameraOrientation }) {
 
       {/* 측정 데이터 리스트 */}
       <div className={styles.detailList}>
-        {frontData.static_front.detail_data.map((item, index) => (
-          <DetailItem key={`front-${index}`} data={item} label="정면측정" />
-        ))}
-        {frontData.static_elbow.detail_data.map((item, index) => (
-          <DetailItem key={`elbow-${index}`} data={item} label="정면측정" />
-        ))}
+        <div className={styles.leftColumn}>
+          {frontData.static_front.detail_data
+            .filter(item => item.left_right === 0)
+            .map((item, index) => (
+              <DetailItem key={`front-left-${index}`} data={item} label="정면측정" />
+            ))}
+          {frontData.static_elbow.detail_data
+            .filter(item => item.left_right === 0)
+            .map((item, index) => (
+              <DetailItem key={`elbow-left-${index}`} data={item} label="정면측정" />
+            ))}
+        </div>
+        <div className={styles.rightColumn}>
+          {frontData.static_front.detail_data
+            .filter(item => item.left_right === 1)
+            .map((item, index) => (
+              <DetailItem key={`front-right-${index}`} data={item} label="정면측정" />
+            ))}
+          {frontData.static_elbow.detail_data
+            .filter(item => item.left_right === 1)
+            .map((item, index) => (
+              <DetailItem key={`elbow-right-${index}`} data={item} label="정면측정" />
+            ))}
+        </div>
       </div>
     </div>
   );

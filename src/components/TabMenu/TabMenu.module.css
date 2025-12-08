@@ -35,11 +35,11 @@
 @media (min-width: 720px) {
  .tabMenu {
   display: flex;
-  gap: 36px; /* 버튼 간 간격 */
+  gap: 37px;
   width: 100%;
   background: #fff;
   box-sizing: border-box;
-  margin:0 62px;
+  margin:0 63px;
   }
 
   .tabButton{

@@ -125,9 +125,20 @@ function SquatView({ data, cameraOrientation }) {
 
       {/* 측정 데이터 리스트 */}
       <div className={styles.detailList}>
-        {data.squat.detail_data?.map((item, index) => (
-          <DetailItem key={`squat-${index}`} data={item} label="동적측정" />
-        ))}
+        <div className={styles.leftColumn}>
+          {data.squat.detail_data
+            ?.filter(item => item.left_right === 0)
+            .map((item, index) => (
+              <DetailItem key={`squat-left-${index}`} data={item} label="동적측정" />
+            ))}
+        </div>
+        <div className={styles.rightColumn}>
+          {data.squat.detail_data
+            ?.filter(item => item.left_right === 1)
+            .map((item, index) => (
+              <DetailItem key={`squat-right-${index}`} data={item} label="동적측정" />
+            ))}
+        </div>
       </div>
     </div>
   );

@@ -322,3 +322,28 @@
   font-size: 14px;
   color: #666;
 }
+
+/* 데스크톱 반응형 (1024px 이상) */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 976px;
+    margin: 0 auto;
+  }
+  .videoSection {
+    margin-top: 16px;
+  }
+  .detailList {
+    display: grid;
+    grid-template-columns: 480px 480px;
+    gap: 16px;
+    min-width: 976px;
+    margin: 16px;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
