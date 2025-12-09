@@ -107,20 +107,20 @@ function MobileBodyReport({ data: initialData, t_r}) {
 
   // === cautionAreas 생성 ===
   const cautionAreas = [];
-  const addIfRisk = (cond, name, status, y, x, side) => {
-    if (cond) cautionAreas.push({ name, status, y, x, side });
+  const addIfRisk = (cond, name, status, mobileY, mobileX, desktopY, desktopX, side) => {
+    if (cond) cautionAreas.push({ name, status, y: mobileY, x: mobileX, desktopY, desktopX, side });
   };
-  addIfRisk(summary.risk_neck !== "0" && summary.risk_neck != null, "목", getRiskStatus(summary.risk_neck), 20, 47, "center");
-  addIfRisk(summary.risk_shoulder_left !== "0" && summary.risk_shoulder_left != null, "어깨(좌)", getRiskStatus(summary.risk_shoulder_left), 25, 40, "left");
-  addIfRisk(summary.risk_shoulder_right !== "0" && summary.risk_shoulder_right != null, "어깨(우)", getRiskStatus(summary.risk_shoulder_right), 25, 53, "right");
-  addIfRisk(summary.risk_elbow_left !== "0" && summary.risk_elbow_left != null, "팔꿈치(좌)", getRiskStatus(summary.risk_elbow_left), 37, 38, "left");
-  addIfRisk(summary.risk_elbow_right !== "0" && summary.risk_elbow_right != null, "팔꿈치(우)", getRiskStatus(summary.risk_elbow_right), 37, 58, "right");
-  addIfRisk(summary.risk_hip_left !== "0" && summary.risk_hip_left != null, "골반(좌)", getRiskStatus(summary.risk_hip_left), 48, 42, "left");
-  addIfRisk(summary.risk_hip_right !== "0" && summary.risk_hip_right != null, "골반(우)", getRiskStatus(summary.risk_hip_right), 48, 52, "right");
-  addIfRisk(summary.risk_knee_left !== "0" && summary.risk_knee_left != null, "무릎(좌)", getRiskStatus(summary.risk_knee_left), 64, 44, "left");
-  addIfRisk(summary.risk_knee_right !== "0" && summary.risk_knee_right != null, "무릎(우)", getRiskStatus(summary.risk_knee_right), 64, 50, "right");
-  addIfRisk(summary.risk_ankle_left !== "0" && summary.risk_ankle_left != null, "발목(좌)", getRiskStatus(summary.risk_ankle_left), 75, 44, "left");
-  addIfRisk(summary.risk_ankle_right !== "0" && summary.risk_ankle_right != null, "발목(우)", getRiskStatus(summary.risk_ankle_right), 75, 51, "right");
+  addIfRisk(summary.risk_neck !== "0" && summary.risk_neck != null, "목", getRiskStatus(summary.risk_neck), 13, 47, 13, 49, "center");
+  addIfRisk(summary.risk_shoulder_left !== "0" && summary.risk_shoulder_left != null, "어깨(좌)", getRiskStatus(summary.risk_shoulder_left), 20, 36.55, 20, 45, "left");
+  addIfRisk(summary.risk_shoulder_right !== "0" && summary.risk_shoulder_right != null, "어깨(우)", getRiskStatus(summary.risk_shoulder_right), 20, 56.55, 20, 52.5, "right");
+  addIfRisk(summary.risk_elbow_left !== "0" && summary.risk_elbow_left != null, "팔꿈치(좌)", getRiskStatus(summary.risk_elbow_left), 32, 34.55, 32, 44.5, "left");
+  addIfRisk(summary.risk_elbow_right !== "0" && summary.risk_elbow_right != null, "팔꿈치(우)", getRiskStatus(summary.risk_elbow_right), 32, 59.55, 32, 53.5, "right");
+  addIfRisk(summary.risk_hip_left !== "0" && summary.risk_hip_left != null, "골반(좌)", getRiskStatus(summary.risk_hip_left), 46, 40.5, 47, 46.5, "left");
+  addIfRisk(summary.risk_hip_right !== "0" && summary.risk_hip_right != null, "골반(우)", getRiskStatus(summary.risk_hip_right), 46, 53.5, 48, 51.5, "right");
+  addIfRisk(summary.risk_knee_left !== "0" && summary.risk_knee_left != null, "무릎(좌)", getRiskStatus(summary.risk_knee_left), 68, 41.5, 68, 47, "left");
+  addIfRisk(summary.risk_knee_right !== "0" && summary.risk_knee_right != null, "무릎(우)", getRiskStatus(summary.risk_knee_right), 68, 52.5, 68, 51, "right");
+  addIfRisk(summary.risk_ankle_left !== "0" && summary.risk_ankle_left != null, "발목(좌)", getRiskStatus(summary.risk_ankle_left), 85, 41, 85, 46.7, "left");
+  addIfRisk(summary.risk_ankle_right !== "0" && summary.risk_ankle_right != null, "발목(우)", getRiskStatus(summary.risk_ankle_right), 85, 53, 85, 51, "right");
 
   return (
     <div className={styles.page}>

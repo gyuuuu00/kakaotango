@@ -16,15 +16,21 @@ export default function App() {
 
   const handlePhoneChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
-    
+
     let formatted = value;
     if (value.length > 3 && value.length <= 7) {
       formatted = `${value.slice(0, 3)}-${value.slice(3)}`;
     } else if (value.length > 7) {
       formatted = `${value.slice(0, 3)}-${value.slice(3, 7)}-${value.slice(7, 11)}`;
     }
-    
+
     setMobile(formatted);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -119,6 +125,7 @@ export default function App() {
               placeholder="- 를 제외하고 010부터 전화번호를 입력해 주세요"
               value={mobile}
               onChange={handlePhoneChange}
+              onKeyDown={handleKeyDown}
               maxLength="13"
               style={{
                 width: '100%',

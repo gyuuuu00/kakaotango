@@ -190,19 +190,29 @@ export default function CautionArea({
           </div>
           <div className={styles.human}>
             <img src={bodyImage} alt="신체" className={styles.bodyImg} />
-            {cautionAreas.map((a, i) => (
-              <img
-                key={i}
-                src={getDotImage(a.status)}
-                alt={a.name}
-                className={`${styles.dot} ${dotClass(a.status)}`}
-                style={{
-                  top: a.y ? `${a.y}%` : `${22 + (i % 4) * 18}%`,
-                  left: a.x ? `${a.x}%` : a.side === "left" ? "34%" : "66%",
-                }}
-                title={`${a.name ?? "부위"}: ${a.status}`}
-              />
-            ))}
+            {cautionAreas.map((a, i) => {
+              // 모바일/데스크톱 좌표를 각각 사용 (좌표는 그대로 적용)
+              const mobileY = a.y !== undefined ? a.y : (22 + (i % 4) * 18);
+              const mobileX = a.x !== undefined ? a.x : (a.side === "left" ? 34 : 66);
+              const desktopY = a.desktopY !== undefined ? a.desktopY : mobileY;
+              const desktopX = a.desktopX !== undefined ? a.desktopX : mobileX;
+
+              return (
+                <img
+                  key={i}
+                  src={getDotImage(a.status)}
+                  alt={a.name}
+                  className={`${styles.dot} ${dotClass(a.status)}`}
+                  style={{
+                    '--mobile-top': `${mobileY}%`,
+                    '--mobile-left': `${mobileX}%`,
+                    '--desktop-top': `${desktopY}%`,
+                    '--desktop-left': `${desktopX}%`,
+                  }}
+                  title={`${a.name ?? "부위"}: ${a.status}`}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

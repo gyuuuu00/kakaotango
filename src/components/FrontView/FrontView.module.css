@@ -216,7 +216,7 @@
 @media (min-width: 1024px) {
   .container {
     max-width: 976px;
-    margin: 0 auto;
+    margin-bottom: 20px;
   }
   .imageSection {
     gap: 305px;
@@ -229,7 +229,6 @@
     grid-template-columns: 480px 480px;
     gap: 16px;
     min-width: 976px;
-    margin: 16px;
   }
 
 

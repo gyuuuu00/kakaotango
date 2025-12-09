@@ -94,7 +94,7 @@
 }
 
 .human img {
-  max-width: 85%;
+  max-width: 100%;
   height: auto;
   opacity: 0.95;
 }
@@ -106,6 +106,8 @@
   border-radius: 50%;
   border: 2px solid #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  top: var(--mobile-top);
+  left: var(--mobile-left);
 }
 
 .normal { background: var(--ok-color); }
@@ -556,6 +558,12 @@
   /* 1024px 이상에서도 동일한 human 컨테이너 비율 유지 */
   .human {
     min-height: 280px;
+  }
+
+  /* dot 위치를 데스크톱용으로 변경 */
+  .dot {
+    top: var(--desktop-top) !important;
+    left: var(--desktop-left) !important;
   }
 
   /* 2열 그리드로 배치 */

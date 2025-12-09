@@ -327,7 +327,7 @@
 @media (min-width: 1024px) {
   .container {
     max-width: 976px;
-    margin: 0 auto;
+    margin-bottom: 20px;
   }
   .videoSection {
     margin-top: 16px;
@@ -337,7 +337,10 @@
     grid-template-columns: 480px 480px;
     gap: 16px;
     min-width: 976px;
-    margin: 16px;
+  }
+  .videoControls{
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .leftColumn,
