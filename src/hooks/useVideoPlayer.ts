@@ -233,10 +233,11 @@ export const useVideoPlayer = ({
       const vRect = video.getBoundingClientRect();
       if (vRect.width === 0 || vRect.height === 0) return;
 
-      const videoAspect = vRect.height / vRect.width;
-      const sx = -VIDEO_SCALE * videoAspect;
-      const sy = VIDEO_SCALE * videoAspect;
-      setCanvasTransform(`scaleX(${sx}) scaleY(${sy})`);
+      // 회전된 영상: 실제 비디오 크기 기반으로 스케일 계산
+      // 영상이 133% width로 확대되었으므로 스케일 조정
+      const scaleX = -(vRect.width / rect.width);
+      const scaleY = vRect.height / rect.height;
+      setCanvasTransform(`scaleX(${scaleX}) scaleY(${scaleY})`);
     };
 
     const ro = new ResizeObserver(update);

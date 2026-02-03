@@ -7,22 +7,11 @@
 .stage {
   position: relative;
   width: 100%;
-  height: 300px;
+  aspect-ratio: 3 / 4;
+  max-height: 480px;
   overflow: hidden;
   background: #000;
   border-radius: 12px;
-}
-
-@media (min-width: 768px) {
-  .stage {
-    height: 400px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .stage {
-    height: 480px;
-  }
 }
 
 .video {
@@ -38,9 +27,11 @@
 
 .video.rotated {
   transform: translate(-50%, -50%) rotate(-90deg);
-  width: auto;
-  height: 100%;
+  /* 회전 후 가로세로가 바뀌므로 width/height 스왑 */
+  width: 133%;  /* 4/3 비율로 확대하여 세로 공간 채우기 */
+  height: auto;
   max-width: none;
+  object-fit: contain;
 }
 
 .canvas {
