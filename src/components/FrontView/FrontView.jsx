@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './FrontView.module.css';
 import DetailItem from '../common/DetailItem/DetailItem';
-import PoseImage from '../common/PoseImage/PoseImage';
+import MeasurementImage from '../MeasurementImage/MeasurementImage';
 
 function FrontView({ data, cameraOrientation }) {
   if (!data) {
@@ -14,30 +14,28 @@ function FrontView({ data, cameraOrientation }) {
     return <div className={styles.noData}>데이터를 불러올 수 없습니다.</div>;
   }
 
-  const shouldRotate = cameraOrientation === 1;
-
   return (
     <div className={styles.container}>
       {/* 상단 이미지 영역 */}
       <div className={styles.imageSection}>
         <div className={styles.imageItem}>
-          <PoseImage
-            src={frontData.static_front.measure_server_file_name}
-            alt="정면측정"
-            shouldRotate={shouldRotate}
-            poseLandmarks={frontData.static_front.pose_landmark}
+          <MeasurementImage
+            imageUrl={`https://gym.tangoplus.co.kr/data/Results/${frontData.static_front.measure_server_file_name}`}
+            measureJson={{ pose_landmark: frontData.static_front.pose_landmark }}
+            step="first"
+            cameraOrientation={cameraOrientation}
+            label="정면측정"
           />
-          <p className={styles.imageLabel}>정면측정</p>
         </div>
 
         <div className={styles.imageItem}>
-          <PoseImage
-            src={frontData.static_elbow.measure_server_file_name}
-            alt="정면_발끝측정"
-            shouldRotate={shouldRotate}
-            poseLandmarks={frontData.static_elbow.pose_landmark}
+          <MeasurementImage
+            imageUrl={`https://gym.tangoplus.co.kr/data/Results/${frontData.static_elbow.measure_server_file_name}`}
+            measureJson={{ pose_landmark: frontData.static_elbow.pose_landmark }}
+            step="second"
+            cameraOrientation={cameraOrientation}
+            label="정면_팔꿉측정"
           />
-          <p className={styles.imageLabel}>정면_팔꿉측정</p>
         </div>
       </div>
 

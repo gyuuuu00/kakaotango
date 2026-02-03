@@ -1,16 +1,133 @@
-# React + Vite
+# TangoBody (탱고바디)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+신체 자세 분석 및 운동 추천 웹 애플리케이션
 
-Currently, two official plugins are available:
+## 프로젝트 소개
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TangoBody는 사용자의 신체 측정 데이터를 시각화하고 맞춤 운동을 추천하는 플랫폼입니다.
 
-## React Compiler
+### 주요 기능
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **신체 자세 분석**: 정면, 측면, 후면, 동적(스쿼트) 측정 데이터 시각화
+- **위험도 평가**: 10개 신체 부위별 위험도 표시 (정상/경고/위험)
+- **족압 분석**: 정적/동적 족압 분포 및 좌우 균형 평가
+- **운동 추천**: 위험 부위별 맞춤 운동 프로그램 추천
+- **측정 이력**: 히트맵을 통한 시간별 변화 추적
+- **반응형 디자인**: 모바일/데스크탑 최적화
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 기술 스택
+
+| 분류 | 기술 |
+|------|------|
+| Framework | React 19 |
+| Build Tool | Vite 7 |
+| Routing | React Router DOM 7 |
+| HTTP Client | Axios |
+| Deployment | Vercel |
+
+---
+
+## 프로젝트 구조
+
+```
+src/
+├── main.jsx                    # React 진입점
+├── App.jsx                     # 루트 컴포넌트 (로그인 화면)
+├── api/
+│   └── mobileApi.js            # 백엔드 API 호출 함수
+├── components/
+│   ├── MobileBodyReport/       # 메인 대시보드 레이아웃
+│   ├── Header/                 # 헤더 (사용자명, 측정일)
+│   ├── TabMenu/                # 탭 네비게이션
+│   ├── CautionArea/            # 신체 부위 위험도 시각화
+│   ├── DetailedAnalysis/       # 상세 분석 데이터
+│   ├── Heatmap/                # 측정 이력 히트맵
+│   ├── Record/                 # 측정 기록
+│   ├── FrontView/              # 정면 측정 결과
+│   ├── SideView/               # 측면 측정 결과
+│   ├── BackView/               # 후면 측정 결과
+│   ├── SquatView/              # 동적 측정 결과
+│   ├── ExerciseRecommendation/ # 추천 운동 목록
+│   ├── ExerciseDetail/         # 운동 상세 정보
+│   └── common/                 # 공통 컴포넌트
+├── data/
+│   ├── bodyTypes.js            # 신체 타입 데이터 (8가지 체형)
+│   └── sampleData.js           # 샘플 데이터
+└── assets/                     # 이미지, 아이콘 리소스
+```
+
+---
+
+## 시작하기
+
+### 1. 의존성 설치
+
+```bash
+npm install
+```
+
+### 2. 개발 서버 실행
+
+```bash
+npm run dev
+```
+
+브라우저에서 **http://localhost:5073** 으로 접속하면 개발 페이지를 볼 수 있습니다.
+
+### 3. 프로덕션 빌드
+
+```bash
+npm run build
+```
+
+### 4. 빌드 결과물 미리보기
+
+```bash
+npm run preview
+```
+
+---
+
+## 스크립트 명령어
+
+| 명령어 | 설명 |
+|--------|------|
+| `npm run dev` | 개발 서버 실행 (localhost:5073) |
+| `npm run build` | 프로덕션 빌드 |
+| `npm run preview` | 빌드 결과물 미리보기 |
+| `npm run lint` | ESLint 코드 검사 |
+
+---
+
+## 화면 구성
+
+| 탭 | 설명 |
+|----|------|
+| 종합보기 | 전체 신체 상태 요약 및 위험도 표시 |
+| 정면측정 | 정면 자세 분석 결과 |
+| 측면측정 | 좌/우 측면 자세 분석 결과 |
+| 후면측정 | 후면 자세 분석 결과 |
+| 동적측정 | 스쿼트 동작 분석 결과 |
+| 추천운동 | 부위별 맞춤 운동 프로그램 |
+
+---
+
+## 배포
+
+Vercel을 통해 자동 배포됩니다.
+
+### 배포 URL
+
+```
+https://kakotango.vercel.app
+```
+
+### 테스트 접속 (전달받은 데이터로 확인)
+
+```
+https://kakotango.vercel.app?t_r=YeVTF2wGZ/jTgQ9nPys0443juDibdo+mPQsL+A4jldcolkvtPhm+xUO67UiMfX1oVADHbtlec0NZ4GkKMW2FSxTORBX9ePyosHotnpf5UirwuKVxk6emDZjAlECVNJKbyERnhJIsWqdLXU6hTTBsSQ7chtAJalqZMheQpm88pabUy1DMcyWviF9JmowdhUC0qfVmhc6NhVRib8wf22iAU3jSa3SVNq+QMo68bOI1syHnQL/F+XUwm+RM6YHu8EaYpjRFROYaW9x2WNx5T5txZuk7tQa+extmCkZpLdLvbv4=
+```
+
+> **참고**: 로컬 개발 서버(`localhost:5073`)에서는 API 인증 토큰이 없어 데이터가 표시되지 않습니다. 실제 데이터 확인은 배포된 URL에서 해주세요.

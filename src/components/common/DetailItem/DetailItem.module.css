@@ -144,6 +144,8 @@
   margin: 0;
 }
 
-@media (max-width: 1024px) {
-  
+@media (min-width: 1024px) {
+  .levelLabels{
+    padding: 0 32px;
+  }
 }

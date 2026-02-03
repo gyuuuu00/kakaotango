@@ -75,6 +75,7 @@
   transform: translateX(-50%);
   font-size: 14px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .arrowIcon {
@@ -275,6 +276,7 @@
   font-size: 14px;
   color: #999;
 }
+
 
 /* 데스크톱 반응형 (1024px 이상) */
 @media (min-width: 1024px) {

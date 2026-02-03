@@ -57,7 +57,7 @@ function MobileBodyReport({ data: initialData, t_r}) {
         }
 
         setLoading(true);
-
+0
 
       try {
         let result;
