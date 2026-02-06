@@ -89,9 +89,12 @@ export function useStaticLandmark(
 
         if (showLine) {
           ctx.save();
-          // 미러
-          ctx.translate(dstW, 0);
-          ctx.scale(-1, 1);
+          if (cameraOrientation === 1) {
+            // 카메라1: 미러링 적용
+            ctx.translate(dstW, 0);
+            ctx.scale(-1, 1);
+          }
+          // 카메라0: 미러링 없이 그리기
           drawMap[step](ctx, measureJson);
           ctx.restore();
         }

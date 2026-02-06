@@ -27,9 +27,9 @@
 
 .video.rotated {
   transform: translate(-50%, -50%) rotate(-90deg);
-  /* 회전 후 가로세로가 바뀌므로 width/height 스왑 */
-  width: 133%;  /* 4/3 비율로 확대하여 세로 공간 채우기 */
-  height: auto;
+  /* 회전 후 가로세로가 바뀌므로 width를 height에, height를 width에 맞춤 */
+  width: auto;
+  height: 70%;
   max-width: none;
   object-fit: contain;
 }

@@ -18,7 +18,7 @@ function BackView({ data, cameraOrientation }) {
       <div className={styles.imageSection}>
         <div className={styles.imageItem}>
           <MeasurementImage
-            imageUrl={`https://gym.tangoplus.co.kr/data/Results/${data.back.measure_server_file_name}`}
+            imageUrl={`/data/Results/${data.back.measure_server_file_name}`}
             measureJson={{ pose_landmark: data.back.pose_landmark }}
             step="fifth"
             cameraOrientation={cameraOrientation}
@@ -28,7 +28,7 @@ function BackView({ data, cameraOrientation }) {
 
         <div className={styles.imageItem}>
           <MeasurementImage
-            imageUrl={`https://gym.tangoplus.co.kr/data/Results/${data.back_sit.measure_server_file_name}`}
+            imageUrl={`/data/Results/${data.back_sit.measure_server_file_name}`}
             measureJson={{ pose_landmark: data.back_sit.pose_landmark }}
             step="sixth"
             cameraOrientation={cameraOrientation}

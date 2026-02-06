@@ -20,7 +20,7 @@ function FrontView({ data, cameraOrientation }) {
       <div className={styles.imageSection}>
         <div className={styles.imageItem}>
           <MeasurementImage
-            imageUrl={`https://gym.tangoplus.co.kr/data/Results/${frontData.static_front.measure_server_file_name}`}
+            imageUrl={`/data/Results/${frontData.static_front.measure_server_file_name}`}
             measureJson={{ pose_landmark: frontData.static_front.pose_landmark }}
             step="first"
             cameraOrientation={cameraOrientation}
@@ -30,7 +30,7 @@ function FrontView({ data, cameraOrientation }) {
 
         <div className={styles.imageItem}>
           <MeasurementImage
-            imageUrl={`https://gym.tangoplus.co.kr/data/Results/${frontData.static_elbow.measure_server_file_name}`}
+            imageUrl={`/data/Results/${frontData.static_elbow.measure_server_file_name}`}
             measureJson={{ pose_landmark: frontData.static_elbow.pose_landmark }}
             step="second"
             cameraOrientation={cameraOrientation}

@@ -42,7 +42,7 @@ function MobileBodyReport({ data: initialData, t_r}) {
           if (bodyReportData?.result_summary_data) {
 
             // summary_data에서 카메라 방향 여부 확인 후 다른 컴포넌트들한테 전달
-            const orientation = bodyReportData.result_summary_data.camera_orientation || 0;
+            const orientation = bodyReportData.result_summary_data.camera_orientation ?? 0;
             setCameraOrientation(orientation);
 
 

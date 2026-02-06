@@ -95,7 +95,11 @@ export const useVideoPlayer = ({
 
     const update = () => {
       const rect = stage.getBoundingClientRect();
-      const base = computeContain(rect.width, rect.height, DATA_W, DATA_H);
+      const video = videoRef.current;
+      // orientation 0: 실제 영상 해상도 사용, orientation 1: 고정값 사용
+      const dataW = (!isRotated && video?.videoWidth) ? video.videoWidth : DATA_W;
+      const dataH = (!isRotated && video?.videoHeight) ? video.videoHeight : DATA_H;
+      const base = computeContain(rect.width, rect.height, dataW, dataH);
 
       const cw = canvasWhiteRef.current;
       const cr = canvasRedRef.current;
@@ -212,7 +216,10 @@ export const useVideoPlayer = ({
       const rect = stage.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
 
-      const base = computeContain(rect.width, rect.height, DATA_W, DATA_H);
+      // orientation 0: 실제 영상 해상도 사용, orientation 1: 고정값 사용
+      const dataW = (!isRotated && video?.videoWidth) ? video.videoWidth : DATA_W;
+      const dataH = (!isRotated && video?.videoHeight) ? video.videoHeight : DATA_H;
+      const base = computeContain(rect.width, rect.height, dataW, dataH);
 
       const cw = canvasWhiteRef.current;
       const cr = canvasRedRef.current;
@@ -226,6 +233,7 @@ export const useVideoPlayer = ({
       setFit({ ...base, dpr });
 
       if (!video || !isRotated) {
+        // cameraOrientation: 0일 때 미러링 적용
         setCanvasTransform(`scaleX(-1) scaleY(1)`);
         return;
       }
@@ -233,11 +241,22 @@ export const useVideoPlayer = ({
       const vRect = video.getBoundingClientRect();
       if (vRect.width === 0 || vRect.height === 0) return;
 
-      // 회전된 영상: 실제 비디오 크기 기반으로 스케일 계산
-      // 영상이 133% width로 확대되었으므로 스케일 조정
-      const scaleX = -(vRect.width / rect.width);
-      const scaleY = vRect.height / rect.height;
-      setCanvasTransform(`scaleX(${scaleX}) scaleY(${scaleY})`);
+      // 회전된 영상: vRect 기준으로 fit 재계산
+      const rotatedBase = computeContain(vRect.width, vRect.height, DATA_W, DATA_H);
+      const offsetX = (rect.width - vRect.width) / 2 + rotatedBase.offsetX;
+      const offsetY = (rect.height - vRect.height) / 2 + rotatedBase.offsetY;
+
+      setFit({
+        ...rotatedBase,
+        stageW: rect.width,
+        stageH: rect.height,
+        offsetX,
+        offsetY,
+        dpr,
+      });
+
+      // 미러링만 적용, scale은 1로 유지
+      setCanvasTransform(`scaleX(-1) scaleY(1)`);
     };
 
     const ro = new ResizeObserver(update);

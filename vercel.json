@@ -7,6 +7,10 @@
     {
       "source": "/admin_api/:path*",
       "destination": "https://gym.tangoplus.co.kr/admin_api/:path*"
+    },
+    {
+      "source": "/data/:path*",
+      "destination": "https://gym.tangoplus.co.kr/data/:path*"
     }
   ]
 }

@@ -22,7 +22,7 @@ function SideView({ data, cameraOrientation }) {
         {leftSide.measure_server_file_name && (
           <div className={styles.imageItem}>
             <MeasurementImage
-              imageUrl={`https://gym.tangoplus.co.kr/data/Results/${leftSide.measure_server_file_name}`}
+              imageUrl={`/data/Results/${leftSide.measure_server_file_name}`}
               measureJson={{ pose_landmark: leftSide.pose_landmark }}
               step="third"
               cameraOrientation={cameraOrientation}
@@ -34,7 +34,7 @@ function SideView({ data, cameraOrientation }) {
         {rightSide.measure_server_file_name && (
           <div className={styles.imageItem}>
             <MeasurementImage
-              imageUrl={`https://gym.tangoplus.co.kr/data/Results/${rightSide.measure_server_file_name}`}
+              imageUrl={`/data/Results/${rightSide.measure_server_file_name}`}
               measureJson={{ pose_landmark: rightSide.pose_landmark }}
               step="fourth"
               cameraOrientation={cameraOrientation}

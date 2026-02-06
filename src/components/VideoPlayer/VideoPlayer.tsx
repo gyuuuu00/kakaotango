@@ -79,8 +79,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     const ctxT = ct.getContext("2d");
     if (!ctxW || !ctxR || !ctxT) return;
 
-    // Trail
-    ctxT.lineWidth = 1;
+    // Trail (현재 프레임만 표시, 누적 안 함)
+    ctxT.clearRect(0, 0, fit.stageW, fit.stageH);
+    ctxT.lineWidth = 2;
     ctxT.strokeStyle = "#00FF00";
 
     const p15 = toScreen(lm[15].sx, lm[15].sy);
@@ -90,12 +91,25 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     const p25 = toScreen(lm[25].sx, lm[25].sy);
     const p26 = toScreen(lm[26].sx, lm[26].sy);
 
-    const prev = trailPrevRef.current;
-    drawTrailSegment(ctxT, prev.p15, p15);
-    drawTrailSegment(ctxT, prev.p16, p16);
-    drawTrailSegment(ctxT, prev.pMid, pMid);
-    drawTrailSegment(ctxT, prev.p25, p25);
-    drawTrailSegment(ctxT, prev.p26, p26);
+    // 골반 라인 (23-24 연결)
+    const p23 = toScreen(lm[23].sx, lm[23].sy);
+    const p24 = toScreen(lm[24].sx, lm[24].sy);
+    ctxT.beginPath();
+    ctxT.moveTo(p23.x, p23.y);
+    ctxT.lineTo(p24.x, p24.y);
+    ctxT.stroke();
+
+    // 무릎 라인 (25-26 연결)
+    ctxT.beginPath();
+    ctxT.moveTo(p25.x, p25.y);
+    ctxT.lineTo(p26.x, p26.y);
+    ctxT.stroke();
+
+    // 손목 라인 (15-16 연결) - 선택사항
+    ctxT.beginPath();
+    ctxT.moveTo(p15.x, p15.y);
+    ctxT.lineTo(p16.x, p16.y);
+    ctxT.stroke();
 
     trailPrevRef.current = { p15, p16, pMid, p25, p26 };
 

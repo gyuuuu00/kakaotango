@@ -22,6 +22,7 @@ TangoBody는 사용자의 신체 측정 데이터를 시각화하고 맞춤 운�
 | 분류 | 기술 |
 |------|------|
 | Framework | React 19 |
+| Language | TypeScript 5.9 |
 | Build Tool | Vite 7 |
 | Routing | React Router DOM 7 |
 | HTTP Client | Axios |
@@ -55,6 +56,14 @@ src/
 ├── data/
 │   ├── bodyTypes.js            # 신체 타입 데이터 (8가지 체형)
 │   └── sampleData.js           # 샘플 데이터
+├── types/
+│   └── pose.ts                 # 포즈 관련 타입 정의
+├── utils/
+│   ├── drawLineStep.ts         # 랜드마크 라인 그리기 유틸
+│   └── videoUtils.ts           # 비디오 관련 유틸
+├── hooks/
+│   ├── useStaticLandmark.ts    # 이미지 랜드마크 훅
+│   └── useVideoPlayer.ts       # 비디오 플레이어 훅
 └── assets/                     # 이미지, 아이콘 리소스
 ```
 
@@ -114,6 +123,41 @@ npm run preview
 
 ---
 
+## Landmark 적용 관련 파일
+
+### Video
+
+| 경로 | 파일 | 설명 |
+|------|------|------|
+| components/ | VideoPlayer.tsx | 비디오 플레이어 컴포넌트 |
+| hooks/ | useVideoPlayer.ts | 비디오 플레이어 훅 |
+
+### Image
+
+| 경로 | 파일 | 설명 |
+|------|------|------|
+| components/ | MeasurementImage.tsx | 이미지 회전 + 랜드마크 그리기 컴포넌트 |
+| utils/ | drawLineStep.ts | 랜드마크 라인 그리기 유틸 |
+| hooks/ | useStaticLandmark.ts | 이미지 랜드마크 훅 |
+
+### Common
+
+| 경로 | 파일 | 설명 |
+|------|------|------|
+| types/ | pose.ts | 포즈 관련 타입 정의 |
+
+### 사용 가이드
+
+1. **VideoPlayer**: props 및 useVideoPlayer는 변경하지 않고 사용하는 걸 권장
+2. **MeasurementImage**: 이미지를 회전한 후 해당 이미지에 랜드마크를 그리는 컴포넌트. 본 컴포넌트를 컨테이너에 담아서 사용
+   - grid on/off 버튼, landmark on/off 버튼: 해당 버튼만 모바일 버전에 맞게 UI 변경 후 사용
+3. **utils 파일들**: type만 추가한 후 사용
+4. 그 외 파일 (type, interface, hook)은 프로젝트에 맞게 수정
+
+> **참고**: "image 회전+랜드마크" 및 "video 회전 및 scale 적용+영상 프레임당 랜드마크" 코드는 그대로 적용하는 걸 권장
+
+---
+
 ## 배포
 
 Vercel을 통해 자동 배포됩니다.
@@ -131,3 +175,11 @@ https://kakotango.vercel.app?t_r=YeVTF2wGZ/jTgQ9nPys0443juDibdo+mPQsL+A4jldcolkv
 ```
 
 > **참고**: 로컬 개발 서버(`localhost:5073`)에서는 API 인증 토큰이 없어 데이터가 표시되지 않습니다. 실제 데이터 확인은 배포된 URL에서 해주세요.
+
+---
+
+## 버전 이력
+
+| 버전 | 날짜 | 작성자 | 내용 |
+|------|------|--------|------|
+| v0.1 | 2025.01.26 | 개발2팀 이강휘 | Landmark 적용 코드 추가 |

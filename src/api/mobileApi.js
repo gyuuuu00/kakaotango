@@ -1,7 +1,6 @@
 // src/api/mobileApi.js
-const API_BASE = import.meta.env.DEV
-  ? '/admin_api'
-  : (import.meta.env.VITE_API_BASE_URL ?? 'https://gym.tangoplus.co.kr/admin_api');
+// 프록시를 통해 API 요청 (CORS 우회)
+const API_BASE = '/admin_api';
 
   /** ✅ 종합보기 (Body Report) */
   export const fetchBodyReport = async (t_r, mobile) => {
@@ -51,9 +50,9 @@ export const fetchFrontView = async (t_r) => {
   // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
   const data = result.data || result;
 
-  // 개발 환경에서는 프록시를 통해 fetch하도록 URL 변환
+  // 프록시를 통해 fetch하도록 URL 변환 (CORS 우회)
   const getProxiedUrl = (url) => {
-    if (import.meta.env.DEV && url) {
+    if (url) {
       return url.replace('https://gym.tangoplus.co.kr', '');
     }
     return url;
@@ -100,9 +99,9 @@ export const fetchSideView = async (t_r) => {
   // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
   const data = result.data || result;
 
-  // 개발 환경에서는 프록시를 통해 fetch하도록 URL 변환
+  // 프록시를 통해 fetch하도록 URL 변환 (CORS 우회)
   const getProxiedUrl = (url) => {
-    if (import.meta.env.DEV && url) {
+    if (url) {
       return url.replace('https://gym.tangoplus.co.kr', '');
     }
     return url;
@@ -149,9 +148,9 @@ export const fetchBackView = async (t_r) => {
   // pose_landmark 데이터가 없으면 JSON 파일에서 가져오기
   const data = result.data || result;
 
-  // 개발 환경에서는 프록시를 통해 fetch하도록 URL 변환
+  // 프록시를 통해 fetch하도록 URL 변환 (CORS 우회)
   const getProxiedUrl = (url) => {
-    if (import.meta.env.DEV && url) {
+    if (url) {
       return url.replace('https://gym.tangoplus.co.kr', '');
     }
     return url;
@@ -213,10 +212,8 @@ export const fetchExerciseDetail = async (t_r, exerciseId) => {
   if (!t_r) throw new Error("t_r 토큰이 없습니다.");
   if (!exerciseId) throw new Error("운동 ID가 필요합니다.");
 
-  // Use the public exercise API path. In dev this will hit the vite proxy (/api/exercises -> gym.tangoplus).
-  const exerciseUrl = import.meta.env.DEV
-    ? `/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`
-    : `https://gym.tangoplus.co.kr/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
+  // Use the proxy path for CORS bypass
+  const exerciseUrl = `/api/exercises/${exerciseId}?t_r=${encodeURIComponent(t_r)}`;
 
   const response = await fetch(exerciseUrl, {
     method: "GET",
